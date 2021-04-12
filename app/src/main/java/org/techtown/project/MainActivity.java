@@ -1,0 +1,18 @@
+package org.techtown.project;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+    //hi
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // skfsdjlfjlksjdflsjdlfl
+
+
+        // for(didfjsi_
+        setContentView(R.layout.activity_main);
+    }
+}
