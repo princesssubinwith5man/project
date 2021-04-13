@@ -7,7 +7,7 @@
 <br>
 #
 **hello world를 출력하는 방법**
-```
-  printf("Hello World!");
+```py
+  print("Hello World!")
 ```
 
