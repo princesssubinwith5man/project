@@ -6,7 +6,7 @@
 연구실 오면 밥사드릴게요.**(단, 남자 제외)**
 <br>
 **hello world를 출력하는 방법**
-```c
+```
   printf("Hello World!");
 ```
 
