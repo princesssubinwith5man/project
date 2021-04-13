@@ -7,7 +7,16 @@
 <br>
 #
 **hello world를 출력하는 방법**
+* 파이썬
 ```py
   print("Hello World!")
+```
+* c언어
+```c
+  printf("Hello World!");
+```
+* c++
+```c
+  cout << "Hello World";
 ```
 
