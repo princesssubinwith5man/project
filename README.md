@@ -9,4 +9,17 @@
 ★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★
 안녕하세요 **홍이삭**입니다.
 연구실 오면 밥사드릴게요.**(단, 남자 제외)**
-printf("hello world");
+```c
+
+#include <stdio.h>
+
+
+
+int main(void) {
+
+  printf("Hello World!");
+
+}
+
+```
+
