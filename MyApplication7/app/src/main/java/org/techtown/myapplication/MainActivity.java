@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,6 +81,15 @@ public class MainActivity extends AppCompatActivity{
         setContentView(activity_main);
         pb = (ProgressBar) findViewById(R.id.progressBar);
 
+        Spinner spinner = (Spinner)findViewById(R.id.spinner);
+
+        spinner.setOnItemClickListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        });
+
        /* SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);*/
@@ -111,9 +121,11 @@ public class MainActivity extends AppCompatActivity{
             public void run() {
                 print();// 시간 지난 후 실행할 코딩
             }
-        }, 2000); // 1초후
-        //print();
+        }, 3000); // 1초후
     }
+
+    public void
+
     public void print(){
         String address;
         String centerName;

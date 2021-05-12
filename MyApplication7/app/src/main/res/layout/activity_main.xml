@@ -13,6 +13,15 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
+        <Spinner
+            android:id="@+id/spinner"
+            android:entries="@array/도시"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
@@ -28,10 +37,7 @@
             android:fastScrollEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="70dp">
-
-
-        </ListView>
+            tools:layout_editor_absoluteY="70dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
