@@ -83,9 +83,14 @@ public class MainActivity extends AppCompatActivity{
 
         Spinner spinner = (Spinner)findViewById(R.id.spinner);
 
-        spinner.setOnItemClickListener(new AdapterView.OnItemSelectedListener(){
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                print((String) adapterView.getItemAtPosition(i));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
         });
@@ -116,17 +121,16 @@ public class MainActivity extends AppCompatActivity{
     public void processResponse(){
         getJSON getJSON = new getJSON();
         getJSON.execute();
-        Handler mHandler = new Handler();
+/*        Handler mHandler = new Handler();
         mHandler.postDelayed(new Runnable()  {
             public void run() {
                 print();// 시간 지난 후 실행할 코딩
             }
-        }, 3000); // 1초후
+        }, 3000); // 1초후*/
     }
 
-    public void
 
-    public void print(){
+    public void print(String sido_show){
         String address;
         String centerName;
         String lat;
@@ -138,6 +142,9 @@ public class MainActivity extends AppCompatActivity{
         ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (이름과, 주소)
         ArrayList<HashMap<String,String>> list1 = new ArrayList<HashMap<String,String>>(); //ArrayList 생성 (위도, 경도)
         for(int i = 0;i<infoList.size();i++){
+            if(!infoList.get(i).sido.equals(sido_show))
+                continue;
+
             HashMap<String,String> item = new HashMap<String, String>();
             HashMap<String,String> item1 = new HashMap<String, String>();
             address = infoList.get(i).address;
