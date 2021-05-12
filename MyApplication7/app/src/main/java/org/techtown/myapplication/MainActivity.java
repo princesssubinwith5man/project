@@ -68,7 +68,10 @@ import static org.techtown.myapplication.R.layout.activity_main;
 
 public class MainActivity extends AppCompatActivity{
     //implements OnMapReadyCallback {
-
+    private String lat1;
+    private String lng1;
+    private String Centername;
+    private String fn;
     //private GoogleMap mMap;
     public static ArrayList<itemList> infoList = new ArrayList<>();
     static ProgressBar pb;
@@ -88,15 +91,6 @@ public class MainActivity extends AppCompatActivity{
             pb.setVisibility(View.VISIBLE);
             makeRequest();
         }
-        //pb.setVisibility(View.INVISIBLE);
-        /*for(int i =0;i<1000;i++) {
-            Log.d("tag", "result : " + infoList.toString());
-            Log.d("tag", "result: " + infoList.toString());
-        }*/
-       /* for(int i =0;i<infoList.size();i++) {
-            Log.d("tag", "result:" + infoList.get(i).address);
-        }*/
-
     }
     public void makeRequest() {
                 processResponse();
@@ -111,7 +105,7 @@ public class MainActivity extends AppCompatActivity{
             public void run() {
                 print();// 시간 지난 후 실행할 코딩
             }
-        }, 2000); // 1초후
+        }, 3000); // 2초후
         //print();
     }
     public void print(){
@@ -130,7 +124,7 @@ public class MainActivity extends AppCompatActivity{
             HashMap<String,String> item1 = new HashMap<String, String>();
             address = infoList.get(i).address;
             centerName = infoList.get(i).centerName + "                                                                      " + infoList.get(i).facilityName;
-            lat = infoList.get(i).lat + " " + infoList.get(i).lng;
+            lat = infoList.get(i).lat;
             lng = infoList.get(i).lng;
             //Log.d("tag","result: "+ address + centerName);
             item.put("item1", centerName);
@@ -152,9 +146,18 @@ public class MainActivity extends AppCompatActivity{
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast myToast = Toast.makeText(MainActivity.this,list1.get(position).get("item1"),Toast.LENGTH_SHORT);
+                Toast myToast = Toast.makeText(MainActivity.this,"위도: "+ list1.get(position).get("item1")+" 경도: "+ list1.get(position).get("item2"),Toast.LENGTH_SHORT);
                 myToast.show();
-
+                lat1 = list1.get(position).get("item1");
+                lng1 = list1.get(position).get("item2");
+                Centername = infoList.get(position).centerName;
+                fn = infoList.get(position).facilityName;
+                Intent intent = new Intent(MainActivity.this,MainActivity2.class);
+                intent.putExtra("lat",lat1);
+                intent.putExtra("lng",lng1);
+                intent.putExtra("centername", Centername);
+                intent.putExtra("fac",fn);
+                startActivity(intent);
             }
         });
         pb.setVisibility(View.INVISIBLE);
@@ -169,7 +172,6 @@ public class MainActivity extends AppCompatActivity{
 
    /* @Override
     public void onMapReady(final GoogleMap googleMap) {
-        final GoogleMap googleMap = null;
         mMap = googleMap;
         LatLng SEOUL = new LatLng(37.56, 126.97);
         MarkerOptions markerOptions = new MarkerOptions();

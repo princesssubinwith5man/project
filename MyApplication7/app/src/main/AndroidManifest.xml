@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <activity android:name=".MainActivity2"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCREB4c3Casp2wWH3g860NX8vIAGUz1nKQ"/>
+            android:value="AIzaSyCREB4c3Casp2wWH3g860NX8vIAGUz1nKQ" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
