@@ -2,17 +2,17 @@ package org.techtown.myapplication;
 
 public class itemList {
 
-    private String address;
-    private String centerName;
-    private String centerType;
-    private String facilityName;
-    private String id;
-    private String lat;
-    private String lng;
-    private String org;
-    private String sido;
-    private String sigungu;
-    private String zipCode;
+    public String address;
+    public String centerName;
+    public String centerType;
+    public String facilityName;
+    public String id;
+    public String lat;
+    public String lng;
+    public String org;
+    public String sido;
+    public String sigungu;
+    public String zipCode;
 
 
     public itemList(String address, String centerName, String centerType, String facilityName, String id, String lat, String lng, String org, String sido, String sigungu, String zipCode) {
