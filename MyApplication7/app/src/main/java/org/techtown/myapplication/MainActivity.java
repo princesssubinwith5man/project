@@ -20,6 +20,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.google.android.gms.common.api.Response;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -81,9 +83,11 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
         pb = (ProgressBar) findViewById(R.id.progressBar);
-
+        ImageView logo = (ImageView) findViewById(R.id.gif_image);
+        GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(logo);
+        Glide.with(this).load(R.drawable.logo2).into(gifImage);
         Spinner spinner = (Spinner)findViewById(R.id.spinner);
-
+        spinner.setVisibility(View.INVISIBLE);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -97,9 +101,21 @@ public class MainActivity extends AppCompatActivity{
         });
 
         if (infoList.size() == 0) {
-            pb.setVisibility(View.VISIBLE);
+            //pb.setVisibility(View.VISIBLE);
             makeRequest();
         }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                logo.setVisibility(View.INVISIBLE);
+                spinner.setVisibility(View.VISIBLE);
+            }
+        }, 8800); //딜레이 타임 조절
+
+
+
+
     }
     public void makeRequest() {
                 processResponse();
