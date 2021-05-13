@@ -117,27 +117,36 @@ public class MainActivity extends AppCompatActivity{
         String centerName;
         String lat;
         String lng;
+        String m_facn;
+        String m_centerName;
 
         ListView listview = (ListView)findViewById(R.id.list); //ListView id 받아옴
         ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (이름과, 주소)
         ArrayList<HashMap<String,String>> list1 = new ArrayList<HashMap<String,String>>(); //ArrayList 생성 (위도, 경도)
+        ArrayList<HashMap<String,String>> list2 = new ArrayList<HashMap<String,String>>();
         for(int i = 0;i<infoList.size();i++){
             if(!infoList.get(i).sido.equals(sido_show))
                 continue;
 
             HashMap<String,String> item = new HashMap<String, String>();
             HashMap<String,String> item1 = new HashMap<String, String>();
+            HashMap<String,String> item2 = new HashMap<String, String>();
             address = infoList.get(i).address;
             centerName = infoList.get(i).centerName + "                                                                      " + infoList.get(i).facilityName;
             lat = infoList.get(i).lat;
             lng = infoList.get(i).lng;
+            m_facn = infoList.get(i).facilityName;
+            m_centerName = infoList.get(i).centerName;
 
             item.put("item1", centerName);
             item.put("item2", address);
             item1.put("item1", lat);
             item1.put("item2", lng);
+            item2.put("cn", m_centerName);
+            item2.put("fn", m_facn);
             list.add(item);
             list1.add(item1);
+            list2.add(item2);
         }
 
         SimpleAdapter adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2,new String[]{"item1","item2"}, new int[] {android.R.id.text1, android.R.id.text2});
@@ -149,8 +158,8 @@ public class MainActivity extends AppCompatActivity{
                 myToast.show();
                 lat1 = list1.get(position).get("item1");
                 lng1 = list1.get(position).get("item2");
-                Centername = infoList.get(position).centerName;
-                fn = infoList.get(position).facilityName;
+                Centername = list2.get(position).get("cn");
+                fn = list2.get(position).get("fn");
                 Intent intent = new Intent(MainActivity.this,MainActivity2.class);
                 intent.putExtra("lat",lat1);
                 intent.putExtra("lng",lng1);
