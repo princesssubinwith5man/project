@@ -45,11 +45,6 @@ bin/
 gen/
 out/
 
-# Gradle files
-.gradle
-.gradle/
-build/
-
 # Signing files
 .signing/
 
