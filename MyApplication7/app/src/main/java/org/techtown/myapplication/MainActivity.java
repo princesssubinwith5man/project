@@ -84,10 +84,10 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
         //pb = (ProgressBar) findViewById(R.id.progressBar);
-        ListView listview = (ListView)findViewById(R.id.list);
+        //ListView listview = (ListView)findViewById(R.id.list);
         ImageView logo = (ImageView) findViewById(R.id.gif_image);
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(logo);
-        Glide.with(this).load(R.drawable.logo2).into(gifImage);
+        Glide.with(this).load(R.drawable.logo3).into(gifImage);
         Spinner spinner = (Spinner)findViewById(R.id.spinner);
         spinner.setVisibility(View.INVISIBLE);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -114,11 +114,7 @@ public class MainActivity extends AppCompatActivity{
                 spinner.setVisibility(View.VISIBLE);
                 check =1;
             }
-        }, 8500); //딜레이 타임 조절
-
-
-
-
+        }, 8300); //딜레이 타임 조절
     }
     public void makeRequest() {
                 processResponse();
@@ -150,26 +146,27 @@ public class MainActivity extends AppCompatActivity{
         for(int i = 0;i<infoList.size();i++){
             if(!infoList.get(i).sido.equals(sido_show))
                 continue;
+            //else {
+                HashMap<String, String> item = new HashMap<String, String>();
+                HashMap<String, String> item1 = new HashMap<String, String>();
+                HashMap<String, String> item2 = new HashMap<String, String>();
+                address = infoList.get(i).address;
+                centerName = infoList.get(i).centerName + "                                                                      " + infoList.get(i).facilityName;
+                lat = infoList.get(i).lat;
+                lng = infoList.get(i).lng;
+                m_facn = infoList.get(i).facilityName;
+                m_centerName = infoList.get(i).centerName;
 
-            HashMap<String,String> item = new HashMap<String, String>();
-            HashMap<String,String> item1 = new HashMap<String, String>();
-            HashMap<String,String> item2 = new HashMap<String, String>();
-            address = infoList.get(i).address;
-            centerName = infoList.get(i).centerName + "                                                                      " + infoList.get(i).facilityName;
-            lat = infoList.get(i).lat;
-            lng = infoList.get(i).lng;
-            m_facn = infoList.get(i).facilityName;
-            m_centerName = infoList.get(i).centerName;
-
-            item.put("item1", centerName);
-            item.put("item2", address);
-            item1.put("item1", lat);
-            item1.put("item2", lng);
-            item2.put("cn", m_centerName);
-            item2.put("fn", m_facn);
-            list.add(item);
-            list1.add(item1);
-            list2.add(item2);
+                item.put("item1", centerName);
+                item.put("item2", address);
+                item1.put("item1", lat);
+                item1.put("item2", lng);
+                item2.put("cn", m_centerName);
+                item2.put("fn", m_facn);
+                list.add(item);
+                list1.add(item1);
+                list2.add(item2);
+           // }
         }
 
         SimpleAdapter adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2,new String[]{"item1","item2"}, new int[] {android.R.id.text1, android.R.id.text2});
