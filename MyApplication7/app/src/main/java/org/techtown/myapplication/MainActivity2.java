@@ -49,10 +49,7 @@ public class MainActivity2 extends AppCompatActivity
         markerOptions.title(cn);
         markerOptions.snippet(fn);
         mMap.addMarker(markerOptions);
-        // 기존에 사용하던 다음 2줄은 문제가 있습니다.
-        // CameraUpdateFactory.zoomTo가 오동작하네요.
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
-        //mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Corona, 14));
     }
 }

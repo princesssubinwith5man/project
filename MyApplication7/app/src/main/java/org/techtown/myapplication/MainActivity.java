@@ -68,14 +68,12 @@ import static org.techtown.myapplication.R.layout.activity_main;
 
 
 public class MainActivity extends AppCompatActivity{
-    //implements OnMapReadyCallback {
     private String lat1;
     private String lng1;
     private String Centername;
     private String fn;
-    //private GoogleMap mMap;
     public static ArrayList<itemList> infoList = new ArrayList<>();
-    static ProgressBar pb;
+    ProgressBar pb;
 
 
     @Override
@@ -98,10 +96,6 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-       /* SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);*/
-
         if (infoList.size() == 0) {
             pb.setVisibility(View.VISIBLE);
             makeRequest();
@@ -115,12 +109,6 @@ public class MainActivity extends AppCompatActivity{
     public void processResponse(){
         getJSON getJSON = new getJSON();
         getJSON.execute();
-/*        Handler mHandler = new Handler();
-        mHandler.postDelayed(new Runnable()  {
-            public void run() {
-                print();// 시간 지난 후 실행할 코딩
-            }
-        }, 3000); // 1초후*/
     }
 
 
@@ -129,9 +117,7 @@ public class MainActivity extends AppCompatActivity{
         String centerName;
         String lat;
         String lng;
-        /* for(int i =0;i<infoList.size();i++) {
-            Log.d("tag", "result:" + infoList.get(i).address);
-        }*/
+
         ListView listview = (ListView)findViewById(R.id.list); //ListView id 받아옴
         ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (이름과, 주소)
         ArrayList<HashMap<String,String>> list1 = new ArrayList<HashMap<String,String>>(); //ArrayList 생성 (위도, 경도)
@@ -145,7 +131,7 @@ public class MainActivity extends AppCompatActivity{
             centerName = infoList.get(i).centerName + "                                                                      " + infoList.get(i).facilityName;
             lat = infoList.get(i).lat;
             lng = infoList.get(i).lng;
-            //Log.d("tag","result: "+ address + centerName);
+
             item.put("item1", centerName);
             item.put("item2", address);
             item1.put("item1", lat);
@@ -153,13 +139,7 @@ public class MainActivity extends AppCompatActivity{
             list.add(item);
             list1.add(item1);
         }
-       /*Collections.sort(list, new Comparator<HashMap< String,String >>() {
-            @Override
-            public int compare(HashMap<String, String> lhs,
-                               HashMap<String, String> rhs) {
-                return lhs.get("item2").compareTo(rhs.get("item2"));
-            }
-        }); */
+
         SimpleAdapter adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2,new String[]{"item1","item2"}, new int[] {android.R.id.text1, android.R.id.text2});
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -182,26 +162,5 @@ public class MainActivity extends AppCompatActivity{
         pb.setVisibility(View.INVISIBLE);
     }
 
-
-
-    public void button(View view) {
-
-
-    }
-
-   /* @Override
-    public void onMapReady(final GoogleMap googleMap) {
-        mMap = googleMap;
-        LatLng SEOUL = new LatLng(37.56, 126.97);
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(SEOUL);
-        markerOptions.title("서울");
-        markerOptions.snippet("한국의 수도");
-        mMap.addMarker(markerOptions);
-        // 기존에 사용하던 다음 2줄은 문제가 있습니다.
-        // CameraUpdateFactory.zoomTo가 오동작하네요.
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
-        //mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 10));
-    }*/
+    public void button(View view) {    }
 }
