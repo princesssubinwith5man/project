@@ -4,8 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -59,6 +57,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -69,34 +68,58 @@ import static android.R.layout.simple_list_item_1;
 import static org.techtown.myapplication.R.layout.activity_main;
 
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
     private String lat1;
     private String lng1;
     private String Centername;
     private String fn;
     private int check = 0;
     public static ArrayList<itemList> infoList = new ArrayList<>();
-    ProgressBar pb;
-
+    Spinner spinner;
+    Spinner spinnerSi;
+    String siDo;
+    String siGungu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
         //pb = (ProgressBar) findViewById(R.id.progressBar);
-        ListView listview = (ListView)findViewById(R.id.list);
+        ListView listview = (ListView) findViewById(R.id.list);
         ImageView logo = (ImageView) findViewById(R.id.gif_image);
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(logo);
         Glide.with(this).load(R.drawable.logo2).into(gifImage);
-        Spinner spinner = (Spinner)findViewById(R.id.spinner);
+
+        spinner = (Spinner) findViewById(R.id.spinner);
+        spinnerSi = (Spinner) findViewById(R.id.spinner_si);
         spinner.setVisibility(View.INVISIBLE);
+        spinnerSi.setVisibility(View.INVISIBLE);
 
         spinner.setSelection(0);
+        spinnerSi.setSelection(0);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                print((String) adapterView.getItemAtPosition(i));
+                siDo = (String) adapterView.getItemAtPosition(i);
+                Log.d("tab", siDo + "선택됨");
+                siHandler(siDo);
+                print(siDo);
+
+                spinnerSi.setSelection(0);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {    }
+        });
+
+        spinnerSi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (i != 0) {
+                    String selectedSigungu = (String) adapterView.getItemAtPosition(i);
+                    print(siDo, selectedSigungu);
+                }
             }
 
             @Override
@@ -109,32 +132,46 @@ public class MainActivity extends AppCompatActivity{
             //pb.setVisibility(View.VISIBLE);
             makeRequest();
         }
+
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 logo.setVisibility(View.INVISIBLE);
                 spinner.setVisibility(View.VISIBLE);
-                check =1;
+                spinnerSi.setVisibility(View.VISIBLE);
+                check = 1;
             }
         }, 8500); //딜레이 타임 조절
 
-
-
-
     }
+
+    public void siHandler(String seletedSi) {
+        HashMap<String, Integer> hashMap = new HashMap<>();
+        Log.d("tag", "siHandler 호출됨..");
+        for (int i = 0; i < infoList.size(); i++) {
+            if (infoList.get(i).sido.equals(seletedSi) && !hashMap.containsKey(infoList.get(i).sigungu)) {
+                hashMap.put(infoList.get(i).sigungu, 1);
+            }
+        }
+        Log.d("tag", "hashmap 갯수는 : " + hashMap.keySet().size());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, new ArrayList<>(hashMap.keySet()));
+        spinnerSi.setAdapter(adapter);
+    }
+
     public void makeRequest() {
-                processResponse();
+        processResponse();
     }
 
     @SuppressLint("SetTextI18n")
-    public void processResponse(){
+    public void processResponse() {
         getJSON getJSON = new getJSON();
         getJSON.execute();
     }
 
 
-    public void print(String sido_show){
+    public void print(String... sido_show) {
         String address;
         String centerName;
         String lat;
@@ -142,21 +179,28 @@ public class MainActivity extends AppCompatActivity{
         String m_facn;
         String m_centerName;
 
-        ListView listview = (ListView)findViewById(R.id.list); //ListView id 받아옴
-        if(check == 1)
+        int inputSize = sido_show.length;
+
+        Log.d("tag", "print실행중..." + inputSize);
+
+        ListView listview = (ListView) findViewById(R.id.list); //ListView id 받아옴
+        if (check == 1)
             listview.setVisibility(View.VISIBLE);
         else
             listview.setVisibility(View.INVISIBLE);
-        ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (이름과, 주소)
-        ArrayList<HashMap<String,String>> list1 = new ArrayList<HashMap<String,String>>(); //ArrayList 생성 (위도, 경도)
-        ArrayList<HashMap<String,String>> list2 = new ArrayList<HashMap<String,String>>();
-        for(int i = 0;i<infoList.size();i++){
-            if(!infoList.get(i).sido.equals(sido_show))
+
+        ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (이름과, 주소)
+        ArrayList<HashMap<String, String>> list1 = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (위도, 경도)
+        ArrayList<HashMap<String, String>> list2 = new ArrayList<HashMap<String, String>>();
+        for (int i = 0; i < infoList.size(); i++) {
+            if (!infoList.get(i).sido.equals(sido_show[0]))
+                continue;
+            else if(sido_show.length==2 && !infoList.get(i).sigungu.equals(sido_show[1]))
                 continue;
 
-            HashMap<String,String> item = new HashMap<String, String>();
-            HashMap<String,String> item1 = new HashMap<String, String>();
-            HashMap<String,String> item2 = new HashMap<String, String>();
+            HashMap<String, String> item = new HashMap<String, String>();
+            HashMap<String, String> item1 = new HashMap<String, String>();
+            HashMap<String, String> item2 = new HashMap<String, String>();
             address = infoList.get(i).address;
             centerName = infoList.get(i).centerName + "                                                                      " + infoList.get(i).facilityName;
             lat = infoList.get(i).lat;
@@ -175,27 +219,28 @@ public class MainActivity extends AppCompatActivity{
             list2.add(item2);
         }
 
-        SimpleAdapter adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2,new String[]{"item1","item2"}, new int[] {android.R.id.text1, android.R.id.text2});
+        SimpleAdapter adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2, new String[]{"item1", "item2"}, new int[]{android.R.id.text1, android.R.id.text2});
         listview.setAdapter(adapter);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast myToast = Toast.makeText(MainActivity.this,"위도: "+ list1.get(position).get("item1")+" 경도: "+ list1.get(position).get("item2"),Toast.LENGTH_SHORT);
+                Toast myToast = Toast.makeText(MainActivity.this, "위도: " + list1.get(position).get("item1") + " 경도: " + list1.get(position).get("item2"), Toast.LENGTH_SHORT);
                 myToast.show();
                 lat1 = list1.get(position).get("item1");
                 lng1 = list1.get(position).get("item2");
                 Centername = list2.get(position).get("cn");
                 fn = list2.get(position).get("fn");
-                Intent intent = new Intent(MainActivity.this,MainActivity2.class);
-                intent.putExtra("lat",lat1);
-                intent.putExtra("lng",lng1);
+                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                intent.putExtra("lat", lat1);
+                intent.putExtra("lng", lng1);
                 intent.putExtra("centername", Centername);
-                intent.putExtra("fac",fn);
+                intent.putExtra("fac", fn);
                 startActivity(intent);
             }
         });
         //pb.setVisibility(View.INVISIBLE);
     }
 
-    public void button(View view) {    }
+    public void button(View view) {
+    }
 }
