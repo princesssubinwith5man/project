@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity{
     private String lng1;
     private String Centername;
     private String fn;
+    private int check = 0;
     public static ArrayList<itemList> infoList = new ArrayList<>();
     ProgressBar pb;
 
@@ -82,7 +83,8 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
-        pb = (ProgressBar) findViewById(R.id.progressBar);
+        //pb = (ProgressBar) findViewById(R.id.progressBar);
+        ListView listview = (ListView)findViewById(R.id.list);
         ImageView logo = (ImageView) findViewById(R.id.gif_image);
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(logo);
         Glide.with(this).load(R.drawable.logo2).into(gifImage);
@@ -110,8 +112,9 @@ public class MainActivity extends AppCompatActivity{
             public void run() {
                 logo.setVisibility(View.INVISIBLE);
                 spinner.setVisibility(View.VISIBLE);
+                check =1;
             }
-        }, 8800); //딜레이 타임 조절
+        }, 8500); //딜레이 타임 조절
 
 
 
@@ -137,6 +140,10 @@ public class MainActivity extends AppCompatActivity{
         String m_centerName;
 
         ListView listview = (ListView)findViewById(R.id.list); //ListView id 받아옴
+        if(check == 1)
+            listview.setVisibility(View.VISIBLE);
+        else
+            listview.setVisibility(View.INVISIBLE);
         ArrayList<HashMap<String,String>> list = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (이름과, 주소)
         ArrayList<HashMap<String,String>> list1 = new ArrayList<HashMap<String,String>>(); //ArrayList 생성 (위도, 경도)
         ArrayList<HashMap<String,String>> list2 = new ArrayList<HashMap<String,String>>();
@@ -184,7 +191,7 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-        pb.setVisibility(View.INVISIBLE);
+        //pb.setVisibility(View.INVISIBLE);
     }
 
     public void button(View view) {    }
