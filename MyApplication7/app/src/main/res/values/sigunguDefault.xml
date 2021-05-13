@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="기본값">
+        <item>시/도를 먼저 선택하세요</item>
+    </string-array>
+</resources>
