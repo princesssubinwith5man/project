@@ -90,6 +90,9 @@ public class MainActivity extends AppCompatActivity{
         Glide.with(this).load(R.drawable.logo2).into(gifImage);
         Spinner spinner = (Spinner)findViewById(R.id.spinner);
         spinner.setVisibility(View.INVISIBLE);
+
+        spinner.setSelection(0);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
