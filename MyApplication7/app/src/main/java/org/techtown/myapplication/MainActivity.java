@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
-        if (infoList.size() == 0) {
+        if (infoList.size() == 0 || check == 0) {
             //pb.setVisibility(View.VISIBLE);
             makeRequest();
         }
