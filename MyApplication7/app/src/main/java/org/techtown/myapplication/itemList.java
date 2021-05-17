@@ -1,21 +1,21 @@
 package org.techtown.myapplication;
 
-public class itemList {
+public class ItemList {
 
     public String address;
     public String centerName;
     public String centerType;
     public String facilityName;
     public String id;
-    public String lat;
-    public String lng;
+    public double lat;
+    public double lng;
     public String org;
     public String sido;
     public String sigungu;
     public String zipCode;
 
 
-    public itemList(String address, String centerName, String centerType, String facilityName, String id, String lat, String lng, String org, String sido, String sigungu, String zipCode) {
+    public ItemList(String address, String centerName, String centerType, String facilityName, String id, double lat, double lng, String org, String sido, String sigungu, String zipCode) {
         this.address = address;
         this.centerName = centerName;
         this.centerType = centerType;

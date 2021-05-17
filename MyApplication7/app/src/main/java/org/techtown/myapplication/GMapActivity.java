@@ -3,11 +3,11 @@ package org.techtown.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import java.lang.Math;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -19,7 +19,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.content.Intent;
-import android.webkit.PermissionRequest;
 import android.widget.Toast;
 
 
@@ -32,14 +31,8 @@ public class GMapActivity extends AppCompatActivity
 
     private double lat;
     private double lng;
-    private String lat1;
-    private String lng1;
     private String cn;
     private String fn;
-
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
-    private final int PERMISSIONS_REQUEST_CODE = 100;
 
     private boolean permissionDenied = false;
     private GoogleMap map;
@@ -47,18 +40,18 @@ public class GMapActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.gmap_activity);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Intent intent = getIntent();
-        lat1 = intent.getStringExtra("lat");
-        lng1 = intent.getStringExtra("lng");
+        lat = Double.parseDouble(intent.getStringExtra("lat"));
+        lng = Double.parseDouble(intent.getStringExtra("lng"));
         cn = intent.getStringExtra("centername");
         fn = intent.getStringExtra("fac");
-        //Log.d("tag:", "result: " + lat1 +" "+ lng1);
-        lat =Double.parseDouble(lat1);
-        lng =Double.parseDouble(lng1);
+
+        ActivityCompat.requestPermissions(this, MainActivity.REQUIRED_PERMISSIONS,
+                MainActivity.PERMISSIONS_REQUEST_CODE);
 
     }
     @SuppressLint("MissingPermission")
@@ -67,10 +60,8 @@ public class GMapActivity extends AppCompatActivity
 
         map = googleMap;
 
-        enableMyLocation();
 
-
-        Log.d("tag:", "result: " + lat1 +" "+ lng1);
+        Log.d("tag:", "result: " + lat +" "+ lng);
         LatLng Corona = new LatLng(lat,lng);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(Corona);
@@ -80,8 +71,11 @@ public class GMapActivity extends AppCompatActivity
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Corona, 14));
 
+
+        enableMyLocation();
     }
 
+    // ---------------------- 여기 밑으로는 gps 관련 메서드
     private void enableMyLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -92,8 +86,8 @@ public class GMapActivity extends AppCompatActivity
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
-            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
-                    PERMISSIONS_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, MainActivity.REQUIRED_PERMISSIONS,
+                    MainActivity.PERMISSIONS_REQUEST_CODE);
         }
     }
 
@@ -101,6 +95,28 @@ public class GMapActivity extends AppCompatActivity
     public void onMyLocationClick(@NonNull Location location) {
         Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG)
                 .show();
+
+        ItemList itemList = MainActivity.infoList.get(0);
+        double minDistance = Double.MAX_VALUE;
+
+        for(int i=1; i<MainActivity.infoList.size(); i++){
+            double distance = getDistance(location.getLatitude(), location.getLongitude(),
+                    MainActivity.infoList.get(i).lat, MainActivity.infoList.get(i).lng);
+
+            if(minDistance > distance){
+                itemList = MainActivity.infoList.get(i);
+                minDistance = distance;
+            }
+        }
+
+        LatLng nearCenter = new LatLng(itemList.lat, itemList.lng);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(nearCenter);
+        markerOptions.title(itemList.centerName);
+        markerOptions.snippet(itemList.facilityName);
+        map.addMarker(markerOptions);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(nearCenter, 14));
     }
 
     @Override
@@ -110,5 +126,39 @@ public class GMapActivity extends AppCompatActivity
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        int LOCATION_PERMISSION_REQUEST_CODE = 1;
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            return;
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            // Enable the my location layer if the permission has been granted.
+            enableMyLocation();
+        } else {
+            // Permission was denied. Display an error message
+            // Display the missing permission error dialog when the fragments resume.
+            permissionDenied = true;
+        }
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        if (permissionDenied) {
+            // Permission was not granted, display error dialog.
+
+            permissionDenied = false;
+        }
+    }
+
+    double getDistance(double alat, double alng, double blat, double blng){
+        return Math.sqrt((alat-blat)*(alat-blat) + (alng-blng)*(alng-blng));
     }
 }
