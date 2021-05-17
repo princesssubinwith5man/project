@@ -13,8 +13,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class getJSON extends AsyncTask<String, String, String> {
+
+    class SiDoGunGuComparator implements Comparator<itemList> {
+        @Override
+        public int compare(itemList itemList1, itemList itemList2) {
+            if(itemList1.sido.equals(itemList2.sido))
+                return itemList1.sigungu.compareTo(itemList2.sigungu);
+            return itemList1.sido.compareTo(itemList2.sido);
+        }
+    }
 
     @Override
     protected void onPreExecute() {
@@ -85,6 +96,16 @@ public class getJSON extends AsyncTask<String, String, String> {
                 );
                 MainActivity.infoList.add(itemList);
             }
+
+            for(int i=0; i<MainActivity.infoList.size(); i++)
+                Log.d("tag", MainActivity.infoList.get(i).sido);
+
+            Collections.sort(MainActivity.infoList, new SiDoGunGuComparator());
+
+
+            for(int i=0; i<MainActivity.infoList.size(); i++)
+                Log.d("tag", MainActivity.infoList.get(i).sido);
+
             Log.d("vaccine", MainActivity.infoList.size() + "개");
 
         } catch (NullPointerException | JSONException e) {

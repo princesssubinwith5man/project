@@ -1,6 +1,5 @@
 package org.techtown.myapplication;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -9,62 +8,23 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
-import com.google.android.gms.common.api.Response;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.techtown.myapplication.R;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.LinkedHashMap;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-
-import static android.R.layout.simple_list_item_1;
 import static org.techtown.myapplication.R.layout.activity_main;
 
 
@@ -104,8 +64,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 siDo = (String) adapterView.getItemAtPosition(i);
                 Log.d("tab", siDo + "선택됨");
-                siHandler(siDo);
-                print(siDo);
+                SigunguSpinnerChanger(siDo);
+                printListview(siDo);
 
                 spinnerSi.setSelection(0);
             }
@@ -119,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i != 0) {
                     String selectedSigungu = (String) adapterView.getItemAtPosition(i);
-                    print(siDo, selectedSigungu);
+                    printListview(siDo, selectedSigungu);
                 }
             }
 
@@ -148,9 +108,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void siHandler(String seletedSi) {
-        HashMap<String, Integer> hashMap = new HashMap<>();
+    public void SigunguSpinnerChanger(String seletedSi) {
+        LinkedHashMap<String, Integer> hashMap = new LinkedHashMap<>();
         Log.d("tag", "siHandler 호출됨..");
+
+        hashMap.put("시/군/구를 선택하세요", 1);
+
         for (int i = 0; i < infoList.size(); i++) {
             if (infoList.get(i).sido.equals(seletedSi) && !hashMap.containsKey(infoList.get(i).sigungu)) {
                 hashMap.put(infoList.get(i).sigungu, 1);
@@ -172,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void print(String... sido_show) {
+    public void printListview(String... sido_show) {
         String address;
         String centerName;
         String lat;
