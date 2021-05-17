@@ -45,8 +45,8 @@ public class GMapActivity extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Intent intent = getIntent();
-        lat = Double.parseDouble(intent.getStringExtra("lat"));
-        lng = Double.parseDouble(intent.getStringExtra("lng"));
+        lat = intent.getDoubleExtra("lat", 0);
+        lng = intent.getDoubleExtra("lng", 0);
         cn = intent.getStringExtra("centername");
         fn = intent.getStringExtra("fac");
 
