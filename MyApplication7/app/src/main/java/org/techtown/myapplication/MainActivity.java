@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private String fn;
     private int check = 0;
     public static ArrayList<itemList> infoList = new ArrayList<>();
-    Spinner spinner;
+    Spinner spinnerDo;
     Spinner spinnerSi;
     String siDo;
     String siGungu;
@@ -46,25 +46,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(activity_main);
         //pb = (ProgressBar) findViewById(R.id.progressBar);
 
-        spinner = (Spinner) findViewById(R.id.spinner);
+        spinnerDo = (Spinner) findViewById(R.id.spinner);
         spinnerSi = (Spinner) findViewById(R.id.spinner_si);
 
         ImageView logo = (ImageView) findViewById(R.id.gif_image);
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(logo);
         Glide.with(this).load(R.drawable.logo3).into(gifImage);
 
-        spinner.setVisibility(View.INVISIBLE);
+        spinnerDo.setVisibility(View.INVISIBLE);
         spinnerSi.setVisibility(View.INVISIBLE);
 
-        spinner.setSelection(0);
+        spinnerDo.setSelection(0);
         spinnerSi.setSelection(0);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerDo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 siDo = (String) adapterView.getItemAtPosition(i);
                 Log.d("tab", siDo + "선택됨");
-                SigunguSpinnerChanger(siDo);
+                sigunguSpinnerChanger(siDo);
                 printListview(siDo);
 
                 spinnerSi.setSelection(0);
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 logo.setVisibility(View.INVISIBLE);
-                spinner.setVisibility(View.VISIBLE);
+                spinnerDo.setVisibility(View.VISIBLE);
                 spinnerSi.setVisibility(View.VISIBLE);
                 check = 1;
             }
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void SigunguSpinnerChanger(String seletedSi) {
+    public void sigunguSpinnerChanger(String seletedSi) {
         LinkedHashMap<String, Integer> hashMap = new LinkedHashMap<>();
         Log.d("tag", "siHandler 호출됨..");
 
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 lng1 = list1.get(position).get("item2");
                 Centername = list2.get(position).get("cn");
                 fn = list2.get(position).get("fn");
-                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                Intent intent = new Intent(MainActivity.this, GMapActivity.class);
                 intent.putExtra("lat", lat1);
                 intent.putExtra("lng", lng1);
                 intent.putExtra("centername", Centername);
