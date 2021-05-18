@@ -1,7 +1,9 @@
 package org.techtown.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,16 +31,21 @@ import static org.techtown.myapplication.R.layout.activity_main;
 
 
 public class MainActivity extends AppCompatActivity {
-    private String lat1;
-    private String lng1;
+    private Double lat1;
+    private Double lng1;
     private String Centername;
     private String fn;
     private int check = 0;
-    public static ArrayList<itemList> infoList = new ArrayList<>();
+
+    public static ArrayList<ItemList> infoList = new ArrayList<>();
+
+    public static String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    public static final int PERMISSIONS_REQUEST_CODE = 100;
+
+
     Spinner spinnerDo;
     Spinner spinnerSi;
     String siDo;
-    String siGungu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 8500); //딜레이 타임 조절
 
+        ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS ,
+                PERMISSIONS_REQUEST_CODE);
+
     }
 
     public void sigunguSpinnerChanger(String seletedSi) {
@@ -130,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void processResponse() {
-        getJSON getJSON = new getJSON();
+        GetJSON getJSON = new GetJSON();
         getJSON.execute();
     }
 
@@ -138,8 +148,8 @@ public class MainActivity extends AppCompatActivity {
     public void printListview(String... sido_show) {
         String address;
         String centerName;
-        String lat;
-        String lng;
+        double lat;
+        double lng;
         String m_facn;
         String m_centerName;
 
@@ -154,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
             listview.setVisibility(View.INVISIBLE);
 
         ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (이름과, 주소)
-        ArrayList<HashMap<String, String>> list1 = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (위도, 경도)
+        ArrayList<HashMap<String, Double>> list1 = new ArrayList<HashMap<String, Double>>(); //ArrayList 생성 (위도, 경도)
         ArrayList<HashMap<String, String>> list2 = new ArrayList<HashMap<String, String>>();
         for (int i = 0; i < infoList.size(); i++) {
             if (!infoList.get(i).sido.equals(sido_show[0]))
@@ -164,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
             //else {
                 HashMap<String, String> item = new HashMap<String, String>();
-                HashMap<String, String> item1 = new HashMap<String, String>();
+                HashMap<String, Double> item1 = new HashMap<String, Double>();
                 HashMap<String, String> item2 = new HashMap<String, String>();
                 address = infoList.get(i).address;
                 centerName = infoList.get(i).centerName + "                                                                      " + infoList.get(i).facilityName;

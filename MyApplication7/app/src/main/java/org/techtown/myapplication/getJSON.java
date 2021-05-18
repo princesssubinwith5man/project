@@ -16,11 +16,11 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class getJSON extends AsyncTask<String, String, String> {
+public class GetJSON extends AsyncTask<String, String, String> {
 
-    class SiDoGunGuComparator implements Comparator<itemList> {
+    class SiDoGunGuComparator implements Comparator<ItemList> {
         @Override
-        public int compare(itemList itemList1, itemList itemList2) {
+        public int compare(ItemList itemList1, ItemList itemList2) {
             if(itemList1.sido.equals(itemList2.sido))
                 return itemList1.sigungu.compareTo(itemList2.sigungu);
             return itemList1.sido.compareTo(itemList2.sido);
@@ -80,14 +80,14 @@ public class getJSON extends AsyncTask<String, String, String> {
             for (int i = 0; i < itemArray.length(); i++) {
                 JSONObject item = itemArray.getJSONObject(i);
                 Log.d("vaccine", item.getString("centerName"));
-                itemList itemList = new itemList(
+                ItemList itemList = new ItemList(
                         item.getString("address"),
                         item.getString("centerName"),
                         item.getString("centerType"),
                         item.getString("facilityName"),
                         item.getString("id"),
-                        item.getString("lat"),
-                        item.getString("lng"),
+                        Double.parseDouble(item.getString("lat")),
+                        Double.parseDouble(item.getString("lng")),
                         item.getString("org"),
                         item.getString("sido"),
                         item.getString("sigungu"),
@@ -97,14 +97,7 @@ public class getJSON extends AsyncTask<String, String, String> {
                 MainActivity.infoList.add(itemList);
             }
 
-            for(int i=0; i<MainActivity.infoList.size(); i++)
-                Log.d("tag", MainActivity.infoList.get(i).sido);
-
             Collections.sort(MainActivity.infoList, new SiDoGunGuComparator());
-
-
-            for(int i=0; i<MainActivity.infoList.size(); i++)
-                Log.d("tag", MainActivity.infoList.get(i).sido);
 
             Log.d("vaccine", MainActivity.infoList.size() + "개");
 
