@@ -16,7 +16,7 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class GetJSON extends AsyncTask<String, String, String> {
+class GetJSON extends AsyncTask<String, String, String> {
 
     class SiDoGunGuComparator implements Comparator<ItemList> {
         @Override

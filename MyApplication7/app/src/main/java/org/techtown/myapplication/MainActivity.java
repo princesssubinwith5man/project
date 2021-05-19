@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 spinnerSi.setVisibility(View.VISIBLE);
                 check = 1;
             }
-        }, 8500); //딜레이 타임 조절
+        }, 7000); //딜레이 타임 조절
 
         ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS ,
                 PERMISSIONS_REQUEST_CODE);
@@ -214,7 +214,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //pb.setVisibility(View.INVISIBLE);
     }
 
     public void button(View view) {

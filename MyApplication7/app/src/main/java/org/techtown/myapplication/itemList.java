@@ -1,6 +1,6 @@
 package org.techtown.myapplication;
 
-public class ItemList {
+class ItemList {
 
     public String address;
     public String centerName;
