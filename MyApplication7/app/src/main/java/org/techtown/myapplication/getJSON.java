@@ -94,12 +94,12 @@ class GetJSON extends AsyncTask<String, String, String> {
                         item.getString("zipCode")
 
                 );
-                MainActivity.infoList.add(itemList);
+                MainActivity2.infoList.add(itemList);
             }
 
-            Collections.sort(MainActivity.infoList, new SiDoGunGuComparator());
+            Collections.sort(MainActivity2.infoList, new SiDoGunGuComparator());
 
-            Log.d("vaccine", MainActivity.infoList.size() + "개");
+            Log.d("vaccine", MainActivity2.infoList.size() + "개");
 
         } catch (NullPointerException | JSONException e) {
             e.printStackTrace();

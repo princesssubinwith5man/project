@@ -50,8 +50,8 @@ public class GMapActivity extends AppCompatActivity
         cn = intent.getStringExtra("centername");
         fn = intent.getStringExtra("fac");
 
-        ActivityCompat.requestPermissions(this, MainActivity.REQUIRED_PERMISSIONS,
-                MainActivity.PERMISSIONS_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
+                MainActivity2.PERMISSIONS_REQUEST_CODE);
 
     }
     @SuppressLint("MissingPermission")
@@ -86,8 +86,8 @@ public class GMapActivity extends AppCompatActivity
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
-            ActivityCompat.requestPermissions(this, MainActivity.REQUIRED_PERMISSIONS,
-                    MainActivity.PERMISSIONS_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
+                    MainActivity2.PERMISSIONS_REQUEST_CODE);
         }
     }
 
@@ -96,15 +96,15 @@ public class GMapActivity extends AppCompatActivity
         Toast.makeText(this, "Current location:\n" + location, Toast.LENGTH_LONG)
                 .show();
 
-        ItemList itemList = MainActivity.infoList.get(0);
+        ItemList itemList = MainActivity2.infoList.get(0);
         double minDistance = Double.MAX_VALUE;
 
-        for(int i=1; i<MainActivity.infoList.size(); i++){
+        for(int i=1; i<MainActivity2.infoList.size(); i++){
             double distance = getDistance(location.getLatitude(), location.getLongitude(),
-                    MainActivity.infoList.get(i).lat, MainActivity.infoList.get(i).lng);
+                    MainActivity2.infoList.get(i).lat, MainActivity2.infoList.get(i).lng);
 
             if(minDistance > distance){
-                itemList = MainActivity.infoList.get(i);
+                itemList = MainActivity2.infoList.get(i);
                 minDistance = distance;
             }
         }
