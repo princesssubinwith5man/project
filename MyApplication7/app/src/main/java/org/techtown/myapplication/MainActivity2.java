@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -12,10 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.widget.Toolbar;
+import android.view.MenuItem;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
@@ -47,33 +51,50 @@ public class MainActivity2 extends AppCompatActivity {
     Spinner spinnerDo;
     Spinner spinnerSi;
     String siDo;
-
+    ProgressBar pb;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item ){
+        switch(item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_main2);
-        //pb = (ProgressBar) findViewById(R.id.progressBar);
+        pb = (ProgressBar) findViewById(R.id.progressBar);
 
         spinnerDo = (Spinner) findViewById(R.id.spinner);
         spinnerSi = (Spinner) findViewById(R.id.spinner_si);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
-        ImageView logo = (ImageView) findViewById(R.id.gif_image);
-        GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(logo);
-        Glide.with(this).load(R.drawable.logo3).into(gifImage);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("코로나 예방접종센터 조회");
 
-        spinnerDo.setVisibility(View.INVISIBLE);
-        spinnerSi.setVisibility(View.INVISIBLE);
-
+        //ImageView logo = (ImageView) findViewById(R.id.gif_image);
+        //GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(logo);
+        //Glide.with(this).load(R.drawable.logo3).into(gifImage);
+        if(check == 0) {
+            spinnerDo.setVisibility(View.INVISIBLE);
+            spinnerSi.setVisibility(View.INVISIBLE);
+            pb.setVisibility(View.VISIBLE);
+        }
         spinnerDo.setSelection(0);
         spinnerSi.setSelection(0);
 
         spinnerDo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
                 siDo = (String) adapterView.getItemAtPosition(i);
                 Log.d("tab", siDo + "선택됨");
                 sigunguSpinnerChanger(siDo);
                 printListview(siDo);
+
 
                 spinnerSi.setSelection(0);
             }
@@ -85,7 +106,10 @@ public class MainActivity2 extends AppCompatActivity {
         spinnerSi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i != 0) {
+                if (i == 0) {
+                    int temp =1;
+                }
+                else {
                     String selectedSigungu = (String) adapterView.getItemAtPosition(i);
                     printListview(siDo, selectedSigungu);
                 }
@@ -102,18 +126,18 @@ public class MainActivity2 extends AppCompatActivity {
             makeRequest();
         }
 
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                logo.setVisibility(View.INVISIBLE);
-                spinnerDo.setVisibility(View.VISIBLE);
-                spinnerSi.setVisibility(View.VISIBLE);
-                check = 1;
-            }
-        }, 7000); //딜레이 타임 조절
-
+        if(check ==0) {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    pb.setVisibility(View.INVISIBLE);
+                    spinnerDo.setVisibility(View.VISIBLE);
+                    spinnerSi.setVisibility(View.VISIBLE);
+                    check = 1;
+                }
+            }, 1500); //딜레이 타임 조절*/
+        }
         ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS ,
                 PERMISSIONS_REQUEST_CODE);
 

@@ -8,8 +8,10 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,13 +25,12 @@ import android.content.Intent;
 import android.widget.Toast;
 
 
-public class GMapActivity extends AppCompatActivity
+public class NearMapActivity extends AppCompatActivity
         implements
         OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
-        ActivityCompat.OnRequestPermissionsResultCallback
-        {
+        ActivityCompat.OnRequestPermissionsResultCallback {
 
     private double lat;
     private double lng;
@@ -42,15 +43,15 @@ public class GMapActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.gmap_activity);
+        setContentView(R.layout.activity_near_map);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Intent intent = getIntent();
-        lat = intent.getDoubleExtra("lat", 0);
-        lng = intent.getDoubleExtra("lng", 0);
-        cn = intent.getStringExtra("centername");
-        fn = intent.getStringExtra("fac");
+        //lat = intent.getDoubleExtra("lat", 0);
+        //lng = intent.getDoubleExtra("lng", 0);
+        //cn = intent.getStringExtra("centername");
+        //fn = intent.getStringExtra("fac");
 
         ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
                 MainActivity2.PERMISSIONS_REQUEST_CODE);
@@ -61,31 +62,63 @@ public class GMapActivity extends AppCompatActivity
     public void onMapReady(final GoogleMap googleMap) {
 
         map = googleMap;
-
-
-        Log.d("tag:", "result: " + lat +" "+ lng);
-        LatLng Corona = new LatLng(lat,lng);
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(Corona);
-        markerOptions.title(cn);
-        markerOptions.snippet(fn);
-        googleMap.addMarker(markerOptions);
-
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Corona, 14));
-
-
-        enableMyLocation();
-    }
-
-    // ---------------------- 여기 밑으로는 gps 관련 메서드
-    private void enableMyLocation() {
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             if (map != null) {
                 map.setMyLocationEnabled(true);
-                map.setOnMyLocationButtonClickListener(this);
-                map.setOnMyLocationClickListener(this);
+                enableMyLocation();
+            }
+        } else {
+            // Permission to access the location is missing. Show rationale and request permission
+            ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
+                    MainActivity2.PERMISSIONS_REQUEST_CODE);
+        }
+
+
+
+
+    }
+
+    // ---------------------- 여기 밑으로는 gps 관련 메서드
+    private void enableMyLocation() {
+        final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            if (map != null) {
+                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                String provider = location.getProvider();
+                double longitude = location.getLongitude();
+                double latitude = location.getLatitude();
+                double altitude = location.getAltitude();
+                Log.d("Tag","result"+ latitude+"\n"+longitude);
+                Toast.makeText(this, "위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
+                        .show();
+
+                ItemList itemList = MainActivity2.infoList.get(0);
+                double minDistance = Double.MAX_VALUE;
+
+                for(int i=1; i<MainActivity2.infoList.size(); i++){
+                    double distance = getDistance(latitude, longitude,
+                            MainActivity2.infoList.get(i).lat, MainActivity2.infoList.get(i).lng, "kilometer");
+
+                    if(minDistance > distance){
+                        itemList = MainActivity2.infoList.get(i);
+                        Log.d("log:","result: "+ i +" "+ minDistance+ " " + itemList.centerName+ " 거리차이는: "+ distance);
+                        minDistance = distance;
+                    }
+
+                }
+
+                LatLng nearCenter = new LatLng(itemList.lat, itemList.lng);
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(nearCenter);
+                markerOptions.title(itemList.centerName);
+                markerOptions.snippet(itemList.facilityName);
+                map.addMarker(markerOptions);
+
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(nearCenter, 14));
+
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
@@ -99,7 +132,7 @@ public class GMapActivity extends AppCompatActivity
         Toast.makeText(this, "위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
                 .show();
 
-       /* ItemList itemList = MainActivity2.infoList.get(0);
+        ItemList itemList = MainActivity2.infoList.get(0);
         double minDistance = Double.MAX_VALUE;
 
         for(int i=1; i<MainActivity2.infoList.size(); i++){
@@ -121,7 +154,7 @@ public class GMapActivity extends AppCompatActivity
         markerOptions.snippet(itemList.facilityName);
         map.addMarker(markerOptions);
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(nearCenter, 14));*/
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(nearCenter, 14));
     }
 
     @Override
@@ -130,6 +163,7 @@ public class GMapActivity extends AppCompatActivity
                 .show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
+
         return false;
     }
 

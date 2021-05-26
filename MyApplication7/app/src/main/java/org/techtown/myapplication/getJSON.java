@@ -95,10 +95,11 @@ class GetJSON extends AsyncTask<String, String, String> {
 
                 );
                 MainActivity2.infoList.add(itemList);
+                MainActivity.infoList.add(itemList);
             }
 
             Collections.sort(MainActivity2.infoList, new SiDoGunGuComparator());
-
+            Collections.sort(MainActivity.infoList, new SiDoGunGuComparator());
             Log.d("vaccine", MainActivity2.infoList.size() + "개");
 
         } catch (NullPointerException | JSONException e) {
