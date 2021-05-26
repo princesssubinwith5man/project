@@ -98,30 +98,6 @@ public class GMapActivity extends AppCompatActivity
     public void onMyLocationClick(@NonNull Location location) {
         Toast.makeText(this, "위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
                 .show();
-
-       /* ItemList itemList = MainActivity2.infoList.get(0);
-        double minDistance = Double.MAX_VALUE;
-
-        for(int i=1; i<MainActivity2.infoList.size(); i++){
-            double distance = getDistance(location.getLatitude(), location.getLongitude(),
-                    MainActivity2.infoList.get(i).lat, MainActivity2.infoList.get(i).lng, "kilometer");
-
-            if(minDistance > distance){
-                itemList = MainActivity2.infoList.get(i);
-                Log.d("log:","result: "+ i +" "+ minDistance+ " " + itemList.centerName+ "거리차이는 "+ distance);
-                minDistance = distance;
-            }
-
-        }
-
-        LatLng nearCenter = new LatLng(itemList.lat, itemList.lng);
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(nearCenter);
-        markerOptions.title(itemList.centerName);
-        markerOptions.snippet(itemList.facilityName);
-        map.addMarker(markerOptions);
-
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(nearCenter, 14));*/
     }
 
     @Override
@@ -165,31 +141,5 @@ public class GMapActivity extends AppCompatActivity
         }
     }
 
-    double getDistance(double alat, double alng, double blat, double blng, String unit){
-        double theta = alng - blng;
-        double dist = Math.sin(deg2rad(alat)) * Math.sin(deg2rad(blat)) + Math.cos(deg2rad(alat)) * Math.cos(deg2rad(blat)) * Math.cos(deg2rad(theta));
 
-        dist = Math.acos(dist);
-        dist = rad2deg(dist);
-        dist = dist * 60 * 1.1515;
-
-        if (unit == "kilometer") {
-            dist = dist * 1.609344;
-        } else if(unit == "meter"){
-            dist = dist * 1609.344;
-        }
-
-        return (dist);
-    }
-
-
-    // This function converts decimal degrees to radians
-    private static double deg2rad(double deg) {
-        return (deg * Math.PI / 180.0);
-    }
-
-    // This function converts radians to decimal degrees
-    private static double rad2deg(double rad) {
-        return (rad * 180 / Math.PI);
-    }
 }
