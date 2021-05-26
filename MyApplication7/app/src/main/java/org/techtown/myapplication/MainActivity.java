@@ -40,14 +40,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
         ImageView name = findViewById(R.id.imageView);
-        name.setVisibility(View.INVISIBLE);
+        //name.setVisibility(View.INVISIBLE);
         ImageView logo = (ImageView) findViewById(R.id.gif_image);
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(logo);
         Glide.with(this).load(R.drawable.logo3).into(gifImage);
-        GetJSON getJSON = new GetJSON();
-        getJSON.execute();
+        logo.setVisibility(View.INVISIBLE);
+        if(infoList.size()==0) {
+            GetJSON getJSON = new GetJSON();
+            getJSON.execute();
+        }
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+       /* handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 logo.setVisibility(View.INVISIBLE);

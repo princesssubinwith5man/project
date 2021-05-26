@@ -71,7 +71,7 @@
             android:onClick="click2"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView"
-            app:srcCompat="@drawable/search1"
+            app:srcCompat="@drawable/search2"
             tools:layout_editor_absoluteX="57dp" />
 
 

@@ -105,8 +105,8 @@ public class Search extends AppCompatActivity {
 
         SimpleAdapter adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2, new String[]{"item1", "item2"}, new int[]{android.R.id.text1, android.R.id.text2});
         listview.setAdapter(adapter);
-        if(adapter.getCount() == 0)
-            tv.setVisibility(View.VISIBLE);
+        if(adapter.getCount() == 0) //리스트뷰에 아무것도 없다면
+            tv.setVisibility(View.VISIBLE); //검색결과가 없습니다 출력
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
