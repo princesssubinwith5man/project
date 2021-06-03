@@ -98,7 +98,7 @@ public class NearMapActivity extends AppCompatActivity
                 ItemList itemList = MainActivity2.infoList.get(0);
                 double minDistance = Double.MAX_VALUE;
 
-                for(int i=1; i<MainActivity2.infoList.size(); i++){
+                for(int i=0; i<MainActivity2.infoList.size(); i++){
                     double distance = getDistance(latitude, longitude,
                             MainActivity2.infoList.get(i).lat, MainActivity2.infoList.get(i).lng, "kilometer");
 
@@ -135,7 +135,7 @@ public class NearMapActivity extends AppCompatActivity
         ItemList itemList = MainActivity2.infoList.get(0);
         double minDistance = Double.MAX_VALUE;
 
-        for(int i=1; i<MainActivity2.infoList.size(); i++){
+        for(int i=0; i<MainActivity2.infoList.size(); i++){
             double distance = getDistance(location.getLatitude(), location.getLongitude(),
                     MainActivity2.infoList.get(i).lat, MainActivity2.infoList.get(i).lng, "kilometer");
 
