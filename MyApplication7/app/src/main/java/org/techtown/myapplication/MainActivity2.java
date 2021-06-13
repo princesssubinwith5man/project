@@ -1,37 +1,33 @@
 package org.techtown.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import android.view.MenuItem;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import androidx.appcompat.widget.SearchView;
+
+import androidx.core.app.ActivityCompat;
 
 import java.util.ArrayList;
-
-import android.content.Intent;
-import android.view.View;
-
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import static org.techtown.myapplication.R.layout.activity_main;
 import static org.techtown.myapplication.R.layout.activity_main2;
 
 
@@ -41,6 +37,7 @@ public class MainActivity2 extends AppCompatActivity {
     private String Centername;
     private String fn;
     private int check = 0;
+    MenuItem mSearch;
 
     public static ArrayList<ItemList> infoList = new ArrayList<>();
 
@@ -52,14 +49,40 @@ public class MainActivity2 extends AppCompatActivity {
     Spinner spinnerSi;
     String siDo;
     ProgressBar pb;
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        mSearch=menu.findItem(R.id.action_search);
+        mSearch.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return false;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                return false;
+            }
+        });
+        return true;
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item ){
-        switch(item.getItemId()){
+        switch (item.getItemId())
+        {
+            case R.id.action_search:
+                Toast.makeText(getApplicationContext(), "Search Click", Toast.LENGTH_SHORT).show();
+                //mSearch.expandActionView();
+                //break;
+                Intent intent = new Intent(MainActivity2.this, Search.class);
+                startActivity(intent);
+                return true;
             case android.R.id.home:
                 finish();
                 return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,6 +264,8 @@ public class MainActivity2 extends AppCompatActivity {
         });
     }
 
-    public void button(View view) {
+    public void click2(View view) {
+        Intent intent = new Intent(MainActivity2.this, Search.class);
+        startActivity(intent);
     }
 }
