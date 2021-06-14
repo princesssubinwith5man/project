@@ -93,6 +93,8 @@ out/
 
 # Gradle files
 gradle/
+.gradle/
+.gradle/*
 
 # Signing files
 .signing/

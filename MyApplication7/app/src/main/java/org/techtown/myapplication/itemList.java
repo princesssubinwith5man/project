@@ -2,13 +2,13 @@ package org.techtown.myapplication;
 
 class ItemList {
 
-    public String address;
-    public String centerName;
+    public String address;//인천광역시 강화군 강화읍 고비고개로19번길 12
+    public String centerName; //코로나19 인천광역시 강화군 예방접종센터
     public String centerType;
-    public String facilityName;
+    public String facilityName;//강화문예회관
     public String id;
-    public double lat;
-    public double lng;
+    public double lat;  //위도
+    public double lng;  //경도(경찰과도둑)
     public String org;
     public String sido;
     public String sigungu;

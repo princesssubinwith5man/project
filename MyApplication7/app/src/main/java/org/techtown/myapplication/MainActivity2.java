@@ -30,10 +30,7 @@ import static org.techtown.myapplication.R.layout.activity_main2;
 
 
 public class MainActivity2 extends AppCompatActivity {
-    private Double lat1;
-    private Double lng1;
-    private String Centername;
-    private String fn;
+
     private int check = 0;
     static MenuItem mSearch;
 
@@ -185,7 +182,7 @@ public class MainActivity2 extends AppCompatActivity {
 
 
     public void printListview(String... sido_show) {
-        String address;
+        String address, facName;
         String centerName;
         double lat;
         double lng;
@@ -202,54 +199,42 @@ public class MainActivity2 extends AppCompatActivity {
         else
             listview.setVisibility(View.INVISIBLE);
 
-        ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (이름과, 주소)
-        ArrayList<HashMap<String, Double>> list1 = new ArrayList<HashMap<String, Double>>(); //ArrayList 생성 (위도, 경도)
-        ArrayList<HashMap<String, String>> list2 = new ArrayList<HashMap<String, String>>();
+
+        ListViewAdapter adapter = new ListViewAdapter();
+
         for (int i = 0; i < infoList.size(); i++) {
             if (!infoList.get(i).sido.equals(sido_show[0]))
                 continue;
             else if(sido_show.length==2 && !infoList.get(i).sigungu.equals(sido_show[1]))
                 continue;
 
-            //else {
-            HashMap<String, String> item = new HashMap<String, String>();
-            HashMap<String, Double> item1 = new HashMap<String, Double>();
-            HashMap<String, String> item2 = new HashMap<String, String>();
             address = infoList.get(i).address;
-            centerName = infoList.get(i).centerName + "                                                                      " + infoList.get(i).facilityName;
+            centerName = infoList.get(i).centerName;
+            facName = infoList.get(i).facilityName;
             lat = infoList.get(i).lat;
             lng = infoList.get(i).lng;
-            m_facn = infoList.get(i).facilityName;
-            m_centerName = infoList.get(i).centerName;
 
-            item.put("item1", centerName);
-            item.put("item2", address);
-            item1.put("item1", lat);
-            item1.put("item2", lng);
-            item2.put("cn", m_centerName);
-            item2.put("fn", m_facn);
-            list.add(item);
-            list1.add(item1);
-            list2.add(item2);
-            // }
+            adapter.addItem(0, centerName, facName, address, lat, lng);
         }
-
-        SimpleAdapter adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2, new String[]{"item1", "item2"}, new int[]{android.R.id.text1, android.R.id.text2});
         listview.setAdapter(adapter);
+
+        // 리스트뷰 온클릭 리스너
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast myToast = Toast.makeText(MainActivity2.this, "위도: " + list1.get(position).get("item1") + " 경도: " + list1.get(position).get("item2"), Toast.LENGTH_SHORT);
-                myToast.show();
-                lat1 = list1.get(position).get("item1");
-                lng1 = list1.get(position).get("item2");
-                Centername = list2.get(position).get("cn");
-                fn = list2.get(position).get("fn");
+                ListViewItem listViewItem = adapter.listViewItemList.get(position);
+                double lat = listViewItem.getLat();
+                double lng = listViewItem.getLng();
+                String centerName = listViewItem.getCenterNameStr();
+                String facName = listViewItem.getFacNameStr();
+
+                Toast.makeText(getApplicationContext(), "위도 : " + lat, Toast.LENGTH_LONG);
+
                 Intent intent = new Intent(MainActivity2.this, GMapActivity.class);
-                intent.putExtra("lat", lat1);
-                intent.putExtra("lng", lng1);
-                intent.putExtra("centername", Centername);
-                intent.putExtra("fac", fn);
+                intent.putExtra("lat", lat);
+                intent.putExtra("lng", lng);
+                intent.putExtra("centername", centerName);
+                intent.putExtra("fac", facName);
                 startActivity(intent);
             }
         });
