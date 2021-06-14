@@ -59,6 +59,8 @@
             android:layout_width="411dp"
             android:layout_height="wrap_content"
             android:fastScrollEnabled="true"
+            android:divider="#FFFFFF"
+            android:dividerHeight="0px"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
