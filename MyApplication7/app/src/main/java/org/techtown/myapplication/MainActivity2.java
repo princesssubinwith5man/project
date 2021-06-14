@@ -33,12 +33,12 @@ public class MainActivity2 extends AppCompatActivity {
 
     private int check = 0;
     static MenuItem mSearch;
-
     public static ArrayList<ItemList> infoList = new ArrayList<>();
 
     public static String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     public static final int PERMISSIONS_REQUEST_CODE = 100;
 
+    ListView listView;
 
     Spinner spinnerDo;
     Spinner spinnerSi;
@@ -76,9 +76,11 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(activity_main2);
         pb = (ProgressBar) findViewById(R.id.progressBar);
 
+        listView = (ListView) findViewById(R.id.list);
         spinnerDo = (Spinner) findViewById(R.id.spinner);
         spinnerSi = (Spinner) findViewById(R.id.spinner_si);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(mToolbar);
         //SearchView sv  = (SearchView) mSearch.getActionView();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -186,18 +188,16 @@ public class MainActivity2 extends AppCompatActivity {
         String centerName;
         double lat;
         double lng;
-        String m_facn;
-        String m_centerName;
 
         int inputSize = sido_show.length;
 
         Log.d("tag", "print실행중..." + inputSize);
 
-        ListView listview = (ListView) findViewById(R.id.list); //ListView id 받아옴
+
         if (check == 1)
-            listview.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.VISIBLE);
         else
-            listview.setVisibility(View.INVISIBLE);
+            listView.setVisibility(View.INVISIBLE);
 
 
         ListViewAdapter adapter = new ListViewAdapter();
@@ -216,10 +216,10 @@ public class MainActivity2 extends AppCompatActivity {
 
             adapter.addItem(0, centerName, facName, address, lat, lng);
         }
-        listview.setAdapter(adapter);
+        listView.setAdapter(adapter);
 
         // 리스트뷰 온클릭 리스너
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ListViewItem listViewItem = adapter.listViewItemList.get(position);
@@ -240,72 +240,55 @@ public class MainActivity2 extends AppCompatActivity {
         });
     }
     public void SearchListview(String s) {
-        String address;
+        String address, facName;
         String centerName;
         double lat;
         double lng;
-        String m_facn;
-        String m_centerName;
-        // tv.setVisibility(View.INVISIBLE);
-        //int inputSize = sido_show.length;
+        ListViewAdapter adapter = new ListViewAdapter();
 
         Log.d("tag", "Search실행중..." + MainActivity.infoList.size());
 
-        ListView listview = (ListView) findViewById(R.id.list); //ListView id 받아옴
+
         if (check == 1)
-            listview.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.VISIBLE);
         else
-            listview.setVisibility(View.INVISIBLE);
-        ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (이름과, 주소)
-        ArrayList<HashMap<String, Double>> list1 = new ArrayList<HashMap<String, Double>>(); //ArrayList 생성 (위도, 경도)
-        ArrayList<HashMap<String, String>> list2 = new ArrayList<HashMap<String, String>>();
+            listView.setVisibility(View.INVISIBLE);
+
+
         for (int i = 0; i < MainActivity.infoList.size(); i++) {
             if ((!MainActivity.infoList.get(i).address.contains(s) && !MainActivity.infoList.get(i).centerName.contains(s)&& !MainActivity.infoList.get(i).facilityName.contains(s))|| s.equals("")) {
                 //tv.setVisibility(View.VISIBLE);
                 continue;
             }
             else {
-                //tv.setVisibility(View.INVISIBLE);
-                HashMap<String, String> item = new HashMap<String, String>();
-                HashMap<String, Double> item1 = new HashMap<String, Double>();
-                HashMap<String, String> item2 = new HashMap<String, String>();
-                address = MainActivity.infoList.get(i).address;
-                centerName = MainActivity.infoList.get(i).centerName + "                                                                      " + MainActivity.infoList.get(i).facilityName;
-                lat = MainActivity.infoList.get(i).lat;
-                lng = MainActivity.infoList.get(i).lng;
-                m_facn = MainActivity.infoList.get(i).facilityName;
-                m_centerName = MainActivity.infoList.get(i).centerName;
 
-                item.put("item1", centerName);
-                item.put("item2", address);
-                item1.put("item1", lat);
-                item1.put("item2", lng);
-                item2.put("cn", m_centerName);
-                item2.put("fn", m_facn);
-                list.add(item);
-                list1.add(item1);
-                list2.add(item2);
+                address = infoList.get(i).address;
+                centerName = infoList.get(i).centerName;
+                facName = infoList.get(i).facilityName;
+                lat = infoList.get(i).lat;
+                lng = infoList.get(i).lng;
+
+                adapter.addItem(0, centerName, facName, address, lat, lng);
             }
         }
+        listView.setAdapter(adapter);
 
-        SimpleAdapter adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2, new String[]{"item1", "item2"}, new int[]{android.R.id.text1, android.R.id.text2});
-        listview.setAdapter(adapter);
-        //if(adapter.getCount() == 0) //리스트뷰에 아무것도 없다면
-        // tv.setVisibility(View.VISIBLE); //검색결과가 없습니다 출력
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast myToast = Toast.makeText(MainActivity2.this, "위도: " + list1.get(position).get("item1") + " 경도: " + list1.get(position).get("item2"), Toast.LENGTH_SHORT);
-                myToast.show();
-                lat1 = list1.get(position).get("item1");
-                lng1 = list1.get(position).get("item2");
-                Centername = list2.get(position).get("cn");
-                fn = list2.get(position).get("fn");
+                ListViewItem listViewItem = adapter.listViewItemList.get(position);
+                double lat = listViewItem.getLat();
+                double lng = listViewItem.getLng();
+                String centerName = listViewItem.getCenterNameStr();
+                String facName = listViewItem.getFacNameStr();
+
+                Toast.makeText(getApplicationContext(), "위도 : " + lat, Toast.LENGTH_LONG);
+
                 Intent intent = new Intent(MainActivity2.this, GMapActivity.class);
-                intent.putExtra("lat", lat1);
-                intent.putExtra("lng", lng1);
-                intent.putExtra("centername", Centername);
-                intent.putExtra("fac", fn);
+                intent.putExtra("lat", lat);
+                intent.putExtra("lng", lng);
+                intent.putExtra("centername", centerName);
+                intent.putExtra("fac", facName);
                 startActivity(intent);
             }
         });
