@@ -2,25 +2,25 @@ package org.techtown.myapplication;
 
 public class ListViewItem {
     private int iconDrawable;
-    private String contentStr;
+    private String facNameStr;
     private String addressStr;
     private String CenterNameStr;
-    private double lat, lng;
+    final private double lat, lng;
 
-    public ListViewItem(int a, String b, String c, String d, double f, double g){
-        iconDrawable = a;
-        contentStr = b;
-        addressStr = c;
-        CenterNameStr = d;
-        lat = f;
-        lng = g;
+    public ListViewItem(int icon, String centerName, String facName, String address, double lat, double lng){
+        iconDrawable = icon;
+        CenterNameStr = centerName;
+        facNameStr = facName;
+        addressStr = address;
+        this.lat = lat;
+        this.lng = lng;
     }
 
     public void setCenterName(String title){
         CenterNameStr = title;
     }
     public void setFacName(String content){
-        contentStr = content;
+        facNameStr = content;
     }
     public void setIcon(int icon){
         iconDrawable = icon;
@@ -30,8 +30,10 @@ public class ListViewItem {
     public int getIcon(){
         return this.iconDrawable;
     }
-    public String getContentStr(){
-        return this.contentStr;
+    public double getLat(){return lat;}
+    public double getLng(){return lng;}
+    public String getFacNameStr(){
+        return this.facNameStr;
     }
     public String getCenterNameStr(){
         return this.CenterNameStr;

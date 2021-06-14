@@ -32,10 +32,7 @@ import static org.techtown.myapplication.R.layout.activity_main2;
 
 
 public class MainActivity2 extends AppCompatActivity {
-    private Double lat1;
-    private Double lng1;
-    private String Centername;
-    private String fn;
+
     private int check = 0;
     MenuItem mSearch;
 
@@ -231,24 +228,25 @@ public class MainActivity2 extends AppCompatActivity {
 
         listview.setAdapter(adapter);
 
-  /*      listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast myToast = Toast.makeText(MainActivity2.this, "위도: " + list1.get(position).get("item1") + " 경도: " + list1.get(position).get("item2"), Toast.LENGTH_SHORT);
-                myToast.show();
-                double lat = listview.
-                lat1 = list1.get(position).get("item1");
-                lng1 = list1.get(position).get("item2");
-                Centername = list2.get(position).get("cn");
-                fn = list2.get(position).get("fn");
+                ListViewItem listViewItem = adapter.listViewItemList.get(position);
+                double lat = listViewItem.getLat();
+                double lng = listViewItem.getLng();
+                String centerName = listViewItem.getCenterNameStr();
+                String facName = listViewItem.getFacNameStr();
+
+                Toast.makeText(getApplicationContext(), "위도 : " + lat, Toast.LENGTH_LONG);
+
                 Intent intent = new Intent(MainActivity2.this, GMapActivity.class);
-                intent.putExtra("lat", lat1);
-                intent.putExtra("lng", lng1);
-                intent.putExtra("centername", Centername);
-                intent.putExtra("fac", fn);
+                intent.putExtra("lat", lat);
+                intent.putExtra("lng", lng);
+                intent.putExtra("centername", centerName);
+                intent.putExtra("fac", facName);
                 startActivity(intent);
             }
-        });*/
+        });
     }
 
     public void click2(View view) {
