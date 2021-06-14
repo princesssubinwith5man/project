@@ -13,15 +13,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.appcompat.widget.SearchView;
-
 import androidx.core.app.ActivityCompat;
 
 import java.util.ArrayList;
@@ -37,7 +35,9 @@ public class MainActivity2 extends AppCompatActivity {
     private String Centername;
     private String fn;
     private int check = 0;
-    MenuItem mSearch;
+    static MenuItem mSearch;
+    SearchView searchView;
+    // MenuItem mSearch;
 
     public static ArrayList<ItemList> infoList = new ArrayList<>();
 
@@ -49,41 +49,32 @@ public class MainActivity2 extends AppCompatActivity {
     Spinner spinnerSi;
     String siDo;
     ProgressBar pb;
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu, menu);
-        mSearch=menu.findItem(R.id.action_search);
-        mSearch.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+
+        mSearch = menu.findItem(R.id.action_search);
+        //mSearch.expandActionView();
+        SearchView sv = (SearchView) mSearch.getActionView();
+        //sv.setMaxWidth(Integer.MAX_VALUE);
+        sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
+            public boolean onQueryTextSubmit(String query) {
+                SearchListview(query);
                 return false;
             }
 
             @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
+            public boolean onQueryTextChange(String newText) {
+                //Log.d("tag","result" + newText);
+                SearchListview(newText);
                 return false;
             }
         });
         return true;
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item ){
-        switch (item.getItemId())
-        {
-            case R.id.action_search:
-                Toast.makeText(getApplicationContext(), "Search Click", Toast.LENGTH_SHORT).show();
-                //mSearch.expandActionView();
-                //break;
-                Intent intent = new Intent(MainActivity2.this, Search.class);
-                startActivity(intent);
-                return true;
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +85,7 @@ public class MainActivity2 extends AppCompatActivity {
         spinnerSi = (Spinner) findViewById(R.id.spinner_si);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-
+        //SearchView sv  = (SearchView) mSearch.getActionView();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("코로나 예방접종센터 조회");
 
@@ -105,6 +96,7 @@ public class MainActivity2 extends AppCompatActivity {
             spinnerDo.setVisibility(View.INVISIBLE);
             spinnerSi.setVisibility(View.INVISIBLE);
             pb.setVisibility(View.VISIBLE);
+            mToolbar.setVisibility(View.INVISIBLE);
         }
         spinnerDo.setSelection(0);
         spinnerSi.setSelection(0);
@@ -157,6 +149,7 @@ public class MainActivity2 extends AppCompatActivity {
                     pb.setVisibility(View.INVISIBLE);
                     spinnerDo.setVisibility(View.VISIBLE);
                     spinnerSi.setVisibility(View.VISIBLE);
+                    mToolbar.setVisibility(View.VISIBLE);
                     check = 1;
                 }
             }, 1500); //딜레이 타임 조절*/
@@ -263,9 +256,82 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
     }
+    public void SearchListview(String s) {
+        String address;
+        String centerName;
+        double lat;
+        double lng;
+        String m_facn;
+        String m_centerName;
+        // tv.setVisibility(View.INVISIBLE);
+        //int inputSize = sido_show.length;
 
-    public void click2(View view) {
-        Intent intent = new Intent(MainActivity2.this, Search.class);
-        startActivity(intent);
+        //Log.d("tag", "print실행중..." + inputSize);
+
+        ListView listview = (ListView) findViewById(R.id.list); //ListView id 받아옴
+        ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (이름과, 주소)
+        ArrayList<HashMap<String, Double>> list1 = new ArrayList<HashMap<String, Double>>(); //ArrayList 생성 (위도, 경도)
+        ArrayList<HashMap<String, String>> list2 = new ArrayList<HashMap<String, String>>();
+        for (int i = 0; i < MainActivity.infoList.size(); i++) {
+            if ((!MainActivity.infoList.get(i).address.contains(s) && !MainActivity.infoList.get(i).centerName.contains(s)&& !MainActivity.infoList.get(i).facilityName.contains(s))|| s.equals("")) {
+                //tv.setVisibility(View.VISIBLE);
+                continue;
+            }
+            else {
+                //tv.setVisibility(View.INVISIBLE);
+                HashMap<String, String> item = new HashMap<String, String>();
+                HashMap<String, Double> item1 = new HashMap<String, Double>();
+                HashMap<String, String> item2 = new HashMap<String, String>();
+                address = MainActivity.infoList.get(i).address;
+                centerName = MainActivity.infoList.get(i).centerName + "                                                                      " + MainActivity.infoList.get(i).facilityName;
+                lat = MainActivity.infoList.get(i).lat;
+                lng = MainActivity.infoList.get(i).lng;
+                m_facn = MainActivity.infoList.get(i).facilityName;
+                m_centerName = MainActivity.infoList.get(i).centerName;
+
+                item.put("item1", centerName);
+                item.put("item2", address);
+                item1.put("item1", lat);
+                item1.put("item2", lng);
+                item2.put("cn", m_centerName);
+                item2.put("fn", m_facn);
+                list.add(item);
+                list1.add(item1);
+                list2.add(item2);
+            }
+        }
+
+        SimpleAdapter adapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2, new String[]{"item1", "item2"}, new int[]{android.R.id.text1, android.R.id.text2});
+        listview.setAdapter(adapter);
+        //if(adapter.getCount() == 0) //리스트뷰에 아무것도 없다면
+        // tv.setVisibility(View.VISIBLE); //검색결과가 없습니다 출력
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast myToast = Toast.makeText(MainActivity2.this, "위도: " + list1.get(position).get("item1") + " 경도: " + list1.get(position).get("item2"), Toast.LENGTH_SHORT);
+                myToast.show();
+                lat1 = list1.get(position).get("item1");
+                lng1 = list1.get(position).get("item2");
+                Centername = list2.get(position).get("cn");
+                fn = list2.get(position).get("fn");
+                Intent intent = new Intent(MainActivity2.this, GMapActivity.class);
+                intent.putExtra("lat", lat1);
+                intent.putExtra("lng", lng1);
+                intent.putExtra("centername", Centername);
+                intent.putExtra("fac", fn);
+                startActivity(intent);
+            }
+        });
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
