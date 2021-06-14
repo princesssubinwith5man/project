@@ -225,9 +225,9 @@ public class MainActivity2 extends AppCompatActivity {
 
             adapter.addItem(0, centerName, facName, address, lat, lng);
         }
-
         listview.setAdapter(adapter);
 
+        // 리스트뷰 온클릭 리스너
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
