@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import java.lang.Math;
+import java.util.Map;
+
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -17,7 +20,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.content.Intent;
 import android.widget.Toast;
@@ -64,19 +69,67 @@ public class GMapActivity extends AppCompatActivity
 
 
         Log.d("tag:", "result: " + lat +" "+ lng);
-        LatLng Corona = new LatLng(lat,lng);
+        /*LatLng Corona = new LatLng(lat,lng);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(Corona);
         markerOptions.title(cn);
         markerOptions.snippet(fn);
         googleMap.addMarker(markerOptions);
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Corona, 14));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Corona, 14));*/
+        //---------------------------------------------------------------------------------
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
+        //기본위치(63빌딩)
+        LatLng position = new LatLng(lat , lng);
+
+        //화면중앙의 위치와 카메라 줌비율
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 14));
+
+        onAddMarker();
 
         enableMyLocation();
     }
+    public void onAddMarker(){
+        LatLng position = new LatLng(lat , lng);
+        this.map = map;
+                //나의위치 마커
+        MarkerOptions mymarker = new MarkerOptions()
+                .icon(BitmapDescriptorFactory.defaultMarker(200f))  //마커색상지정
+                .title(cn)
+                .snippet(fn)
+                .position(position);   //마커위치
 
+                //마커추가
+        map.addMarker(mymarker);
+
+                //정보창 클릭 리스너
+        map.setOnInfoWindowClickListener(infoWindowClickListener);
+
+                //마커 클릭 리스너
+        map.setOnMarkerClickListener(markerClickListener);
+    }
+            //정보창 클릭 리스너
+            GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
+                @Override
+                public void onInfoWindowClick(Marker marker) {
+                    String markerId = marker.getId();
+                    Toast.makeText(GMapActivity.this, "정보창 클릭 Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
+                }
+            };
+
+            //마커 클릭 리스너
+            GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(Marker marker) {
+                    String markerId = marker.getId();
+                    //선택한 타겟위치
+                    LatLng location = marker.getPosition();
+                    Toast.makeText(GMapActivity.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
+
+                    return false;
+                }
+            };
     // ---------------------- 여기 밑으로는 gps 관련 메서드
     private void enableMyLocation() {
 
