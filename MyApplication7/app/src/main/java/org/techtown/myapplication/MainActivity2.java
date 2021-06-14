@@ -36,8 +36,6 @@ public class MainActivity2 extends AppCompatActivity {
     private String fn;
     private int check = 0;
     static MenuItem mSearch;
-    SearchView searchView;
-    // MenuItem mSearch;
 
     public static ArrayList<ItemList> infoList = new ArrayList<>();
 
@@ -50,25 +48,25 @@ public class MainActivity2 extends AppCompatActivity {
     String siDo;
     ProgressBar pb;
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) { //액션바 불러오기
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu, menu);
 
         mSearch = menu.findItem(R.id.action_search);
         //mSearch.expandActionView();
-        SearchView sv = (SearchView) mSearch.getActionView();
+        SearchView sv = (SearchView) mSearch.getActionView(); //서치뷰 변수
         //sv.setMaxWidth(Integer.MAX_VALUE);
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                SearchListview(query);
+                SearchListview(query); //검색시 SearchListview 출력
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 //Log.d("tag","result" + newText);
-                SearchListview(newText);
+                SearchListview(newText);// 글자마다 Search ListView 출력
                 return false;
             }
         });
@@ -266,9 +264,13 @@ public class MainActivity2 extends AppCompatActivity {
         // tv.setVisibility(View.INVISIBLE);
         //int inputSize = sido_show.length;
 
-        //Log.d("tag", "print실행중..." + inputSize);
+        Log.d("tag", "Search실행중..." + MainActivity.infoList.size());
 
         ListView listview = (ListView) findViewById(R.id.list); //ListView id 받아옴
+        if (check == 1)
+            listview.setVisibility(View.VISIBLE);
+        else
+            listview.setVisibility(View.INVISIBLE);
         ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (이름과, 주소)
         ArrayList<HashMap<String, Double>> list1 = new ArrayList<HashMap<String, Double>>(); //ArrayList 생성 (위도, 경도)
         ArrayList<HashMap<String, String>> list2 = new ArrayList<HashMap<String, String>>();
