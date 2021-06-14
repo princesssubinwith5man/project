@@ -227,6 +227,7 @@ public class MainActivity2 extends AppCompatActivity {
                 double lng = listViewItem.getLng();
                 String centerName = listViewItem.getCenterNameStr();
                 String facName = listViewItem.getFacNameStr();
+                String address = listViewItem.getAddressStr();
 
                 Toast.makeText(getApplicationContext(), "위도 : " + lat, Toast.LENGTH_LONG);
 
@@ -235,6 +236,7 @@ public class MainActivity2 extends AppCompatActivity {
                 intent.putExtra("lng", lng);
                 intent.putExtra("centername", centerName);
                 intent.putExtra("fac", facName);
+                intent.putExtra("add", address);
                 startActivity(intent);
             }
         });
@@ -281,6 +283,7 @@ public class MainActivity2 extends AppCompatActivity {
                 double lng = listViewItem.getLng();
                 String centerName = listViewItem.getCenterNameStr();
                 String facName = listViewItem.getFacNameStr();
+                String address = listViewItem.getAddressStr();
 
                 Toast.makeText(getApplicationContext(), "위도 : " + lat, Toast.LENGTH_LONG);
 
@@ -289,6 +292,7 @@ public class MainActivity2 extends AppCompatActivity {
                 intent.putExtra("lng", lng);
                 intent.putExtra("centername", centerName);
                 intent.putExtra("fac", facName);
+                intent.putExtra("add", address);
                 startActivity(intent);
             }
         });
