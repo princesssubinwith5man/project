@@ -69,46 +69,22 @@ public class GMapActivity extends AppCompatActivity
 
 
         Log.d("tag:", "result: " + lat +" "+ lng);
-        /*LatLng Corona = new LatLng(lat,lng);
+        LatLng Corona = new LatLng(lat,lng);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(Corona);
         markerOptions.title(cn);
         markerOptions.snippet(fn);
         googleMap.addMarker(markerOptions);
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Corona, 14));*/
-        //---------------------------------------------------------------------------------
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Corona, 14));
+        map.setOnInfoWindowClickListener(infoWindowClickListener);
 
-        //기본위치(63빌딩)
-        LatLng position = new LatLng(lat , lng);
-
-        //화면중앙의 위치와 카메라 줌비율
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 14));
-
-        onAddMarker();
+        //마커 클릭 리스너
+        map.setOnMarkerClickListener(markerClickListener);
 
         enableMyLocation();
     }
-    public void onAddMarker(){
-        LatLng position = new LatLng(lat , lng);
-        this.map = map;
-                //나의위치 마커
-        MarkerOptions mymarker = new MarkerOptions()
-                .icon(BitmapDescriptorFactory.defaultMarker(200f))  //마커색상지정
-                .title(cn)
-                .snippet(fn)
-                .position(position);   //마커위치
-
-                //마커추가
-        map.addMarker(mymarker);
-
-                //정보창 클릭 리스너
-        map.setOnInfoWindowClickListener(infoWindowClickListener);
-
-                //마커 클릭 리스너
-        map.setOnMarkerClickListener(markerClickListener);
-    }
+   
             //정보창 클릭 리스너
             GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
                 @Override
