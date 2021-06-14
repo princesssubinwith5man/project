@@ -55,6 +55,7 @@ $RECYCLE.BIN/
 
 ### Gradle ###
 .gradle
+.gradle/*
 build/
 
 # Ignore Gradle GUI config
@@ -91,7 +92,7 @@ gen/
 out/
 
 # Gradle files
-.gradle/
+gradle/
 
 # Signing files
 .signing/
@@ -105,7 +106,7 @@ proguard/
 # Log Files
 
 # Android Studio
-/*/build/
+build/
 /*/local.properties
 /*/out
 /*/*/build
