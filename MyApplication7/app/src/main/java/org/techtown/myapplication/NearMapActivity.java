@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.content.Intent;
 import android.widget.Toast;
@@ -118,6 +119,10 @@ public class NearMapActivity extends AppCompatActivity
                 map.addMarker(markerOptions);
 
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(nearCenter, 14));
+                map.setOnInfoWindowClickListener(infoWindowClickListener);
+
+                //마커 클릭 리스너
+                map.setOnMarkerClickListener(markerClickListener);
 
             }
         } else {
@@ -155,8 +160,32 @@ public class NearMapActivity extends AppCompatActivity
         map.addMarker(markerOptions);
 
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(nearCenter, 14));
-    }
+        map.setOnInfoWindowClickListener(infoWindowClickListener);
 
+        //마커 클릭 리스너
+        map.setOnMarkerClickListener(markerClickListener);
+    }
+    //정보창 클릭 리스너
+    GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
+        @Override
+        public void onInfoWindowClick(Marker marker) {
+            String markerId = marker.getId();
+            Toast.makeText(NearMapActivity.this, "정보창 클릭 Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    //마커 클릭 리스너
+    GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
+        @Override
+        public boolean onMarkerClick(Marker marker) {
+            String markerId = marker.getId();
+            //선택한 타겟위치
+            LatLng location = marker.getPosition();
+            Toast.makeText(NearMapActivity.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
+
+            return false;
+        }
+    };
     @Override
     public boolean onMyLocationButtonClick() {
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT)
