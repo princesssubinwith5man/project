@@ -97,6 +97,7 @@ public class GetNavi extends AsyncTask<String, String, String> {
                 이제 이값도 반환해서
                 Polyline polyline1 = googleMap.addPolyline(new PolylineOptions().clickable(true).add(new LatLng(lat값, lng값)));
                 하면 경로 그려줌 해줭
+                배열에 들어있는값 다 그리면 경로 완성!
                 https://developers.google.com/maps/documentation/android-sdk/polygon-tutorial?hl=ko
                 다중선을 추가하여 지도에 선그리기 참고
                 난 잘게
