@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -22,7 +23,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
 import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -37,6 +44,7 @@ public class NearMapActivity extends AppCompatActivity
     private double lng;
     private String cn;
     private String fn;
+    private String ad;
 
     private boolean permissionDenied = false;
     private GoogleMap map;
@@ -110,7 +118,9 @@ public class NearMapActivity extends AppCompatActivity
                     }
 
                 }
-
+                cn = itemList.centerName;
+                fn = itemList.facilityName;
+                ad = itemList.address;
                 LatLng nearCenter = new LatLng(itemList.lat, itemList.lng);
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(nearCenter);
@@ -182,7 +192,29 @@ public class NearMapActivity extends AppCompatActivity
             //선택한 타겟위치
             LatLng location = marker.getPosition();
             Toast.makeText(NearMapActivity.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
-
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                    NearMapActivity.this, R.style.BottomSheetDialogTheme
+            );
+            View bottomSheetView = LayoutInflater.from(getApplicationContext())
+                    .inflate(
+                            R.layout.layout_bottom_sheet,
+                            (LinearLayout)findViewById(R.id.bottomSheetConteainer)
+                    );
+            TextView tv = bottomSheetView.findViewById(R.id.center_name_text);
+            TextView tv1 = bottomSheetView.findViewById(R.id.fa_name_text);
+            TextView tv2 = bottomSheetView.findViewById(R.id.address_text);
+            tv.setText(cn);
+            tv1.setText(fn);
+            tv2.setText(ad);
+            bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    Toast.makeText(NearMapActivity.this,"CALLING....",Toast.LENGTH_SHORT).show();
+                    bottomSheetDialog.dismiss();
+                }
+            });
+            bottomSheetDialog.setContentView(bottomSheetView);
+            bottomSheetDialog.show();
             return false;
         }
     };
