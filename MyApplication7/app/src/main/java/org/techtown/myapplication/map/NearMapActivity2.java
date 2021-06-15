@@ -7,8 +7,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,10 +28,14 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import org.techtown.myapplication.method.GetPhone;
 import org.techtown.myapplication.object.ItemList;
 import org.techtown.myapplication.activity.MainActivity2;
 import org.techtown.myapplication.R;
+
+import java.io.IOException;
 
 
 public class NearMapActivity2 extends AppCompatActivity
@@ -40,6 +49,9 @@ public class NearMapActivity2 extends AppCompatActivity
     private double lng;
     private String cn;
     private String fn;
+    private String ad;
+    private double cur_lat; // 현위치
+    private double cur_lng;
 
     private boolean permissionDenied = false;
     private GoogleMap map;
@@ -96,6 +108,9 @@ public class NearMapActivity2 extends AppCompatActivity
                 double latitude = location.getLatitude();
                 double altitude = location.getAltitude();
                 Log.d("Tag","result"+ latitude+"\n"+longitude);
+                cur_lat = latitude;
+                cur_lng = longitude;
+
                 Toast.makeText(this, "new2위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
                         .show();
 
@@ -137,6 +152,7 @@ public class NearMapActivity2 extends AppCompatActivity
         double latitude = location.getLatitude();
         ItemList itemList = MainActivity2.infoList.get(0);
         double minDistance = Double.MAX_VALUE;
+
 
         LatLng curLoc = new LatLng(latitude, longitude); // 현재 위치
         for(int i=0; i<MainActivity2.infoList.size(); i++){
@@ -230,10 +246,17 @@ public class NearMapActivity2 extends AppCompatActivity
         markerOptions.title(itemList.centerName);
         markerOptions.snippet(itemList.facilityName);
         map.addMarker(markerOptions);
+
         map.setOnInfoWindowClickListener(infoWindowClickListener);
 
+
+
+        cn = itemList.centerName;
+        fn = itemList.facilityName;
+        ad = itemList.address;
         //마커 클릭 리스너
         map.setOnMarkerClickListener(markerClickListener);
+
     }
     GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
@@ -247,11 +270,48 @@ public class NearMapActivity2 extends AppCompatActivity
     GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(Marker marker) {
+
             String markerId = marker.getId();
             //선택한 타겟위치
             LatLng location = marker.getPosition();
-            Toast.makeText(NearMapActivity2.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14));
+            //Toast.makeText(NearMapActivity2.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
+            Log.d("log:", "현재 lat lng : " + cur_lat + "," + cur_lng + "목표 latlng : " + location);
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                    NearMapActivity2.this, R.style.BottomSheetDialogTheme
+            );
+            View bottomSheetView = LayoutInflater.from(getApplicationContext())
+                    .inflate(
+                            R.layout.layout_bottom_sheet,
+                            (LinearLayout)findViewById(R.id.bottomSheetConteainer)
+                    );
+            TextView tv = bottomSheetView.findViewById(R.id.center_name_text);
+            TextView tv1 = bottomSheetView.findViewById(R.id.fa_name_text);
+            TextView tv2 = bottomSheetView.findViewById(R.id.address_text);
+            tv.setText(cn);
+            tv1.setText(fn);
+            tv2.setText(ad);
+            bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){ // 전화 버튼 눌렀을때 전화 걸기
+                    Toast.makeText(NearMapActivity2.this,"CALLING....",Toast.LENGTH_SHORT).show();
 
+                    GetPhone getPhone = new GetPhone(getApplicationContext());
+                    String phoneNumber;
+                    try{
+                        if((phoneNumber = getPhone.getNumber(fn)) != null) {
+                            phoneNumber = "tel:" + phoneNumber;
+                            startActivity(new Intent("android.intent.action.DIAL", Uri.parse(phoneNumber)));
+                        }
+                    }catch (IOException e) {
+                        System.out.println("오류 발생");
+                    }
+
+                    bottomSheetDialog.dismiss();
+                }
+            });
+            bottomSheetDialog.setContentView(bottomSheetView);
+            bottomSheetDialog.show();
             return false;
         }
     };
