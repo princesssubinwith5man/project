@@ -3,6 +3,8 @@ package org.techtown.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import java.io.IOException;
 import java.lang.Math;
 import java.util.Map;
 
@@ -136,6 +138,17 @@ public class GMapActivity extends AppCompatActivity
                     bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View view){
+                            GetPhone getPhone = new GetPhone();
+                            String phoneNumber;
+                            try{
+                                if((phoneNumber = getPhone.getNumber(fn)) != null) {
+                                    phoneNumber = "tel:" + phoneNumber;
+                                    startActivity(new Intent("android.intent.action.CALL", Uri.parse(phoneNumber)));
+                                }
+                            }catch (IOException e) {
+                                System.out.println("오류 발생");
+                            }
+
                             Toast.makeText(GMapActivity.this,"CALLING....",Toast.LENGTH_SHORT).show();
                             String tel = "01057290623";
                             String real_tel = "tel:"+tel;
@@ -148,6 +161,7 @@ public class GMapActivity extends AppCompatActivity
                     return false;
                 }
             };
+
     // ---------------------- 여기 밑으로는 gps 관련 메서드
     private void enableMyLocation() {
 
