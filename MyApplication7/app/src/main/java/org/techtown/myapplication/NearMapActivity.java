@@ -3,6 +3,8 @@ package org.techtown.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import java.io.IOException;
 import java.lang.Math;
 import androidx.core.content.ContextCompat;
 
@@ -14,6 +16,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -191,7 +194,7 @@ public class NearMapActivity extends AppCompatActivity
             String markerId = marker.getId();
             //선택한 타겟위치
             LatLng location = marker.getPosition();
-            Toast.makeText(NearMapActivity.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(NearMapActivity.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
                     NearMapActivity.this, R.style.BottomSheetDialogTheme
             );
@@ -208,8 +211,20 @@ public class NearMapActivity extends AppCompatActivity
             tv2.setText(ad);
             bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener(){
                 @Override
-                public void onClick(View view){
+                public void onClick(View view){ // 전화 버튼 눌렀을때 전화 걸기
                     Toast.makeText(NearMapActivity.this,"CALLING....",Toast.LENGTH_SHORT).show();
+
+                    GetPhone getPhone = new GetPhone(getApplicationContext());
+                    String phoneNumber;
+                    try{
+                        if((phoneNumber = getPhone.getNumber(fn)) != null) {
+                            phoneNumber = "tel:" + phoneNumber;
+                            startActivity(new Intent("android.intent.action.DIAL", Uri.parse(phoneNumber)));
+                        }
+                    }catch (IOException e) {
+                        System.out.println("오류 발생");
+                    }
+
                     bottomSheetDialog.dismiss();
                 }
             });

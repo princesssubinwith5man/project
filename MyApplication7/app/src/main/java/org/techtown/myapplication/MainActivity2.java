@@ -3,6 +3,7 @@ package org.techtown.myapplication;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,9 +52,7 @@ public class MainActivity2 extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
 
         mSearch = menu.findItem(R.id.action_search);
-        //mSearch.expandActionView();
         SearchView sv = (SearchView) mSearch.getActionView(); //서치뷰 변수
-        //sv.setMaxWidth(Integer.MAX_VALUE);
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -97,11 +97,10 @@ public class MainActivity2 extends AppCompatActivity {
         }
         spinnerDo.setSelection(0);
         spinnerSi.setSelection(0);
-
         spinnerDo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                ((TextView)adapterView.getChildAt(0)).setTextColor(Color.WHITE);
                 siDo = (String) adapterView.getItemAtPosition(i);
                 Log.d("tab", siDo + "선택됨");
                 sigunguSpinnerChanger(siDo);
@@ -124,6 +123,7 @@ public class MainActivity2 extends AppCompatActivity {
                 else {
                     String selectedSigungu = (String) adapterView.getItemAtPosition(i);
                     printListview(siDo, selectedSigungu);
+                    ((TextView)adapterView.getChildAt(0)).setTextColor(Color.WHITE);
                 }
             }
 
@@ -149,7 +149,7 @@ public class MainActivity2 extends AppCompatActivity {
                     mToolbar.setVisibility(View.VISIBLE);
                     check = 1;
                 }
-            }, 1500); //딜레이 타임 조절*/
+            }, 1300); //딜레이 타임 조절*/
         }
         ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS ,
                 PERMISSIONS_REQUEST_CODE);
@@ -170,6 +170,7 @@ public class MainActivity2 extends AppCompatActivity {
         Log.d("tag", "hashmap 갯수는 : " + hashMap.keySet().size());
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, new ArrayList<>(hashMap.keySet()));
         spinnerSi.setAdapter(adapter);
+
     }
 
     public void makeRequest() {

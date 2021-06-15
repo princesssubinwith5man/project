@@ -130,19 +130,20 @@ public class GMapActivity extends AppCompatActivity
                     tv2.setText(ad);
                     bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener(){
                         @Override
-                        public void onClick(View view){
+                        public void onClick(View view){ // 전화 버튼 눌렀을때 전화 걸기
                             GetPhone getPhone = new GetPhone(getApplicationContext());
                             String phoneNumber;
                             try{
                                 if((phoneNumber = getPhone.getNumber(fn)) != null) {
                                     phoneNumber = "tel:" + phoneNumber;
-                                    startActivity(new Intent("android.intent.action.CALL", Uri.parse(phoneNumber)));
+                                    startActivity(new Intent("android.intent.action.DIAL", Uri.parse(phoneNumber)));
                                 }
                             }catch (IOException e) {
                                 System.out.println("오류 발생");
                             }
 
                             Toast.makeText(GMapActivity.this,"CALLING....",Toast.LENGTH_SHORT).show();
+
                             bottomSheetDialog.dismiss();
                         }
                     });
