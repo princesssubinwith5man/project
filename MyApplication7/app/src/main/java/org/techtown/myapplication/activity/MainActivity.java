@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.view.View;
 
 import org.techtown.myapplication.method.GetJSON;
+import org.techtown.myapplication.method.GetNavi;
 import org.techtown.myapplication.object.ItemList;
 import org.techtown.myapplication.R;
 import org.techtown.myapplication.map.NearMapActivity;
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
             GetJSON getJSON = new GetJSON();
             getJSON.execute();
         }
+        GetNavi getNavi = new GetNavi();
+        getNavi.execute();
         Handler handler = new Handler();
        /* handler.postDelayed(new Runnable() {
             @Override

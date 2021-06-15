@@ -23,12 +23,16 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
 
 import org.techtown.myapplication.method.GetPhone;
 import org.techtown.myapplication.object.ItemList;
@@ -78,6 +82,7 @@ public class NearMapActivity2 extends AppCompatActivity
     public void onMapReady(final GoogleMap googleMap) {
 
         map = googleMap;
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             if (map != null) {
@@ -270,6 +275,8 @@ public class NearMapActivity2 extends AppCompatActivity
     GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(Marker marker) {
+
+
 
             String markerId = marker.getId();
             //선택한 타겟위치
