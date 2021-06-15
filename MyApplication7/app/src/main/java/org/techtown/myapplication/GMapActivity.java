@@ -3,6 +3,8 @@ package org.techtown.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+
+import java.io.IOException;
 import java.lang.Math;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -135,6 +138,17 @@ public class GMapActivity extends AppCompatActivity
                     bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener(){
                         @Override
                         public void onClick(View view){
+                            GetPhone getPhone = new GetPhone();
+                            String phoneNumber;
+                            try{
+                                if((phoneNumber = getPhone.getNumber(fn)) != null) {
+                                    phoneNumber = "tel:" + phoneNumber;
+                                    startActivity(new Intent("android.intent.action.CALL", Uri.parse(phoneNumber)));
+                                }
+                            }catch (IOException e) {
+                                System.out.println("오류 발생");
+                            }
+
                             Toast.makeText(GMapActivity.this,"CALLING....",Toast.LENGTH_SHORT).show();
                             bottomSheetDialog.dismiss();
                         }
