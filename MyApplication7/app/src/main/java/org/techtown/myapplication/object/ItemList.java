@@ -1,6 +1,6 @@
-package org.techtown.myapplication;
+package org.techtown.myapplication.object;
 
-class ItemList {
+public class ItemList {
 
     public String address;//인천광역시 강화군 강화읍 고비고개로19번길 12
     public String centerName; //코로나19 인천광역시 강화군 예방접종센터

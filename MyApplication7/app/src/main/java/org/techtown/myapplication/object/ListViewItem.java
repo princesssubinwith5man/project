@@ -1,4 +1,4 @@
-package org.techtown.myapplication;
+package org.techtown.myapplication.object;
 
 public class ListViewItem {
     private int iconDrawable;

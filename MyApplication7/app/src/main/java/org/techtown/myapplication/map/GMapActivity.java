@@ -1,31 +1,38 @@
-package org.techtown.myapplication;
+package org.techtown.myapplication.map;
+
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.net.Uri;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import java.lang.Math;
-import java.util.Map;
-
 import androidx.core.content.ContextCompat;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.Bundle;
-import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.content.Intent;
-import android.widget.Toast;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import org.techtown.myapplication.method.GetPhone;
+import org.techtown.myapplication.activity.MainActivity2;
+import org.techtown.myapplication.R;
+
+import java.io.IOException;
 
 
 public class GMapActivity extends AppCompatActivity
@@ -40,6 +47,7 @@ public class GMapActivity extends AppCompatActivity
     private double lng;
     private String cn;
     private String fn;
+    private String ad;
 
     private boolean permissionDenied = false;
     private GoogleMap map;
@@ -56,6 +64,7 @@ public class GMapActivity extends AppCompatActivity
         lng = intent.getDoubleExtra("lng", 0);
         cn = intent.getStringExtra("centername");
         fn = intent.getStringExtra("fac");
+        ad = intent.getStringExtra("add");
 
         ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
                 MainActivity2.PERMISSIONS_REQUEST_CODE);
@@ -101,11 +110,53 @@ public class GMapActivity extends AppCompatActivity
                     String markerId = marker.getId();
                     //선택한 타겟위치
                     LatLng location = marker.getPosition();
-                    Toast.makeText(GMapActivity.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(GMapActivity.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
+                   /* AlertDialog.Builder builder = new AlertDialog.Builder(GMapActivity.this);
 
+                    builder.setTitle(cn).setMessage(fn);
+
+                    AlertDialog alertDialog = builder.create();
+
+                    alertDialog.show();*/
+                    BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                            GMapActivity.this, R.style.BottomSheetDialogTheme
+                    );
+                    View bottomSheetView = LayoutInflater.from(getApplicationContext())
+                            .inflate(
+                                    R.layout.layout_bottom_sheet,
+                                    (LinearLayout)findViewById(R.id.bottomSheetConteainer)
+                            );
+                    TextView tv = bottomSheetView.findViewById(R.id.center_name_text);
+                    TextView tv1 = bottomSheetView.findViewById(R.id.fa_name_text);
+                    TextView tv2 = bottomSheetView.findViewById(R.id.address_text);
+                    tv.setText(cn);
+                    tv1.setText(fn);
+                    tv2.setText(ad);
+                    bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View view){ // 전화 버튼 눌렀을때 전화 걸기
+                            GetPhone getPhone = new GetPhone(getApplicationContext());
+                            String phoneNumber;
+                            try{
+                                if((phoneNumber = getPhone.getNumber(fn)) != null) {
+                                    phoneNumber = "tel:" + phoneNumber;
+                                    startActivity(new Intent("android.intent.action.DIAL", Uri.parse(phoneNumber)));
+                                }
+                            }catch (IOException e) {
+                                System.out.println("오류 발생");
+                            }
+
+                            Toast.makeText(GMapActivity.this,"CALLING....",Toast.LENGTH_SHORT).show();
+
+                            bottomSheetDialog.dismiss();
+                        }
+                    });
+                    bottomSheetDialog.setContentView(bottomSheetView);
+                    bottomSheetDialog.show();
                     return false;
                 }
             };
+
     // ---------------------- 여기 밑으로는 gps 관련 메서드
     private void enableMyLocation() {
 

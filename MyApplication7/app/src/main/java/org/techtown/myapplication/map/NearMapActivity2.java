@@ -1,20 +1,21 @@
-package org.techtown.myapplication;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import java.lang.Math;
-import androidx.core.content.ContextCompat;
+package org.techtown.myapplication.map;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -22,11 +23,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import android.content.Intent;
-import android.widget.Toast;
+
+import org.techtown.myapplication.object.ItemList;
+import org.techtown.myapplication.activity.MainActivity2;
+import org.techtown.myapplication.R;
 
 
-public class NearMapActivity extends AppCompatActivity
+public class NearMapActivity2 extends AppCompatActivity
         implements
         OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener,
@@ -93,36 +96,30 @@ public class NearMapActivity extends AppCompatActivity
                 double latitude = location.getLatitude();
                 double altitude = location.getAltitude();
                 Log.d("Tag","result"+ latitude+"\n"+longitude);
-                Toast.makeText(this, "위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
+                Toast.makeText(this, "new2위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
                         .show();
 
                 ItemList itemList = MainActivity2.infoList.get(0);
-                double minDistance = Double.MAX_VALUE;
 
+                LatLng curLoc = new LatLng(latitude, longitude); // 현재 위치
                 for(int i=0; i<MainActivity2.infoList.size(); i++){
                     double distance = getDistance(latitude, longitude,
                             MainActivity2.infoList.get(i).lat, MainActivity2.infoList.get(i).lng, "kilometer");
 
-                    if(minDistance > distance){
-                        itemList = MainActivity2.infoList.get(i);
-                        Log.d("log:","result: "+ i +" "+ minDistance+ " " + itemList.centerName+ " 거리차이는: "+ distance);
-                        minDistance = distance;
-                    }
+                    LatLng targetLoc = new LatLng(MainActivity2.infoList.get(i).lat, MainActivity2.infoList.get(i).lng); // 계산할 위치
+                    double result = calcLocation(curLoc, targetLoc);
+
+                        if(result < 10000.0) { // 미터단위
+                            Log.d("log:", "위치: " + i + " " +  itemList.centerName + " 거리차이는 " + result);
+                            drawMarker(targetLoc, i);
+                        }
+
 
                 }
 
-                LatLng nearCenter = new LatLng(itemList.lat, itemList.lng);
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.position(nearCenter);
-                markerOptions.title(itemList.centerName);
-                markerOptions.snippet(itemList.facilityName);
-                map.addMarker(markerOptions);
 
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(nearCenter, 14));
-                map.setOnInfoWindowClickListener(infoWindowClickListener);
 
-                //마커 클릭 리스너
-                map.setOnMarkerClickListener(markerClickListener);
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(curLoc, 10));
 
             }
         } else {
@@ -134,58 +131,36 @@ public class NearMapActivity extends AppCompatActivity
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(this, "위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
+        Toast.makeText(this, "new위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
                 .show();
-
+        double longitude = location.getLongitude();
+        double latitude = location.getLatitude();
         ItemList itemList = MainActivity2.infoList.get(0);
         double minDistance = Double.MAX_VALUE;
 
+        LatLng curLoc = new LatLng(latitude, longitude); // 현재 위치
         for(int i=0; i<MainActivity2.infoList.size(); i++){
-            double distance = getDistance(location.getLatitude(), location.getLongitude(),
+            double distance = getDistance(latitude, longitude,
                     MainActivity2.infoList.get(i).lat, MainActivity2.infoList.get(i).lng, "kilometer");
 
-            if(minDistance > distance){
-                itemList = MainActivity2.infoList.get(i);
-                Log.d("log:","result: "+ i +" "+ minDistance+ " " + itemList.centerName+ "거리차이는 "+ distance);
-                minDistance = distance;
+            LatLng targetLoc = new LatLng(MainActivity2.infoList.get(i).lat, MainActivity2.infoList.get(i).lng); // 계산할 위치
+            double result = calcLocation(curLoc, targetLoc);
+
+            if(result < 10000.0) { // 미터단위
+                Log.d("log:", "위치: " + i + " " +  itemList.centerName + " 거리차이는 " + result);
+                drawMarker(targetLoc, i);
             }
 
+
         }
 
-        LatLng nearCenter = new LatLng(itemList.lat, itemList.lng);
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(nearCenter);
-        markerOptions.title(itemList.centerName);
-        markerOptions.snippet(itemList.facilityName);
-        map.addMarker(markerOptions);
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(nearCenter, 14));
-        map.setOnInfoWindowClickListener(infoWindowClickListener);
+        LatLng nowLocation = new LatLng(itemList.lat, itemList.lng);
 
-        //마커 클릭 리스너
-        map.setOnMarkerClickListener(markerClickListener);
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(nowLocation, 14));
     }
-    //정보창 클릭 리스너
-    GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
-        @Override
-        public void onInfoWindowClick(Marker marker) {
-            String markerId = marker.getId();
-            Toast.makeText(NearMapActivity.this, "정보창 클릭 Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
-        }
-    };
 
-    //마커 클릭 리스너
-    GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
-        @Override
-        public boolean onMarkerClick(Marker marker) {
-            String markerId = marker.getId();
-            //선택한 타겟위치
-            LatLng location = marker.getPosition();
-            Toast.makeText(NearMapActivity.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
-
-            return false;
-        }
-    };
     @Override
     public boolean onMyLocationButtonClick() {
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT)
@@ -228,6 +203,8 @@ public class NearMapActivity extends AppCompatActivity
         }
     }
 
+
+
     double getDistance(double alat, double alng, double blat, double blng, String unit){
         double theta = alng - blng;
         double dist = Math.sin(deg2rad(alat)) * Math.sin(deg2rad(blat)) + Math.cos(deg2rad(alat)) * Math.cos(deg2rad(blat)) * Math.cos(deg2rad(theta));
@@ -243,6 +220,45 @@ public class NearMapActivity extends AppCompatActivity
         }
 
         return (dist);
+    }
+
+    public void drawMarker(LatLng location, int i)
+    {
+        ItemList itemList = MainActivity2.infoList.get(i);
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(location);
+        markerOptions.title(itemList.centerName);
+        markerOptions.snippet(itemList.facilityName);
+        map.addMarker(markerOptions);
+        map.setOnInfoWindowClickListener(infoWindowClickListener);
+
+        //마커 클릭 리스너
+        map.setOnMarkerClickListener(markerClickListener);
+    }
+    GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
+        @Override
+        public void onInfoWindowClick(Marker marker) {
+            String markerId = marker.getId();
+            Toast.makeText(NearMapActivity2.this, "정보창 클릭 Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    //마커 클릭 리스너
+    GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
+        @Override
+        public boolean onMarkerClick(Marker marker) {
+            String markerId = marker.getId();
+            //선택한 타겟위치
+            LatLng location = marker.getPosition();
+            Toast.makeText(NearMapActivity2.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
+
+            return false;
+        }
+    };
+    private float calcLocation(LatLng curLoc, LatLng targetLoc) {
+        float[] dist = new float[1];
+        Location.distanceBetween(curLoc.latitude, curLoc.longitude, targetLoc.latitude, targetLoc.longitude, dist);
+        return dist[0];
     }
 
 

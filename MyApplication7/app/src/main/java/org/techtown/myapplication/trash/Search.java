@@ -1,4 +1,4 @@
-package org.techtown.myapplication;
+package org.techtown.myapplication.trash;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +15,10 @@ import android.os.Bundle;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.techtown.myapplication.R;
+import org.techtown.myapplication.activity.MainActivity;
+import org.techtown.myapplication.map.GMapActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

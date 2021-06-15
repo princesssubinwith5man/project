@@ -1,21 +1,10 @@
-package org.techtown.myapplication;
+package org.techtown.myapplication.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.SimpleAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
@@ -25,11 +14,13 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.view.View;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import org.techtown.myapplication.method.GetJSON;
+import org.techtown.myapplication.object.ItemList;
+import org.techtown.myapplication.R;
+import org.techtown.myapplication.map.NearMapActivity;
+import org.techtown.myapplication.map.NearMapActivity2;
 
 import static org.techtown.myapplication.R.layout.activity_main;
-import static org.techtown.myapplication.R.layout.activity_main2;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -66,11 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void click1(View view) {
         Intent intent = new Intent(MainActivity.this, NearMapActivity.class);
-        startActivity(intent);
-    }
-
-    public void click2(View view) {
-        Intent intent = new Intent(MainActivity.this, Search.class);
         startActivity(intent);
     }
 
