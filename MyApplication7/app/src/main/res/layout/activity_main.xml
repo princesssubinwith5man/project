@@ -11,12 +11,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="401dp"
-            android:layout_height="438dp"
+            android:layout_width="417dp"
+            android:layout_height="522dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -36,52 +36,58 @@
             app:layout_constraintVertical_bias="0.498"
             app:srcCompat="@drawable/logo3" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/main_button_background"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:onClick="click1"
+                android:text="가까운 예방접종센터 조회"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/main_button_background"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:onClick="click"
+                android:text="지역별 예방접종센터"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/main_button_background"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:onClick="click3"
+                android:text="근처 예방접종센터"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/white"
-            android:background="@drawable/main_button_background"
-            android:gravity="center"
-            android:onClick="click1"
-            android:text="가까운 예방접종센터 조회"
-            android:textColor="@color/black"
-            android:textStyle="italic"
-            />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/main_button_background"
-        android:backgroundTint="@color/white"
-        android:gravity="center"
-        android:onClick="click"
-        android:text="지역별 예방접종센터"
-        android:textColor="@color/black"
-        android:textStyle="italic" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/main_button_background"
-        android:backgroundTint="@color/white"
-        android:gravity="center"
-        android:onClick="click3"
-        android:text="근처 예방접종센터"
-        android:textColor="@color/black"
-        android:textStyle="italic" />
 
 
 </LinearLayout>
