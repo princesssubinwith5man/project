@@ -187,6 +187,41 @@ public class NearMapActivity extends AppCompatActivity
         public void onInfoWindowClick(Marker marker) {
             String markerId = marker.getId();
             Toast.makeText(NearMapActivity.this, "정보창 클릭 Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
+                    NearMapActivity.this, R.style.BottomSheetDialogTheme
+            );
+            View bottomSheetView = LayoutInflater.from(getApplicationContext())
+                    .inflate(
+                            R.layout.layout_bottom_sheet,
+                            (LinearLayout)findViewById(R.id.bottomSheetConteainer)
+                    );
+            TextView tv = bottomSheetView.findViewById(R.id.center_name_text);
+            TextView tv1 = bottomSheetView.findViewById(R.id.fa_name_text);
+            TextView tv2 = bottomSheetView.findViewById(R.id.address_text);
+            tv.setText(cn);
+            tv1.setText(fn);
+            tv2.setText(ad);
+            bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){ // 전화 버튼 눌렀을때 전화 걸기
+                    Toast.makeText(NearMapActivity.this,"CALLING....",Toast.LENGTH_SHORT).show();
+
+                    GetPhone getPhone = new GetPhone(getApplicationContext());
+                    String phoneNumber;
+                    try{
+                        if((phoneNumber = getPhone.getNumber(fn)) != null) {
+                            phoneNumber = "tel:" + phoneNumber;
+                            startActivity(new Intent("android.intent.action.DIAL", Uri.parse(phoneNumber)));
+                        }
+                    }catch (IOException e) {
+                        System.out.println("오류 발생");
+                    }
+
+                    bottomSheetDialog.dismiss();
+                }
+            });
+            bottomSheetDialog.setContentView(bottomSheetView);
+            bottomSheetDialog.show();
         }
     };
 
