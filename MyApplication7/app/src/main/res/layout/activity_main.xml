@@ -11,17 +11,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="401dp"
+            android:layout_height="438dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/gif_image"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/name" />
@@ -37,45 +36,52 @@
             app:layout_constraintVertical_bias="0.498"
             app:srcCompat="@drawable/logo3" />
 
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
         <Button
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dp"
-            android:backgroundTint="#3343A8"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/main_button_background"
+            android:gravity="center"
             android:onClick="click1"
             android:text="가까운 예방접종센터 조회"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintHorizontal_bias="0.798"
-            app:layout_constraintStart_toEndOf="@+id/button3" />
+            android:textColor="@color/black"
+            android:textStyle="italic"
+            />
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="wrap_content"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#3343A8"
-            android:layout_marginBottom="50dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/main_button_background"
+            android:gravity="center"
             android:onClick="click"
             android:text="조회"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintHorizontal_bias="0.129"
-            app:layout_constraintStart_toStartOf="@+id/imageView"  />
+            android:textColor="@color/black"
+            android:textStyle="italic"/>
+
         <Button
             android:id="@+id/button4"
-            android:layout_width="wrap_content"
+            android:layout_width="360dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="#3343A8"
-            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/main_button_background"
+            android:gravity="center"
             android:onClick="click3"
             android:text="테스트"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintHorizontal_bias="0.4"
-            app:layout_constraintStart_toStartOf="@+id/imageView"  />
+            android:textColor="@color/black"
+            android:textStyle="italic"/>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
