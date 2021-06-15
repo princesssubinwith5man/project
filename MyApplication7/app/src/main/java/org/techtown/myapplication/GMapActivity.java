@@ -144,6 +144,7 @@ public class GMapActivity extends AppCompatActivity
                     return false;
                 }
             };
+
     // ---------------------- 여기 밑으로는 gps 관련 메서드
     private void enableMyLocation() {
 
