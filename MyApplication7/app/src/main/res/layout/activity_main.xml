@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:visibility="visible"
     android:background="#3343A8"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

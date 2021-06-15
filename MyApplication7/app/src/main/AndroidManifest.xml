@@ -13,11 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".NearMapActivity2"></activity>
-        <activity android:name=".Search" />
-        <activity android:name=".NearMapActivity" />
+        <activity android:name=".map.NearMapActivity2"></activity>
+        <activity android:name=".trash.Search" />
+        <activity android:name=".map.NearMapActivity" />
         <activity
-            android:name=".MainActivity2">
+            android:name=".activity.MainActivity2">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
@@ -27,14 +27,14 @@
 
         </activity>
 
-        <activity android:name=".GMapActivity" />
+        <activity android:name=".map.GMapActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCREB4c3Casp2wWH3g860NX8vIAGUz1nKQ" />
 
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SEARCH"/>
