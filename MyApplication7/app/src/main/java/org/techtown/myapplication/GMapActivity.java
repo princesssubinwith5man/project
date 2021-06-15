@@ -15,6 +15,7 @@ import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -136,6 +137,9 @@ public class GMapActivity extends AppCompatActivity
                         @Override
                         public void onClick(View view){
                             Toast.makeText(GMapActivity.this,"CALLING....",Toast.LENGTH_SHORT).show();
+                            String tel = "01057290623";
+                            String real_tel = "tel:"+tel;
+                            startActivity(new Intent("android.intent.action.DIAL", Uri.parse(real_tel)));
                             bottomSheetDialog.dismiss();
                         }
                     });
