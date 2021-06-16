@@ -43,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
         }
         GetNavi getNavi = new GetNavi();
         getNavi.execute();
+
+        // getNavi test해봄
+
         Handler handler = new Handler();
        /* handler.postDelayed(new Runnable() {
             @Override
