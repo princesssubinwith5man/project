@@ -3,13 +3,11 @@ package org.techtown.myapplication.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.PixelCopy;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,21 +15,19 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
+import org.techtown.myapplication.R;
+import org.techtown.myapplication.map.GMapActivity;
 import org.techtown.myapplication.method.GetJSON;
 import org.techtown.myapplication.object.ItemList;
 import org.techtown.myapplication.object.ListViewAdapter;
 import org.techtown.myapplication.object.ListViewItem;
-import org.techtown.myapplication.R;
-import org.techtown.myapplication.map.GMapActivity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 

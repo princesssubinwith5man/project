@@ -29,7 +29,6 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -39,13 +38,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-
 import org.json.JSONArray;
+import org.techtown.myapplication.R;
+import org.techtown.myapplication.activity.MainActivity2;
 import org.techtown.myapplication.method.GetNavi;
 import org.techtown.myapplication.method.GetPhone;
 import org.techtown.myapplication.object.ItemList;
-import org.techtown.myapplication.activity.MainActivity2;
-import org.techtown.myapplication.R;
 
 import java.io.IOException;
 import java.util.ArrayList;

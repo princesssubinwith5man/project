@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.techtown.myapplication.R;
-import org.techtown.myapplication.object.ListViewItem;
 
 import java.util.ArrayList;
 

@@ -4,25 +4,15 @@ package org.techtown.myapplication.method;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.techtown.myapplication.activity.MainActivity;
-import org.techtown.myapplication.activity.MainActivity2;
-import org.techtown.myapplication.object.CoordList;
-import org.techtown.myapplication.object.ItemList;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class GetNavi extends AsyncTask<Double, String, JSONArray> {
 
