@@ -234,7 +234,7 @@ public class GMapActivity extends AppCompatActivity
                                 }
                                 map.addPolyline(polylineOptions);
                                 Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG);
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 20));
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 14));
                                 bottomSheetDialog.dismiss();
                             } catch (Exception e) {
                             }
