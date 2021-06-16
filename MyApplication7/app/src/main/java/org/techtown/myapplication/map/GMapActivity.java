@@ -103,13 +103,12 @@ public class GMapActivity extends AppCompatActivity
     GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
         public void onInfoWindowClick(Marker marker) {
-            final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            /*final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             String provider = location.getProvider();
             double longitude = location.getLongitude();
-            double latitude = location.getLatitude();
+            double latitude = location.getLatitude();*/
 
-            
 
             String markerId = marker.getId();
             Toast.makeText(GMapActivity.this, "정보창 클릭 Marker ID : " + markerId, Toast.LENGTH_SHORT).show();
@@ -177,75 +176,85 @@ public class GMapActivity extends AppCompatActivity
                     bottomSheetDialog.dismiss();
                 }
             });
+
+            bottomSheetView.findViewById(R.id.buttonShare1).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
             return false;
         }
     };
 
-    // ---------------------- 여기 밑으로는 gps 관련 메서드
-    private void enableMyLocation() {
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            if (map != null) {
-                map.setMyLocationEnabled(true);
-                map.setOnMyLocationButtonClickListener(this);
-                map.setOnMyLocationClickListener(this);
-            }
-        } else {
-            // Permission to access the location is missing. Show rationale and request permission
-            ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
-                    MainActivity2.PERMISSIONS_REQUEST_CODE);
+
+// ---------------------- 여기 밑으로는 gps 관련 메서드
+private void enableMyLocation(){
+
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+        ==PackageManager.PERMISSION_GRANTED){
+        if(map!=null){
+        map.setMyLocationEnabled(true);
+        map.setOnMyLocationButtonClickListener(this);
+        map.setOnMyLocationClickListener(this);
         }
-    }
+        }else{
+        // Permission to access the location is missing. Show rationale and request permission
+        ActivityCompat.requestPermissions(this,MainActivity2.REQUIRED_PERMISSIONS,
+        MainActivity2.PERMISSIONS_REQUEST_CODE);
+        }
+        }
 
-    @Override
-    public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(this, "위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
-                .show();
-    }
+@Override
+public void onMyLocationClick(@NonNull Location location){
+        Toast.makeText(this,"위도: "+location.getLatitude()+"경도: "+location.getLongitude(),Toast.LENGTH_LONG)
+        .show();
+        }
 
-    @Override
-    public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT)
-                .show();
+@Override
+public boolean onMyLocationButtonClick(){
+        Toast.makeText(this,"MyLocation button clicked",Toast.LENGTH_SHORT)
+        .show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        int LOCATION_PERMISSION_REQUEST_CODE = 1;
-        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
-            return;
         }
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            // Enable the my location layer if the permission has been granted.
-            enableMyLocation();
+@Override
+public void onRequestPermissionsResult(int requestCode,@NonNull String[]permissions,@NonNull int[]grantResults){
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
 
-
-        } else {
-            // Permission was denied. Display an error message
-            // Display the missing permission error dialog when the fragments resume.
-            permissionDenied = true;
+        int LOCATION_PERMISSION_REQUEST_CODE=1;
+        if(requestCode!=LOCATION_PERMISSION_REQUEST_CODE){
+        return;
         }
-    }
 
-    @Override
-    protected void onResumeFragments() {
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
+        ==PackageManager.PERMISSION_GRANTED){
+        // Enable the my location layer if the permission has been granted.
+        enableMyLocation();
+
+
+        }else{
+        // Permission was denied. Display an error message
+        // Display the missing permission error dialog when the fragments resume.
+        permissionDenied=true;
+        }
+        }
+
+@Override
+protected void onResumeFragments(){
         super.onResumeFragments();
-        if (permissionDenied) {
-            // Permission was not granted, display error dialog.
+        if(permissionDenied){
+        // Permission was not granted, display error dialog.
 
-            permissionDenied = false;
+        permissionDenied=false;
         }
-    }
+        }
 
 
-}
+        }
