@@ -4,6 +4,10 @@ package org.techtown.myapplication.method;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -102,6 +106,7 @@ public class GetNavi extends AsyncTask<String, String, String> {
                 다중선을 추가하여 지도에 선그리기 참고
                 난 잘게
                  */
+
             }
 
 
