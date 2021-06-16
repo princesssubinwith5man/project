@@ -8,12 +8,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-<<<<<<< HEAD
 import android.graphics.Color;
-=======
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
->>>>>>> 1199b66b623d76086f95ec5b4104d3464bc4f29b
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
