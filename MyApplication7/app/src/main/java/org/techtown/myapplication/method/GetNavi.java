@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class GetNavi extends AsyncTask<String, String, String> {
+public class GetNavi extends AsyncTask<Double, String, JSONArray> {
 
     public JSONArray coordinates;
 
@@ -34,16 +34,17 @@ public class GetNavi extends AsyncTask<String, String, String> {
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(JSONArray s) {
         super.onPostExecute(s);
+
     }
     @Override
-    protected String doInBackground(String... strings) {
+    protected JSONArray doInBackground(Double... doubles) {
         Log.d("Task3", "POST");
-        String temp = "Not Gained";
+        JSONArray temp = null;
         try {
             temp = GET();
-            Log.d("REST", temp);
+
             return temp;
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,7 +52,7 @@ public class GetNavi extends AsyncTask<String, String, String> {
         return temp;
     }
 
-    private String GET() throws IOException {
+    private JSONArray GET() throws IOException {
         String token = "pk.eyJ1IjoianctamluIiwiYSI6ImNrcHlpN24wdjAwajEzMW1wcjYwbzE4YmYifQ.C0xheHu9IRuLdF-8KJ7XsA";
         String[] mode={"driving", "walking", "cycling"};
         double startLng = 128.87605666666664; // 걍 임시로 넣은거 강릉시청 -> 강릉예방접종센터
@@ -117,7 +118,7 @@ public class GetNavi extends AsyncTask<String, String, String> {
         }
 
 
-        return data;
+        return coordinates;
     }
 
 

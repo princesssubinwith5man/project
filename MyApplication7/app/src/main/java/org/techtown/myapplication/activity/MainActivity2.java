@@ -25,12 +25,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import org.techtown.myapplication.method.GetJSON;
+import org.techtown.myapplication.method.GetNaviV2;
 import org.techtown.myapplication.object.ItemList;
 import org.techtown.myapplication.object.ListViewAdapter;
 import org.techtown.myapplication.object.ListViewItem;
 import org.techtown.myapplication.R;
 import org.techtown.myapplication.map.GMapActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -201,7 +203,6 @@ public class MainActivity2 extends AppCompatActivity {
         int inputSize = sido_show.length;
 
         Log.d("tag", "print실행중..." + inputSize);
-
 
         if (check == 1)
             listView.setVisibility(View.VISIBLE);
