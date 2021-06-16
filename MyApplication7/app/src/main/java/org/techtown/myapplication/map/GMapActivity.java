@@ -2,17 +2,27 @@ package org.techtown.myapplication.map;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+
+import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+<<<<<<< HEAD
 import android.graphics.Color;
+=======
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+>>>>>>> 1199b66b623d76086f95ec5b4104d3464bc4f29b
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +36,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -54,9 +65,27 @@ public class GMapActivity extends AppCompatActivity
     private String cn;
     private String fn;
     private String ad;
-
+    View marker_root_view;
+    TextView tv_marker;
     private boolean permissionDenied = false;
     private GoogleMap map;
+
+
+    private void setCustomMarkerView(){
+        marker_root_view = LayoutInflater.from(this).inflate(R.layout.marker_background, null);
+    }
+    private Bitmap createDrawableFromView(Context context, View view) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +111,7 @@ public class GMapActivity extends AppCompatActivity
     public void onMapReady(final GoogleMap googleMap) {
 
         map = googleMap;
-
+        setCustomMarkerView();
 
         Log.d("tag:", "result: " + lat + " " + lng);
         LatLng Corona = new LatLng(lat, lng);
@@ -90,7 +119,10 @@ public class GMapActivity extends AppCompatActivity
         markerOptions.position(Corona);
         markerOptions.title(cn);
         markerOptions.snippet(fn);
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(this, marker_root_view)));
+        //tv_marker.setText(fn);
         googleMap.addMarker(markerOptions);
+
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Corona, 14));
         map.setOnInfoWindowClickListener(infoWindowClickListener);

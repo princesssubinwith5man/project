@@ -307,7 +307,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/arrow_drop_down/baseline_arrow_drop_down_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/whatshot/baseline_whatshot_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -317,9 +317,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="opacityPercent" value="70" />
-                            <entry key="outputName" value="ic_baseline_arrow_drop_down_24" />
+                            <entry key="color" value="ff1f1f" />
+                            <entry key="outputName" value="ic_fire" />
                             <entry key="sourceFile" value="E:\laewon10\project\MyApplication7" />
                           </map>
                         </option>

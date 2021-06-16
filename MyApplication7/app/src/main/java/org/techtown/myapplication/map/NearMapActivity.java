@@ -10,17 +10,22 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -29,6 +34,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,10 +57,24 @@ public class NearMapActivity extends AppCompatActivity
     private String cn;
     private String fn;
     private String ad;
-
+    View marker_root_view;
     private boolean permissionDenied = false;
     private GoogleMap map;
-
+    private void setCustomMarkerView(){
+        marker_root_view = LayoutInflater.from(this).inflate(R.layout.marker_background, null);
+    }
+    private Bitmap createDrawableFromView(Context context, View view) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +87,7 @@ public class NearMapActivity extends AppCompatActivity
         //lng = intent.getDoubleExtra("lng", 0);
         //cn = intent.getStringExtra("centername");
         //fn = intent.getStringExtra("fac");
-
+        setCustomMarkerView();
         ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
                 MainActivity2.PERMISSIONS_REQUEST_CODE);
 
@@ -127,11 +147,13 @@ public class NearMapActivity extends AppCompatActivity
                 cn = itemList.centerName;
                 fn = itemList.facilityName;
                 ad = itemList.address;
+                setCustomMarkerView();
                 LatLng nearCenter = new LatLng(itemList.lat, itemList.lng);
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(nearCenter);
-                markerOptions.title(itemList.centerName);
-                markerOptions.snippet(itemList.facilityName);
+                //markerOptions.title(itemList.centerName);
+                //markerOptions.snippet(itemList.facilityName);
+                markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(this, marker_root_view)));
                 map.addMarker(markerOptions);
 
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(nearCenter, 14));
@@ -169,10 +191,12 @@ public class NearMapActivity extends AppCompatActivity
         }
 
         LatLng nearCenter = new LatLng(itemList.lat, itemList.lng);
+        setCustomMarkerView();
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(nearCenter);
-        markerOptions.title(itemList.centerName);
-        markerOptions.snippet(itemList.facilityName);
+        //markerOptions.title(itemList.centerName);
+        //markerOptions.snippet(itemList.facilityName);
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(this, marker_root_view)));
         map.addMarker(markerOptions);
 
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(nearCenter, 14));

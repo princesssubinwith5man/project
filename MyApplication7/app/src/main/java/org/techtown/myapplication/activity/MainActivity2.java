@@ -25,7 +25,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import org.techtown.myapplication.method.GetJSON;
-import org.techtown.myapplication.method.GetNaviV2;
 import org.techtown.myapplication.object.ItemList;
 import org.techtown.myapplication.object.ListViewAdapter;
 import org.techtown.myapplication.object.ListViewItem;

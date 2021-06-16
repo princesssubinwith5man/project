@@ -2,16 +2,21 @@ package org.techtown.myapplication.map;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +31,7 @@ import com.google.android.gms.maps.GoogleMap;
 
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -54,9 +60,25 @@ public class NearMapActivity2 extends AppCompatActivity
     private String ad;
     private double cur_lat; // 현위치
     private double cur_lng;
-
+    View marker_root_view;
     private boolean permissionDenied = false;
     private GoogleMap map;
+
+    private void setCustomMarkerView(){
+        marker_root_view = LayoutInflater.from(this).inflate(R.layout.marker_background, null);
+    }
+    private Bitmap createDrawableFromView(Context context, View view) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,11 +265,13 @@ public class NearMapActivity2 extends AppCompatActivity
 
     public void drawMarker(LatLng location, int i)
     {
+        setCustomMarkerView();
         ItemList itemList = MainActivity2.infoList.get(i);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(location);
-        markerOptions.title(itemList.centerName);
-        markerOptions.snippet(itemList.facilityName);
+        //markerOptions.title(itemList.centerName);
+        //markerOptions.snippet(itemList.facilityName);
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(this, marker_root_view)));
         map.addMarker(markerOptions);
 
         map.setOnInfoWindowClickListener(infoWindowClickListener);
