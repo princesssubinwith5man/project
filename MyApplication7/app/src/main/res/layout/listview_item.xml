@@ -7,18 +7,20 @@
     android:layout_height="wrap_content"
     android:background="@drawable/listview_background">
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iconImage"
+        android:background="@drawable/stroke_imageview"
         android:layout_width="68dp"
         android:layout_height="68dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="10dp"
         android:layout_weight="1"
-        android:src="@drawable/list_view_logo"
+        android:src="@drawable/duri"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
+        app:riv_corner_radius="30dp"
         tools:ignore="MissingConstraints" />
 
     <LinearLayout

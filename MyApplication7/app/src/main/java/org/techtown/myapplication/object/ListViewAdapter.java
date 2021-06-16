@@ -67,7 +67,7 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     public void addItem(int icon, String centerName, String facName, String address, double lat, double lng){
-        ListViewItem item = new ListViewItem(R.drawable.list_view_logo, centerName, facName, address, lat, lng);
+        ListViewItem item = new ListViewItem(R.drawable.duri, centerName, facName, address, lat, lng);
 
         listViewItemList.add(item);
     }
