@@ -26,8 +26,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import org.techtown.myapplication.method.GetNavi;
 import org.techtown.myapplication.method.GetPhone;
 import org.techtown.myapplication.activity.MainActivity2;
 import org.techtown.myapplication.R;
@@ -100,6 +103,19 @@ public class GMapActivity extends AppCompatActivity
                 public void onInfoWindowClick(Marker marker) {
                     String markerId = marker.getId();
                     Toast.makeText(GMapActivity.this, "정보창 클릭 Marker ID : "+markerId, Toast.LENGTH_SHORT).show();
+                    GetNavi getNavi = new GetNavi();
+                    getNavi.execute();
+                    Polyline polyline1 = map.addPolyline(new PolylineOptions()
+                            .clickable(true)
+                            .add(
+                                    new LatLng(-35.016, 143.321),
+                                    new LatLng(-34.747, 145.592),
+                                    new LatLng(-34.364, 147.891),
+                                    new LatLng(-33.501, 150.217),
+                                    new LatLng(-32.306, 149.248),
+                                    new LatLng(-32.491, 147.309)));
+                    polyline1.setTag("alpha");
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-23.684, 133.903), 4));
                 }
             };
 
