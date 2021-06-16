@@ -26,6 +26,8 @@ import java.util.Comparator;
 
 public class GetNavi extends AsyncTask<String, String, String> {
 
+    public JSONArray coordinates;
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -94,7 +96,7 @@ public class GetNavi extends AsyncTask<String, String, String> {
                 JSONObject c = routes.getJSONObject(i);
                 JSONObject geometry = c.getJSONObject("geometry");
                 Log.d("geo", "The response is :" + geometry);
-                JSONArray coordinates = geometry.getJSONArray("coordinates");
+                coordinates = geometry.getJSONArray("coordinates");
                 Log.d("coo", "The response is :" + coordinates); // coordinates에 좌표값 들어있음 lng , lat 쌍
                 /*
                 coordinates에 좌표값 들어있음 latlng 순서 아니고 lng , lat 쌍
