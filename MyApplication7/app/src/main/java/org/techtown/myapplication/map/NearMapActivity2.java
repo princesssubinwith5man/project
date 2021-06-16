@@ -35,8 +35,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
@@ -271,8 +269,8 @@ public class NearMapActivity2 extends AppCompatActivity
         ItemList itemList = MainActivity2.infoList.get(i);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(location);
-        //markerOptions.title(itemList.centerName);
-        //markerOptions.snippet(itemList.facilityName);
+        markerOptions.title(itemList.centerName);
+        markerOptions.snippet(itemList.facilityName);
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(this, marker_root_view)));
         map.addMarker(markerOptions);
 
@@ -317,11 +315,11 @@ public class NearMapActivity2 extends AppCompatActivity
                             (LinearLayout)findViewById(R.id.bottomSheetConteainer)
                     );
 
-            for(int i = 0;i<MainActivity2.infoList.size();i++){
-                if(MainActivity2.infoList.get(i).lat == cur_lat && MainActivity2.infoList.get(i).lng == cur_lng){
-                    cn =MainActivity2.infoList.get(i).centerName;
-                    fn =MainActivity2.infoList.get(i).facilityName;
-                    ad =MainActivity2.infoList.get(i).address;
+            cn = marker.getTitle();
+            fn = marker.getSnippet();
+            for(int i=0;i<MainActivity2.infoList.size();i++){
+                if(MainActivity2.infoList.get(i).facilityName.equals(fn)) {
+                    ad = MainActivity2.infoList.get(i).address;
                     break;
                 }
             }
@@ -350,7 +348,7 @@ public class NearMapActivity2 extends AppCompatActivity
                     bottomSheetDialog.dismiss();
                 }
             });
-            bottomSheetView.findViewById(R.id.buttonShare1).setOnClickListener(new View.OnClickListener() {
+            bottomSheetView.findViewById(R.id.route_find).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

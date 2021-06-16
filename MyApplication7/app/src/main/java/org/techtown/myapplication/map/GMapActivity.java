@@ -8,15 +8,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+
+import android.graphics.Color;
+
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +40,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -145,31 +147,6 @@ public class GMapActivity extends AppCompatActivity
             String markerId = marker.getId();
             Toast.makeText(GMapActivity.this, "정보창 클릭 Marker ID : " + markerId, Toast.LENGTH_SHORT).show();
 
-            try {
-                GetNavi getNavi = new GetNavi();
-                JSONArray route = getNavi.execute(128.87605666666664, 37.75185166666667, 128.8929531, 37.7725668).get();
-
-                ArrayList<LatLng> pointList = new ArrayList<>();
-                int len = route.length();
-
-                for(int i=0; i<len; i++){
-                    String str = route.get(i).toString();
-                    str = str.replace("[", "").replace("]", "");
-                    String[] token = str.split(",");
-
-                    pointList.add(new LatLng(Double.parseDouble(token[1]),Double.parseDouble(token[0])));
-
-                }
-
-                Polyline polyline = null;
-                for(int i=0; i<pointList.size(); i++){
-                    polyline = map.addPolyline(new PolylineOptions().clickable(true).add(pointList.get(i)));
-                }
-                polyline.setTag("alpha");
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 4));
-
-            }
-            catch (Exception e){}
         }
     };
 
@@ -222,11 +199,52 @@ public class GMapActivity extends AppCompatActivity
                 }
             });
 
-            bottomSheetView.findViewById(R.id.buttonShare1).setOnClickListener(new View.OnClickListener() {
+            bottomSheetView.findViewById(R.id.route_find).setOnClickListener(new View.OnClickListener() {
+                // 길찾기 버튼 클릭 리스너
                 @Override
                 public void onClick(View v) {
 
+                    final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        if (map != null) {
+                            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            double longitude = location.getLongitude();
+                            double latitude = location.getLatitude();
+
+                            try {
+                                GetNavi getNavi = new GetNavi();
+
+
+                                JSONArray route = getNavi.execute(longitude, latitude, lng, lat).get();
+
+                                ArrayList<LatLng> pointList = new ArrayList<>();
+                                int len = route.length();
+
+                                for (int i = 0; i < len; i++) {
+                                    String str = route.get(i).toString();
+                                    str = str.replace("[", "").replace("]", "");
+                                    String[] token = str.split(",");
+
+                                    pointList.add(new LatLng(Double.parseDouble(token[1]), Double.parseDouble(token[0])));
+
+                                }
+
+                                PolylineOptions polylineOptions = new PolylineOptions().clickable(true).color(Color.BLUE);
+                                for (int i = 0; i < pointList.size(); i++) {
+                                    polylineOptions.add(pointList.get(i));
+                                }
+                                map.addPolyline(polylineOptions);
+                                Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG);
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 20));
+                                bottomSheetDialog.dismiss();
+                            } catch (Exception e) {
+                            }
+                        }
+                    }
                 }
+
             });
 
             bottomSheetDialog.setContentView(bottomSheetView);
@@ -236,70 +254,69 @@ public class GMapActivity extends AppCompatActivity
     };
 
 
+    // ---------------------- 여기 밑으로는 gps 관련 메서드
+    private void enableMyLocation() {
 
-// ---------------------- 여기 밑으로는 gps 관련 메서드
-private void enableMyLocation(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            if (map != null) {
+                map.setMyLocationEnabled(true);
+                map.setOnMyLocationButtonClickListener(this);
+                map.setOnMyLocationClickListener(this);
+            }
+        } else {
+            // Permission to access the location is missing. Show rationale and request permission
+            ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
+                    MainActivity2.PERMISSIONS_REQUEST_CODE);
+        }
+    }
 
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
-        ==PackageManager.PERMISSION_GRANTED){
-        if(map!=null){
-        map.setMyLocationEnabled(true);
-        map.setOnMyLocationButtonClickListener(this);
-        map.setOnMyLocationClickListener(this);
-        }
-        }else{
-        // Permission to access the location is missing. Show rationale and request permission
-        ActivityCompat.requestPermissions(this,MainActivity2.REQUIRED_PERMISSIONS,
-        MainActivity2.PERMISSIONS_REQUEST_CODE);
-        }
-        }
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+        Toast.makeText(this, "위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
+                .show();
+    }
 
-@Override
-public void onMyLocationClick(@NonNull Location location){
-        Toast.makeText(this,"위도: "+location.getLatitude()+"경도: "+location.getLongitude(),Toast.LENGTH_LONG)
-        .show();
-        }
-
-@Override
-public boolean onMyLocationButtonClick(){
-        Toast.makeText(this,"MyLocation button clicked",Toast.LENGTH_SHORT)
-        .show();
+    @Override
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT)
+                .show();
         // Return false so that we don't consume the event and the default behavior still occurs
         // (the camera animates to the user's current position).
         return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        int LOCATION_PERMISSION_REQUEST_CODE = 1;
+        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
+            return;
         }
 
-@Override
-public void onRequestPermissionsResult(int requestCode,@NonNull String[]permissions,@NonNull int[]grantResults){
-        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            // Enable the my location layer if the permission has been granted.
+            enableMyLocation();
 
-        int LOCATION_PERMISSION_REQUEST_CODE=1;
-        if(requestCode!=LOCATION_PERMISSION_REQUEST_CODE){
-        return;
+
+        } else {
+            // Permission was denied. Display an error message
+            // Display the missing permission error dialog when the fragments resume.
+            permissionDenied = true;
         }
+    }
 
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)
-        ==PackageManager.PERMISSION_GRANTED){
-        // Enable the my location layer if the permission has been granted.
-        enableMyLocation();
-
-
-        }else{
-        // Permission was denied. Display an error message
-        // Display the missing permission error dialog when the fragments resume.
-        permissionDenied=true;
-        }
-        }
-
-@Override
-protected void onResumeFragments(){
+    @Override
+    protected void onResumeFragments() {
         super.onResumeFragments();
-        if(permissionDenied){
-        // Permission was not granted, display error dialog.
+        if (permissionDenied) {
+            // Permission was not granted, display error dialog.
 
-        permissionDenied=false;
+            permissionDenied = false;
         }
-        }
+    }
 
 
-        }
+}
