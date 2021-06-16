@@ -33,6 +33,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -61,7 +62,6 @@ public class GMapActivity extends AppCompatActivity
     private String fn;
     private String ad;
     View marker_root_view;
-    TextView tv_marker;
     private boolean permissionDenied = false;
     private GoogleMap map;
 
@@ -200,6 +200,7 @@ public class GMapActivity extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
 
+                    ArrayList<LatLng> pointList = new ArrayList<>();
                     final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
                     if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -215,7 +216,6 @@ public class GMapActivity extends AppCompatActivity
 
                                 JSONArray route = getNavi.execute(longitude, latitude, lng, lat).get();
 
-                                ArrayList<LatLng> pointList = new ArrayList<>();
                                 int len = route.length();
 
                                 for (int i = 0; i < len; i++) {
@@ -233,6 +233,9 @@ public class GMapActivity extends AppCompatActivity
                                 }
                                 map.addPolyline(polylineOptions);
                                 Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG);
+
+                                //LatLngBounds temp = new LatLngBounds(pointList.get(0), pointList.get(pointList.size()-1));
+                                //map.moveCamera(CameraUpdateFactory.newLatLngZoom(temp.getCenter(), 10));
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 15));
                                 bottomSheetDialog.dismiss();
 
