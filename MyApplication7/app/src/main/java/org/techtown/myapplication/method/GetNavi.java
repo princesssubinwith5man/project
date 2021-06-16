@@ -61,7 +61,7 @@ public class GetNavi extends AsyncTask<Double, String, JSONArray> {
         double targetLng = 128.8929531;
         double targetLat = 37.7725668;*/
 
-        String API = "https://api.mapbox.com/directions/v5/mapbox/" + mode[1] + "/" + startLng + "," + startLat + ";" + targetLng + "," + targetLat + "?" + "geometries=geojson&access_token=" + token;
+        String API = "https://api.mapbox.com/directions/v5/mapbox/" + mode[0] + "/" + startLng + "," + startLat + ";" + targetLng + "," + targetLat + "?" + "geometries=geojson&access_token=" + token;
         String data = "";
 
     /*

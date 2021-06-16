@@ -68,9 +68,10 @@ public class GMapActivity extends AppCompatActivity
     private GoogleMap map;
 
 
-    private void setCustomMarkerView(){
+    private void setCustomMarkerView() {
         marker_root_view = LayoutInflater.from(this).inflate(R.layout.marker_background, null);
     }
+
     private Bitmap createDrawableFromView(Context context, View view) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -234,7 +235,8 @@ public class GMapActivity extends AppCompatActivity
                                 }
                                 map.addPolyline(polylineOptions);
                                 Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG);
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 20));
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 15));
+                                bottomSheetDialog.dismiss();
 
                             } catch (Exception e) {
                             }

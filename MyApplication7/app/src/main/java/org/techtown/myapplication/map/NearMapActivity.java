@@ -6,6 +6,8 @@ import androidx.core.app.ActivityCompat;
 
 import java.io.IOException;
 import java.lang.Math;
+import java.util.ArrayList;
+
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
@@ -15,6 +17,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -29,6 +32,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import android.content.Intent;
@@ -39,6 +43,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.techtown.myapplication.method.GetNavi;
 import org.techtown.myapplication.method.GetPhone;
 import org.techtown.myapplication.object.ItemList;
 import org.techtown.myapplication.activity.MainActivity2;
@@ -139,6 +145,8 @@ public class NearMapActivity extends AppCompatActivity
 
                     if(minDistance > distance){
                         itemList = MainActivity2.infoList.get(i);
+                        lat = itemList.lat;
+                        lng = itemList.lng;
                         Log.d("log:","result: "+ i +" "+ minDistance+ " " + itemList.centerName+ " 거리차이는: "+ distance);
                         minDistance = distance;
                     }
@@ -296,6 +304,54 @@ public class NearMapActivity extends AppCompatActivity
                     bottomSheetDialog.dismiss();
                 }
             });
+
+            bottomSheetView.findViewById(R.id.route_find).setOnClickListener(new View.OnClickListener() {
+                // 길찾기 버튼 클릭 리스너
+                @Override
+                public void onClick(View v) {
+
+                    final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+                        if (map != null) {
+                            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                            double longitude = location.getLongitude();
+                            double latitude = location.getLatitude();
+
+                            try {
+                                GetNavi getNavi = new GetNavi();
+
+
+                                JSONArray route = getNavi.execute(longitude, latitude, lng, lat).get();
+
+                                ArrayList<LatLng> pointList = new ArrayList<>();
+                                int len = route.length();
+
+                                for (int i = 0; i < len; i++) {
+                                    String str = route.get(i).toString();
+                                    str = str.replace("[", "").replace("]", "");
+                                    String[] token = str.split(",");
+
+                                    pointList.add(new LatLng(Double.parseDouble(token[1]), Double.parseDouble(token[0])));
+
+                                }
+
+                                PolylineOptions polylineOptions = new PolylineOptions().clickable(true).color(Color.BLUE);
+                                for (int i = 0; i < pointList.size(); i++) {
+                                    polylineOptions.add(pointList.get(i));
+                                }
+                                map.addPolyline(polylineOptions);
+                                Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG);
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 15));
+                                bottomSheetDialog.dismiss();
+
+                            } catch (Exception e) {
+                            }
+                        }
+                    }
+                }
+                });
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
             return false;
