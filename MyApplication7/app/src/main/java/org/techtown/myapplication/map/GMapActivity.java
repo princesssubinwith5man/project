@@ -167,6 +167,13 @@ public class GMapActivity extends AppCompatActivity
                             bottomSheetDialog.dismiss();
                         }
                     });
+                    bottomSheetView.findViewById(R.id.buttonShare1).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+
                     bottomSheetDialog.setContentView(bottomSheetView);
                     bottomSheetDialog.show();
                     return false;

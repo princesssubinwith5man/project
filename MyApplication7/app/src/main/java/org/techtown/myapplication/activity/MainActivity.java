@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -32,11 +33,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(activity_main);
         ImageView name = findViewById(R.id.imageView);
-        //name.setVisibility(View.INVISIBLE);
+        name.setVisibility(View.INVISIBLE);
+        Button button2 = findViewById(R.id.button2);
+        button2.setVisibility(View.INVISIBLE);
+        Button button3 = findViewById(R.id.button3);
+        button3.setVisibility(View.INVISIBLE);
+        Button button4 = findViewById(R.id.button4);
+        button4.setVisibility(View.INVISIBLE);
         ImageView logo = (ImageView) findViewById(R.id.gif_image);
-        GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(logo);
-        Glide.with(this).load(R.drawable.logo3).into(gifImage);
-        logo.setVisibility(View.INVISIBLE);
+        logo.setVisibility(View.VISIBLE);
         if(infoList.size()==0) {
             GetJSON getJSON = new GetJSON();
             getJSON.execute();
@@ -44,11 +49,14 @@ public class MainActivity extends AppCompatActivity {
         GetNavi getNavi = new GetNavi();
         getNavi.execute();
         Handler handler = new Handler();
-       /* handler.postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 logo.setVisibility(View.INVISIBLE);
                 name.setVisibility(View.VISIBLE);
+                button2.setVisibility(View.VISIBLE);
+                button3.setVisibility(View.VISIBLE);
+                button4.setVisibility(View.VISIBLE);
             }
         }, 2000); //딜레이 타임 조절*/
     }

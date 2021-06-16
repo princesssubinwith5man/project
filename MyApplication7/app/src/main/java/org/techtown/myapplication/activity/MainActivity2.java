@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.PixelCopy;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -100,12 +101,14 @@ public class MainActivity2 extends AppCompatActivity {
             pb.setVisibility(View.VISIBLE);
             mToolbar.setVisibility(View.INVISIBLE);
         }
+        //spinnerDo.dropDownVerticalOffset = dipToPixels(45f).toInt();
         spinnerDo.setSelection(0);
         spinnerSi.setSelection(0);
+
         spinnerDo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ((TextView)adapterView.getChildAt(0)).setTextColor(Color.WHITE);
+                //((TextView)adapterView.getChildAt(0)).setTextColor(Color.WHITE);
                 siDo = (String) adapterView.getItemAtPosition(i);
                 Log.d("tab", siDo + "선택됨");
                 sigunguSpinnerChanger(siDo);
@@ -128,7 +131,7 @@ public class MainActivity2 extends AppCompatActivity {
                 else {
                     String selectedSigungu = (String) adapterView.getItemAtPosition(i);
                     printListview(siDo, selectedSigungu);
-                    ((TextView)adapterView.getChildAt(0)).setTextColor(Color.WHITE);
+                    //((TextView)adapterView.getChildAt(0)).setTextColor(Color.WHITE);
                 }
             }
 
