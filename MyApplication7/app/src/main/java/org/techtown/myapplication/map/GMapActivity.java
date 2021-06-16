@@ -109,6 +109,8 @@ public class GMapActivity extends AppCompatActivity
             double longitude = location.getLongitude();
             double latitude = location.getLatitude();
 
+            
+
             String markerId = marker.getId();
             Toast.makeText(GMapActivity.this, "정보창 클릭 Marker ID : " + markerId, Toast.LENGTH_SHORT).show();
             GetNavi getNavi = new GetNavi();
