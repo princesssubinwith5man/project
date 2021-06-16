@@ -29,8 +29,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 
@@ -317,7 +315,7 @@ public class NearMapActivity2 extends AppCompatActivity
                     bottomSheetDialog.dismiss();
                 }
             });
-            bottomSheetView.findViewById(R.id.buttonShare1).setOnClickListener(new View.OnClickListener() {
+            bottomSheetView.findViewById(R.id.route_find).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

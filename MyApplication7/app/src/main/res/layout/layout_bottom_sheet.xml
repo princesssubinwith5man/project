@@ -83,7 +83,7 @@
             android:textStyle="bold"
             />
         <Button
-            android:id="@+id/buttonShare1"
+            android:id="@+id/route_find"
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
