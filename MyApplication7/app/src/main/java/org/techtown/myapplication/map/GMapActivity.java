@@ -2,10 +2,9 @@ package org.techtown.myapplication.map;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-<<<<<<< HEAD
+
 import android.app.Activity;
-=======
->>>>>>> d5c5a58f780d272c9348f4d0ae1ce03fda73f239
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -116,8 +115,8 @@ public class GMapActivity extends AppCompatActivity
         LatLng Corona = new LatLng(lat, lng);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(Corona);
-        //markerOptions.title(cn);
-        //markerOptions.snippet(fn);
+        markerOptions.title(cn);
+        markerOptions.snippet(fn);
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(this, marker_root_view)));
         //tv_marker.setText(fn);
         googleMap.addMarker(markerOptions);
@@ -292,14 +291,8 @@ public void onRequestPermissionsResult(int requestCode,@NonNull String[]permissi
         }
         }
 
-<<<<<<< HEAD
-
-    @Override
-    protected void onResumeFragments() {
-=======
 @Override
 protected void onResumeFragments(){
->>>>>>> d5c5a58f780d272c9348f4d0ae1ce03fda73f239
         super.onResumeFragments();
         if(permissionDenied){
         // Permission was not granted, display error dialog.
