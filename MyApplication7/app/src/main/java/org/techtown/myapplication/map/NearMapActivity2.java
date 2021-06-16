@@ -271,8 +271,8 @@ public class NearMapActivity2 extends AppCompatActivity
         ItemList itemList = MainActivity2.infoList.get(i);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(location);
-        //markerOptions.title(itemList.centerName);
-        //markerOptions.snippet(itemList.facilityName);
+        markerOptions.title(itemList.centerName);
+        markerOptions.snippet(itemList.facilityName);
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(this, marker_root_view)));
         map.addMarker(markerOptions);
 
@@ -282,6 +282,10 @@ public class NearMapActivity2 extends AppCompatActivity
         cn = itemList.centerName;
         fn = itemList.facilityName;
         ad = itemList.address;
+
+        //cn = itemList.centerName;
+        //fn = itemList.facilityName;
+        //ad = itemList.address;
         //마커 클릭 리스너
         map.setOnMarkerClickListener(markerClickListener);
 
@@ -304,7 +308,7 @@ public class NearMapActivity2 extends AppCompatActivity
             String markerId = marker.getId();
             //선택한 타겟위치
             LatLng location = marker.getPosition();
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 14));
             //Toast.makeText(NearMapActivity2.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
             Log.d("log:", "현재 lat lng : " + cur_lat + "," + cur_lng + "목표 latlng : " + location);
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
@@ -315,6 +319,15 @@ public class NearMapActivity2 extends AppCompatActivity
                             R.layout.layout_bottom_sheet,
                             (LinearLayout) findViewById(R.id.bottomSheetConteainer)
                     );
+
+            cn = marker.getTitle();
+            fn = marker.getSnippet();
+            for(int i=0;i<MainActivity2.infoList.size();i++){
+                if(MainActivity2.infoList.get(i).facilityName.equals(fn)) {
+                    ad = MainActivity2.infoList.get(i).address;
+                    break;
+                }
+            }
             TextView tv = bottomSheetView.findViewById(R.id.center_name_text);
             TextView tv1 = bottomSheetView.findViewById(R.id.fa_name_text);
             TextView tv2 = bottomSheetView.findViewById(R.id.address_text);
