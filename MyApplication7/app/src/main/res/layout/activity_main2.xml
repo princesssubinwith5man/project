@@ -28,8 +28,9 @@
             android:dropDownVerticalOffset="40dp"
             android:layout_weight="1"
             android:background="@drawable/spinner_background"
+            android:scrollbars="vertical"
             android:spinnerMode="dropdown"
-
+            android:popupBackground="@drawable/popup_background"
             android:entries="@array/도시" />
 
         <Spinner
@@ -39,7 +40,8 @@
             android:dropDownVerticalOffset="40dp"
             android:layout_weight="1"
             android:entries="@array/기본값"
-            android:background="@drawable/spinner_background" />
+            android:background="@drawable/spinner_background"
+            android:scrollbars="vertical"/>
 
     </LinearLayout>
 

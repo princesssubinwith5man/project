@@ -13,6 +13,7 @@ import android.view.PixelCopy;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -32,6 +33,7 @@ import org.techtown.myapplication.R;
 import org.techtown.myapplication.map.GMapActivity;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -86,6 +88,8 @@ public class MainActivity2 extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list);
         spinnerDo = (Spinner) findViewById(R.id.spinner);
         spinnerSi = (Spinner) findViewById(R.id.spinner_si);
+
+
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);

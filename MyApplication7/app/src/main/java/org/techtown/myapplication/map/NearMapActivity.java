@@ -145,6 +145,8 @@ public class NearMapActivity extends AppCompatActivity
 
                     if(minDistance > distance){
                         itemList = MainActivity2.infoList.get(i);
+                        lat = itemList.lat;
+                        lng = itemList.lng;
                         Log.d("log:","result: "+ i +" "+ minDistance+ " " + itemList.centerName+ " 거리차이는: "+ distance);
                         minDistance = distance;
                     }
@@ -305,6 +307,7 @@ public class NearMapActivity extends AppCompatActivity
                 }
             });
             bottomSheetView.findViewById(R.id.route_find).setOnClickListener(new View.OnClickListener() {
+                // 길찾기 버튼 클릭 리스너
                 @Override
                 public void onClick(View v) {
                     final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -339,15 +342,17 @@ public class NearMapActivity extends AppCompatActivity
                                     polylineOptions.add(pointList.get(i));
                                 }
                                 map.addPolyline(polylineOptions);
-                                Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG).show();
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 14));
+                                Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG);
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 15));
                                 bottomSheetDialog.dismiss();
+
                             } catch (Exception e) {
                             }
                         }
                     }
                 }
-            });
+                });
+
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
             return false;
