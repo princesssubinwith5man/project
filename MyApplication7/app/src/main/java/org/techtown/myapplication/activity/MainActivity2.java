@@ -3,12 +3,9 @@ package org.techtown.myapplication.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-<<<<<<< HEAD
 import android.content.pm.PackageManager;
-=======
 import android.graphics.Color;
 import android.os.Build;
->>>>>>> beeafb81882fdc4dadab948211e15410e798bbb8
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
