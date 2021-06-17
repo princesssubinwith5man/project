@@ -3,13 +3,19 @@ package org.techtown.myapplication.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+<<<<<<< HEAD
 import android.content.pm.PackageManager;
+=======
+import android.graphics.Color;
+import android.os.Build;
+>>>>>>> beeafb81882fdc4dadab948211e15410e798bbb8
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListPopupWindow;
@@ -32,6 +38,10 @@ import org.techtown.myapplication.object.ListViewAdapter;
 import org.techtown.myapplication.object.ListViewItem;
 
 import java.lang.reflect.Field;
+
+import java.io.IOException;
+import java.lang.reflect.Field;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -82,12 +92,19 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }//상태바 투명
         setContentView(activity_main2);
         pb = (ProgressBar) findViewById(R.id.progressBar);
 
         listView = (ListView) findViewById(R.id.list);
         spinnerDo = (Spinner) findViewById(R.id.spinner);
         spinnerSi = (Spinner) findViewById(R.id.spinner_si);
+
+
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
