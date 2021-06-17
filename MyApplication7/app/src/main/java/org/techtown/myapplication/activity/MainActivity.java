@@ -1,26 +1,22 @@
 package org.techtown.myapplication.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-
-import android.content.Intent;
-import android.view.View;
-
-import org.techtown.myapplication.method.GetJSON;
-import org.techtown.myapplication.method.GetNavi;
-import org.techtown.myapplication.object.ItemList;
 import org.techtown.myapplication.R;
 import org.techtown.myapplication.map.NearMapActivity;
 import org.techtown.myapplication.map.NearMapActivity2;
+import org.techtown.myapplication.method.GetJSON;
+import org.techtown.myapplication.method.GetNavi;
+import org.techtown.myapplication.object.ItemList;
+
+import java.util.ArrayList;
 
 import static org.techtown.myapplication.R.layout.activity_main;
 

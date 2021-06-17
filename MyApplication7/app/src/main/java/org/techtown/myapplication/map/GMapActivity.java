@@ -2,15 +2,13 @@ package org.techtown.myapplication.map;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-
 import android.app.Activity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -35,16 +33,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
+import org.techtown.myapplication.R;
+import org.techtown.myapplication.activity.MainActivity2;
 import org.techtown.myapplication.method.GetNavi;
 import org.techtown.myapplication.method.GetPhone;
-import org.techtown.myapplication.activity.MainActivity2;
-import org.techtown.myapplication.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,7 +62,6 @@ public class GMapActivity extends AppCompatActivity
     private String fn;
     private String ad;
     View marker_root_view;
-    TextView tv_marker;
     private boolean permissionDenied = false;
     private GoogleMap map;
 
@@ -202,6 +200,7 @@ public class GMapActivity extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
 
+                    ArrayList<LatLng> pointList = new ArrayList<>();
                     final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
                     if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -217,7 +216,6 @@ public class GMapActivity extends AppCompatActivity
 
                                 JSONArray route = getNavi.execute(longitude, latitude, lng, lat).get();
 
-                                ArrayList<LatLng> pointList = new ArrayList<>();
                                 int len = route.length();
 
                                 for (int i = 0; i < len; i++) {

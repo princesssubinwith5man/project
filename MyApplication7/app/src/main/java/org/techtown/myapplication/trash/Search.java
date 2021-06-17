@@ -1,20 +1,19 @@
 package org.techtown.myapplication.trash;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-//import androidx.appcompat.widget.SearchView;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
-
-import android.content.Intent;
-import android.os.Bundle;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import org.techtown.myapplication.R;
 import org.techtown.myapplication.activity.MainActivity;
