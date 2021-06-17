@@ -48,6 +48,9 @@ import org.techtown.myapplication.method.GetPhone;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static org.techtown.myapplication.activity.MainActivity.PERMISSIONS_REQUEST_CODE;
+import static org.techtown.myapplication.activity.MainActivity.REQUIRED_PERMISSIONS;
+
 
 public class GMapActivity extends AppCompatActivity
         implements
@@ -97,8 +100,8 @@ public class GMapActivity extends AppCompatActivity
         fn = intent.getStringExtra("fac");
         ad = intent.getStringExtra("add");
 
-        ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
-                MainActivity2.PERMISSIONS_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
+                PERMISSIONS_REQUEST_CODE);
 
     }
 
@@ -266,8 +269,8 @@ public class GMapActivity extends AppCompatActivity
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
-            ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
-                    MainActivity2.PERMISSIONS_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
+                   PERMISSIONS_REQUEST_CODE);
         }
     }
 

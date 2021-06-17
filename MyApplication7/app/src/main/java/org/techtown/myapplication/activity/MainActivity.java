@@ -1,5 +1,6 @@
 package org.techtown.myapplication.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,9 @@ import static org.techtown.myapplication.R.layout.activity_main;
 
 public class MainActivity extends AppCompatActivity {
     public static ArrayList<ItemList> infoList = new ArrayList<>();
+
+    public static String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    public static final int PERMISSIONS_REQUEST_CODE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -48,6 +48,9 @@ import org.techtown.myapplication.object.ItemList;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static org.techtown.myapplication.activity.MainActivity.PERMISSIONS_REQUEST_CODE;
+import static org.techtown.myapplication.activity.MainActivity.REQUIRED_PERMISSIONS;
+
 
 public class NearMapActivity extends AppCompatActivity
         implements
@@ -95,8 +98,8 @@ public class NearMapActivity extends AppCompatActivity
         //cn = intent.getStringExtra("centername");
         //fn = intent.getStringExtra("fac");
         setCustomMarkerView();
-        ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
-                MainActivity2.PERMISSIONS_REQUEST_CODE);
+        ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
+                PERMISSIONS_REQUEST_CODE);
 
     }
 
@@ -113,8 +116,8 @@ public class NearMapActivity extends AppCompatActivity
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
-            ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
-                    MainActivity2.PERMISSIONS_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
+                    PERMISSIONS_REQUEST_CODE);
         }
 
 
@@ -173,8 +176,8 @@ public class NearMapActivity extends AppCompatActivity
             }
         } else {
             // Permission to access the location is missing. Show rationale and request permission
-            ActivityCompat.requestPermissions(this, MainActivity2.REQUIRED_PERMISSIONS,
-                    MainActivity2.PERMISSIONS_REQUEST_CODE);
+            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
+                    PERMISSIONS_REQUEST_CODE);
         }
     }
 

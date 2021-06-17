@@ -3,6 +3,7 @@ package org.techtown.myapplication.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import org.techtown.myapplication.R;
 import org.techtown.myapplication.map.GMapActivity;
@@ -28,10 +31,13 @@ import org.techtown.myapplication.object.ItemList;
 import org.techtown.myapplication.object.ListViewAdapter;
 import org.techtown.myapplication.object.ListViewItem;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import static org.techtown.myapplication.R.layout.activity_main2;
+import static org.techtown.myapplication.activity.MainActivity.PERMISSIONS_REQUEST_CODE;
+import static org.techtown.myapplication.activity.MainActivity.REQUIRED_PERMISSIONS;
 
 
 public class MainActivity2 extends AppCompatActivity {
@@ -40,8 +46,7 @@ public class MainActivity2 extends AppCompatActivity {
     static MenuItem mSearch;
     public static ArrayList<ItemList> infoList = new ArrayList<>();
 
-    public static String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
-    public static final int PERMISSIONS_REQUEST_CODE = 100;
+
 
     ListView listView;
 
@@ -103,6 +108,16 @@ public class MainActivity2 extends AppCompatActivity {
         spinnerDo.setSelection(0);
         spinnerSi.setSelection(0);
 
+/*        try{
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            ListPopupWindow window = (ListPopupWindow)popup.get(spinnerDo);
+            window.setHeight(300);
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
+
         spinnerDo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -157,9 +172,19 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             }, 1300); //딜레이 타임 조절*/
         }
-        ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
-                PERMISSIONS_REQUEST_CODE);
 
+        // 위치 권한이 부여지 않았다면
+        if (ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSIONS[0]) == PackageManager.PERMISSION_DENIED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    REQUIRED_PERMISSIONS[0])) { // 이전에 권한 허가를 거부한 경우
+                Toast.makeText(this, "지도 사용을 위해 위치 권한 정보가 필요합니다", Toast.LENGTH_LONG);
+                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
+                        PERMISSIONS_REQUEST_CODE);
+            } else {   // 권한을 거부한 적이 없을 경우
+                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
+                        PERMISSIONS_REQUEST_CODE);
+            }
+        }
     }
 
     public void sigunguSpinnerChanger(String seletedSi) {
@@ -228,6 +253,11 @@ public class MainActivity2 extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), REQUIRED_PERMISSIONS[0]) == PackageManager.PERMISSION_DENIED) {
+                    Toast.makeText(getApplicationContext(), "위치 권한이 허가되지 않아 지도를 실행할 수 없습니다", Toast.LENGTH_LONG);
+                    return;
+                }
+
                 ListViewItem listViewItem = adapter.listViewItemList.get(position);
                 double lat = listViewItem.getLat();
                 double lng = listViewItem.getLng();
