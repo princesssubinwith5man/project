@@ -307,7 +307,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/whatshot/baseline_whatshot_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/local_hospital/baseline_local_hospital_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -317,8 +317,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ff1f1f" />
-                            <entry key="outputName" value="ic_fire" />
+                            <entry key="color" value="ffffff" />
+                            <entry key="outputName" value="ic_hospital" />
                             <entry key="sourceFile" value="E:\laewon10\project\MyApplication7" />
                           </map>
                         </option>

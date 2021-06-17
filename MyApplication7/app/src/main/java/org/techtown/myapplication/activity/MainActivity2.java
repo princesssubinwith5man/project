@@ -3,12 +3,12 @@ package org.techtown.myapplication.activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-<<<<<<< HEAD
+
 import android.content.pm.PackageManager;
-=======
+
 import android.graphics.Color;
 import android.os.Build;
->>>>>>> beeafb81882fdc4dadab948211e15410e798bbb8
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -29,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuItemCompat;
 
 import org.techtown.myapplication.R;
 import org.techtown.myapplication.map.GMapActivity;
@@ -69,7 +71,6 @@ public class MainActivity2 extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) { //액션바 불러오기
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu, menu);
-
         mSearch = menu.findItem(R.id.action_search);
         SearchView sv = (SearchView) mSearch.getActionView(); //서치뷰 변수
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -97,9 +98,10 @@ public class MainActivity2 extends AppCompatActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }//상태바 투명
+
         setContentView(activity_main2);
         pb = (ProgressBar) findViewById(R.id.progressBar);
-
+        ImageView iv =(ImageView)findViewById(R.id.temp);
         listView = (ListView) findViewById(R.id.list);
         spinnerDo = (Spinner) findViewById(R.id.spinner);
         spinnerSi = (Spinner) findViewById(R.id.spinner_si);
@@ -120,6 +122,7 @@ public class MainActivity2 extends AppCompatActivity {
             spinnerSi.setVisibility(View.INVISIBLE);
             pb.setVisibility(View.VISIBLE);
             mToolbar.setVisibility(View.INVISIBLE);
+            iv.setVisibility(View.INVISIBLE);
         }
         //spinnerDo.dropDownVerticalOffset = dipToPixels(45f).toInt();
         spinnerDo.setSelection(0);
@@ -185,6 +188,7 @@ public class MainActivity2 extends AppCompatActivity {
                     spinnerDo.setVisibility(View.VISIBLE);
                     spinnerSi.setVisibility(View.VISIBLE);
                     mToolbar.setVisibility(View.VISIBLE);
+                    iv.setVisibility(View.VISIBLE);
                     check = 1;
                 }
             }, 1300); //딜레이 타임 조절*/

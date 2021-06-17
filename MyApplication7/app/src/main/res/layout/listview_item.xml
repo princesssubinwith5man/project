@@ -5,7 +5,7 @@
     android:id="@+id/itemLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/listview_background">
+    android:background="@drawable/listview_back">
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/iconImage"
@@ -23,11 +23,20 @@
         app:riv_corner_radius="30dp"
         tools:ignore="MissingConstraints" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/line"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+        app:layout_constraintStart_toEndOf="@+id/iconImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="20dp"
         android:layout_weight="4"
         android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@+id/iconImage"
@@ -42,7 +51,8 @@
             android:gravity="center_vertical"
             android:text="New Text"
             android:textColor="#000000"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/textViewFacName"
