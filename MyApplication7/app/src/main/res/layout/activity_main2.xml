@@ -7,9 +7,13 @@
     android:orientation="vertical"
     android:visibility="visible"
     tools:context=".activity.MainActivity2">
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/blue"/>
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#3343A8"

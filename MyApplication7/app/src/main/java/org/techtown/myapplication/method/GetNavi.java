@@ -28,13 +28,14 @@ public class GetNavi extends AsyncTask<Double, String, JSONArray> {
         super.onPostExecute(s);
 
     }
+
     @Override
     protected JSONArray doInBackground(Double... doubles) {
         Log.d("Task3", "POST");
         JSONArray temp = null;
         try {
-            if(doubles.length ==4)
-            temp = GET(doubles[0], doubles[1], doubles[2], doubles[3]);
+            if (doubles.length == 4)
+                temp = GET(doubles[0], doubles[1], doubles[2], doubles[3]);
 
             return temp;
         } catch (IOException e) {
@@ -45,7 +46,7 @@ public class GetNavi extends AsyncTask<Double, String, JSONArray> {
 
     private JSONArray GET(double startLng, double startLat, double targetLng, double targetLat) throws IOException {
         String token = "pk.eyJ1IjoianctamluIiwiYSI6ImNrcHlpN24wdjAwajEzMW1wcjYwbzE4YmYifQ.C0xheHu9IRuLdF-8KJ7XsA";
-        String[] mode={"driving", "walking", "cycling"};
+        String[] mode = {"driving", "walking", "cycling"};
 /*        double startLng = 128.87605666666664; // 걍 임시로 넣은거 강릉시청 -> 강릉예방접종센터
         double startLat = 37.75185166666667; // 이 값들도 어떻게 받아올지 생각해야되는데 해줭
         double targetLng = 128.8929531;

@@ -10,7 +10,7 @@ public class GetPhone {
     // 파일 읽어서 전화번호 매칭해 주는 클래스임
     private final Context mContext;
 
-    public GetPhone(Context context){
+    public GetPhone(Context context) {
         mContext = context;
     }
 
@@ -20,9 +20,9 @@ public class GetPhone {
         BufferedReader br = new BufferedReader(new InputStreamReader(mContext.getAssets().open("phone_number.csv")));
         String line = "";
 
-        while((line = br.readLine()) != null){
+        while ((line = br.readLine()) != null) {
             String[] token = line.split(",");
-            if(token[4].equals(facName) && token.length==8){
+            if (token[4].equals(facName) && token.length == 8) {
                 token[7] = token[7].replace("-", "");
                 return token[7];
             }
