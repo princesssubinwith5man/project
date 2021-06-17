@@ -16,7 +16,6 @@ import java.net.URL;
 
 public class GetNavi extends AsyncTask<Double, String, JSONArray> {
 
-    public JSONArray coordinates;
 
     @Override
     protected void onPreExecute() {
@@ -47,13 +46,9 @@ public class GetNavi extends AsyncTask<Double, String, JSONArray> {
     private JSONArray GET(double startLng, double startLat, double targetLng, double targetLat) throws IOException {
         String token = "pk.eyJ1IjoianctamluIiwiYSI6ImNrcHlpN24wdjAwajEzMW1wcjYwbzE4YmYifQ.C0xheHu9IRuLdF-8KJ7XsA";
         String[] mode = {"driving", "walking", "cycling"};
-/*        double startLng = 128.87605666666664; // 걍 임시로 넣은거 강릉시청 -> 강릉예방접종센터
-        double startLat = 37.75185166666667; // 이 값들도 어떻게 받아올지 생각해야되는데 해줭
-        double targetLng = 128.8929531;
-        double targetLat = 37.7725668;*/
+        JSONArray coordinates = null;
 
         String API = "https://api.mapbox.com/directions/v5/mapbox/" + mode[0] + "/" + startLng + "," + startLat + ";" + targetLng + "," + targetLat + "?" + "geometries=geojson&access_token=" + token;
-        String data = "";
 
     /*
     https://api.mapbox.com/directions/v5/mapbox/walking/128.87605666666664,37.75185166666667;128.8929531,37.7725668?geometries=geojson&access_token=pk.eyJ1IjoianctamluIiwiYSI6ImNrcHlpN24wdjAwajEzMW1wcjYwbzE4YmYifQ.C0xheHu9IRuLdF-8KJ7XsA
