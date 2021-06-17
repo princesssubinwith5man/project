@@ -7,8 +7,8 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.techtown.myapplication.activity.IntroActivity;
 import org.techtown.myapplication.activity.MainActivity;
+import org.techtown.myapplication.activity.ListActivity;
 import org.techtown.myapplication.object.ItemList;
 
 import java.io.BufferedReader;
@@ -98,13 +98,13 @@ public class GetJSON extends AsyncTask<String, String, String> {
                         item.getString("zipCode")
 
                 );
+                ListActivity.infoList.add(itemList);
                 MainActivity.infoList.add(itemList);
-                IntroActivity.infoList.add(itemList);
             }
 
+            Collections.sort(ListActivity.infoList, new SiDoGunGuComparator());
             Collections.sort(MainActivity.infoList, new SiDoGunGuComparator());
-            Collections.sort(IntroActivity.infoList, new SiDoGunGuComparator());
-            Log.d("vaccine", MainActivity.infoList.size() + "개");
+            Log.d("vaccine", ListActivity.infoList.size() + "개");
 
         } catch (NullPointerException | JSONException e) {
             e.printStackTrace();

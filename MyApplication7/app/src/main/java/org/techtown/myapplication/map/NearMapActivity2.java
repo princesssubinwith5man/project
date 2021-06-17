@@ -42,7 +42,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
 import org.techtown.myapplication.R;
-import org.techtown.myapplication.activity.MainActivity;
+import org.techtown.myapplication.activity.ListActivity;
 import org.techtown.myapplication.method.GetNavi;
 import org.techtown.myapplication.method.GetPhone;
 import org.techtown.myapplication.object.ItemList;
@@ -50,8 +50,8 @@ import org.techtown.myapplication.object.ItemList;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.techtown.myapplication.activity.IntroActivity.PERMISSIONS_REQUEST_CODE;
-import static org.techtown.myapplication.activity.IntroActivity.REQUIRED_PERMISSIONS;
+import static org.techtown.myapplication.activity.MainActivity.PERMISSIONS_REQUEST_CODE;
+import static org.techtown.myapplication.activity.MainActivity.REQUIRED_PERMISSIONS;
 
 
 public class NearMapActivity2 extends AppCompatActivity
@@ -152,14 +152,14 @@ public class NearMapActivity2 extends AppCompatActivity
                 Toast.makeText(this, "new2위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
                         .show();
 
-                ItemList itemList = MainActivity.infoList.get(0);
+                ItemList itemList = ListActivity.infoList.get(0);
 
                 LatLng curLoc = new LatLng(latitude, longitude); // 현재 위치
-                for (int i = 0; i < MainActivity.infoList.size(); i++) {
+                for (int i = 0; i < ListActivity.infoList.size(); i++) {
                     double distance = getDistance(latitude, longitude,
-                            MainActivity.infoList.get(i).lat, MainActivity.infoList.get(i).lng, "kilometer");
+                            ListActivity.infoList.get(i).lat, ListActivity.infoList.get(i).lng, "kilometer");
 
-                    LatLng targetLoc = new LatLng(MainActivity.infoList.get(i).lat, MainActivity.infoList.get(i).lng); // 계산할 위치
+                    LatLng targetLoc = new LatLng(ListActivity.infoList.get(i).lat, ListActivity.infoList.get(i).lng); // 계산할 위치
                     double result = calcLocation(curLoc, targetLoc);
 
                     if (result < 10000.0) { // 미터단위
@@ -187,16 +187,16 @@ public class NearMapActivity2 extends AppCompatActivity
                 .show();
         double longitude = location.getLongitude();
         double latitude = location.getLatitude();
-        ItemList itemList = MainActivity.infoList.get(0);
+        ItemList itemList = ListActivity.infoList.get(0);
         double minDistance = Double.MAX_VALUE;
 
 
         LatLng curLoc = new LatLng(latitude, longitude); // 현재 위치
-        for (int i = 0; i < MainActivity.infoList.size(); i++) {
+        for (int i = 0; i < ListActivity.infoList.size(); i++) {
             double distance = getDistance(latitude, longitude,
-                    MainActivity.infoList.get(i).lat, MainActivity.infoList.get(i).lng, "kilometer");
+                    ListActivity.infoList.get(i).lat, ListActivity.infoList.get(i).lng, "kilometer");
 
-            LatLng targetLoc = new LatLng(MainActivity.infoList.get(i).lat, MainActivity.infoList.get(i).lng); // 계산할 위치
+            LatLng targetLoc = new LatLng(ListActivity.infoList.get(i).lat, ListActivity.infoList.get(i).lng); // 계산할 위치
             double result = calcLocation(curLoc, targetLoc);
 
             if (result < 10000.0) { // 미터단위
@@ -276,7 +276,7 @@ public class NearMapActivity2 extends AppCompatActivity
 
     public void drawMarker(LatLng location, int i) {
         setCustomMarkerView();
-        ItemList itemList = MainActivity.infoList.get(i);
+        ItemList itemList = ListActivity.infoList.get(i);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(location);
         markerOptions.title(itemList.centerName);
@@ -330,9 +330,9 @@ public class NearMapActivity2 extends AppCompatActivity
 
             cn = marker.getTitle();
             fn = marker.getSnippet();
-            for (int i = 0; i < MainActivity.infoList.size(); i++) {
-                if (MainActivity.infoList.get(i).facilityName.equals(fn)) {
-                    ad = MainActivity.infoList.get(i).address;
+            for (int i = 0; i < ListActivity.infoList.size(); i++) {
+                if (ListActivity.infoList.get(i).facilityName.equals(fn)) {
+                    ad = ListActivity.infoList.get(i).address;
                     break;
                 }
             }

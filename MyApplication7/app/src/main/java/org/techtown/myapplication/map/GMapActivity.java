@@ -48,8 +48,8 @@ import org.techtown.myapplication.method.GetPhone;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.techtown.myapplication.activity.IntroActivity.PERMISSIONS_REQUEST_CODE;
-import static org.techtown.myapplication.activity.IntroActivity.REQUIRED_PERMISSIONS;
+import static org.techtown.myapplication.activity.MainActivity.PERMISSIONS_REQUEST_CODE;
+import static org.techtown.myapplication.activity.MainActivity.REQUIRED_PERMISSIONS;
 
 
 public class GMapActivity extends AppCompatActivity

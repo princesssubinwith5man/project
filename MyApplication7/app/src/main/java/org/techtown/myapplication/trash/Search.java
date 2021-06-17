@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import org.techtown.myapplication.R;
-import org.techtown.myapplication.activity.IntroActivity;
+import org.techtown.myapplication.activity.MainActivity;
 import org.techtown.myapplication.map.GMapActivity;
 
 import java.util.ArrayList;
@@ -77,8 +77,8 @@ public class Search extends AppCompatActivity {
         ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>(); //ArrayList 생성 (이름과, 주소)
         ArrayList<HashMap<String, Double>> list1 = new ArrayList<HashMap<String, Double>>(); //ArrayList 생성 (위도, 경도)
         ArrayList<HashMap<String, String>> list2 = new ArrayList<HashMap<String, String>>();
-        for (int i = 0; i < IntroActivity.infoList.size(); i++) {
-            if ((!IntroActivity.infoList.get(i).address.contains(s) && !IntroActivity.infoList.get(i).centerName.contains(s)&& !IntroActivity.infoList.get(i).facilityName.contains(s))|| s.equals("")) {
+        for (int i = 0; i < MainActivity.infoList.size(); i++) {
+            if ((!MainActivity.infoList.get(i).address.contains(s) && !MainActivity.infoList.get(i).centerName.contains(s)&& !MainActivity.infoList.get(i).facilityName.contains(s))|| s.equals("")) {
                 //tv.setVisibility(View.VISIBLE);
                 continue;
             }
@@ -87,12 +87,12 @@ public class Search extends AppCompatActivity {
                 HashMap<String, String> item = new HashMap<String, String>();
                 HashMap<String, Double> item1 = new HashMap<String, Double>();
                 HashMap<String, String> item2 = new HashMap<String, String>();
-                address = IntroActivity.infoList.get(i).address;
-                centerName = IntroActivity.infoList.get(i).centerName + "                                                                      " + IntroActivity.infoList.get(i).facilityName;
-                lat = IntroActivity.infoList.get(i).lat;
-                lng = IntroActivity.infoList.get(i).lng;
-                m_facn = IntroActivity.infoList.get(i).facilityName;
-                m_centerName = IntroActivity.infoList.get(i).centerName;
+                address = MainActivity.infoList.get(i).address;
+                centerName = MainActivity.infoList.get(i).centerName + "                                                                      " + MainActivity.infoList.get(i).facilityName;
+                lat = MainActivity.infoList.get(i).lat;
+                lng = MainActivity.infoList.get(i).lng;
+                m_facn = MainActivity.infoList.get(i).facilityName;
+                m_centerName = MainActivity.infoList.get(i).centerName;
 
                 item.put("item1", centerName);
                 item.put("item2", address);
