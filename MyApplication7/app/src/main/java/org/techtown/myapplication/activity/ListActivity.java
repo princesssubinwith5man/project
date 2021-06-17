@@ -3,6 +3,13 @@ package org.techtown.myapplication.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 
+<<<<<<< HEAD:MyApplication7/app/src/main/java/org/techtown/myapplication/activity/MainActivity2.java
+import android.content.pm.PackageManager;
+
+import android.graphics.Color;
+import android.os.Build;
+
+=======
 
 import android.content.pm.PackageManager;
 
@@ -13,6 +20,7 @@ import android.os.Build;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
+>>>>>>> de9ba7640f914930a22c5c80ce925c1c028c55fa:MyApplication7/app/src/main/java/org/techtown/myapplication/activity/ListActivity.java
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -22,6 +30,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+<<<<<<< HEAD:MyApplication7/app/src/main/java/org/techtown/myapplication/activity/MainActivity2.java
+import android.widget.ImageView;
+import android.widget.ListPopupWindow;
+=======
+>>>>>>> de9ba7640f914930a22c5c80ce925c1c028c55fa:MyApplication7/app/src/main/java/org/techtown/myapplication/activity/ListActivity.java
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -31,6 +44,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.MenuItemCompat;
 
 import org.techtown.myapplication.R;
 import org.techtown.myapplication.map.GMapActivity;
@@ -65,7 +79,6 @@ public class ListActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) { //액션바 불러오기
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu, menu);
-
         mSearch = menu.findItem(R.id.action_search);
         SearchView sv = (SearchView) mSearch.getActionView(); //서치뷰 변수
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -93,9 +106,14 @@ public class ListActivity extends AppCompatActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }//상태바 투명
-        setContentView(activity_list);
-        pb = (ProgressBar) findViewById(R.id.progressBar);
+<<<<<<< HEAD:MyApplication7/app/src/main/java/org/techtown/myapplication/activity/MainActivity2.java
 
+        setContentView(activity_main2);
+=======
+        setContentView(activity_list);
+>>>>>>> de9ba7640f914930a22c5c80ce925c1c028c55fa:MyApplication7/app/src/main/java/org/techtown/myapplication/activity/ListActivity.java
+        pb = (ProgressBar) findViewById(R.id.progressBar);
+        ImageView iv =(ImageView)findViewById(R.id.temp);
         listView = (ListView) findViewById(R.id.list);
         spinnerDo = (Spinner) findViewById(R.id.spinner);
         spinnerSi = (Spinner) findViewById(R.id.spinner_si);
@@ -116,6 +134,7 @@ public class ListActivity extends AppCompatActivity {
             spinnerSi.setVisibility(View.INVISIBLE);
             pb.setVisibility(View.VISIBLE);
             mToolbar.setVisibility(View.INVISIBLE);
+            iv.setVisibility(View.INVISIBLE);
         }
         //spinnerDo.dropDownVerticalOffset = dipToPixels(45f).toInt();
         spinnerDo.setSelection(0);
@@ -181,6 +200,7 @@ public class ListActivity extends AppCompatActivity {
                     spinnerDo.setVisibility(View.VISIBLE);
                     spinnerSi.setVisibility(View.VISIBLE);
                     mToolbar.setVisibility(View.VISIBLE);
+                    iv.setVisibility(View.VISIBLE);
                     check = 1;
                 }
             }, 1300); //딜레이 타임 조절*/
