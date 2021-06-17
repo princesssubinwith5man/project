@@ -42,7 +42,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
 import org.techtown.myapplication.R;
-import org.techtown.myapplication.activity.MainActivity2;
+import org.techtown.myapplication.activity.ListActivity;
 import org.techtown.myapplication.method.GetNavi;
 import org.techtown.myapplication.method.GetPhone;
 import org.techtown.myapplication.object.ItemList;
@@ -122,7 +122,6 @@ public class NearMapActivity extends AppCompatActivity
                 enableMyLocation();
             }
         } else {
-            // Permission to access the location is missing. Show rationale and request permission
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
                     PERMISSIONS_REQUEST_CODE);
         }
@@ -146,15 +145,15 @@ public class NearMapActivity extends AppCompatActivity
                 Toast.makeText(this, "위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
                         .show();
 
-                ItemList itemList = MainActivity2.infoList.get(0);
+                ItemList itemList = ListActivity.infoList.get(0);
                 double minDistance = Double.MAX_VALUE;
 
-                for (int i = 0; i < MainActivity2.infoList.size(); i++) {
+                for (int i = 0; i < ListActivity.infoList.size(); i++) {
                     double distance = getDistance(latitude, longitude,
-                            MainActivity2.infoList.get(i).lat, MainActivity2.infoList.get(i).lng, "kilometer");
+                            ListActivity.infoList.get(i).lat, ListActivity.infoList.get(i).lng, "kilometer");
 
                     if (minDistance > distance) {
-                        itemList = MainActivity2.infoList.get(i);
+                        itemList = ListActivity.infoList.get(i);
                         lat = itemList.lat;
                         lng = itemList.lng;
                         Log.d("log:", "result: " + i + " " + minDistance + " " + itemList.centerName + " 거리차이는: " + distance);
@@ -195,15 +194,15 @@ public class NearMapActivity extends AppCompatActivity
         Toast.makeText(this, "위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
                 .show();
 
-        ItemList itemList = MainActivity2.infoList.get(0);
+        ItemList itemList = ListActivity.infoList.get(0);
         double minDistance = Double.MAX_VALUE;
 
-        for (int i = 0; i < MainActivity2.infoList.size(); i++) {
+        for (int i = 0; i < ListActivity.infoList.size(); i++) {
             double distance = getDistance(location.getLatitude(), location.getLongitude(),
-                    MainActivity2.infoList.get(i).lat, MainActivity2.infoList.get(i).lng, "kilometer");
+                    ListActivity.infoList.get(i).lat, ListActivity.infoList.get(i).lng, "kilometer");
 
             if (minDistance > distance) {
-                itemList = MainActivity2.infoList.get(i);
+                itemList = ListActivity.infoList.get(i);
                 Log.d("log:", "result: " + i + " " + minDistance + " " + itemList.centerName + "거리차이는 " + distance);
                 minDistance = distance;
             }

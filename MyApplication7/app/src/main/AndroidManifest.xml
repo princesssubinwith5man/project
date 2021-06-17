@@ -17,7 +17,7 @@
         <activity android:name=".trash.Search" />
         <activity android:name=".map.NearMapActivity" />
         <activity
-            android:name=".activity.MainActivity2">
+            android:name=".activity.ListActivity">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>

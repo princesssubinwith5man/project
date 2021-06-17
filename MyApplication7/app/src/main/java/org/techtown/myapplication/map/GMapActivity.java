@@ -35,7 +35,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -43,7 +42,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.json.JSONArray;
 import org.techtown.myapplication.R;
-import org.techtown.myapplication.activity.MainActivity2;
 import org.techtown.myapplication.method.GetNavi;
 import org.techtown.myapplication.method.GetPhone;
 
@@ -161,17 +159,7 @@ public class GMapActivity extends AppCompatActivity
     GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(Marker marker) {
-            String markerId = marker.getId();
-            //선택한 타겟위치
-            LatLng location = marker.getPosition();
-            //Toast.makeText(GMapActivity.this, "마커 클릭 Marker ID : "+markerId+"("+location.latitude+" "+location.longitude+")", Toast.LENGTH_SHORT).show();
-                   /* AlertDialog.Builder builder = new AlertDialog.Builder(GMapActivity.this);
 
-                    builder.setTitle(cn).setMessage(fn);
-
-                    AlertDialog alertDialog = builder.create();
-
-                    alertDialog.show();*/
             BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
                     GMapActivity.this, R.style.BottomSheetDialogTheme
             );
@@ -291,8 +279,7 @@ public class GMapActivity extends AppCompatActivity
     public boolean onMyLocationButtonClick() {
         Toast.makeText(this, "MyLocation button clicked", Toast.LENGTH_SHORT)
                 .show();
-        // Return false so that we don't consume the event and the default behavior still occurs
-        // (the camera animates to the user's current position).
+
         return false;
     }
 
@@ -312,8 +299,7 @@ public class GMapActivity extends AppCompatActivity
 
 
         } else {
-            // Permission was denied. Display an error message
-            // Display the missing permission error dialog when the fragments resume.
+
             permissionDenied = true;
         }
     }
@@ -322,7 +308,6 @@ public class GMapActivity extends AppCompatActivity
     protected void onResumeFragments() {
         super.onResumeFragments();
         if (permissionDenied) {
-            // Permission was not granted, display error dialog.
 
             permissionDenied = false;
         }

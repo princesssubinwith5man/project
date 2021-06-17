@@ -1,14 +1,26 @@
 package org.techtown.myapplication.activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+
+<<<<<<< HEAD:MyApplication7/app/src/main/java/org/techtown/myapplication/activity/MainActivity2.java
+import android.content.pm.PackageManager;
+
+import android.graphics.Color;
+import android.os.Build;
+
+=======
 
 import android.content.pm.PackageManager;
 
 import android.graphics.Color;
 import android.os.Build;
 
+
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.os.Build;
+>>>>>>> de9ba7640f914930a22c5c80ce925c1c028c55fa:MyApplication7/app/src/main/java/org/techtown/myapplication/activity/ListActivity.java
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -18,8 +30,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+<<<<<<< HEAD:MyApplication7/app/src/main/java/org/techtown/myapplication/activity/MainActivity2.java
 import android.widget.ImageView;
 import android.widget.ListPopupWindow;
+=======
+>>>>>>> de9ba7640f914930a22c5c80ce925c1c028c55fa:MyApplication7/app/src/main/java/org/techtown/myapplication/activity/ListActivity.java
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -28,7 +43,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
 
@@ -39,20 +53,14 @@ import org.techtown.myapplication.object.ItemList;
 import org.techtown.myapplication.object.ListViewAdapter;
 import org.techtown.myapplication.object.ListViewItem;
 
-import java.lang.reflect.Field;
-
-import java.io.IOException;
-import java.lang.reflect.Field;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import static org.techtown.myapplication.R.layout.activity_main2;
-import static org.techtown.myapplication.activity.MainActivity.PERMISSIONS_REQUEST_CODE;
+import static org.techtown.myapplication.R.layout.activity_list;
 import static org.techtown.myapplication.activity.MainActivity.REQUIRED_PERMISSIONS;
 
 
-public class MainActivity2 extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity {
 
     private int check = 0;
     static MenuItem mSearch;
@@ -98,8 +106,12 @@ public class MainActivity2 extends AppCompatActivity {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }//상태바 투명
+<<<<<<< HEAD:MyApplication7/app/src/main/java/org/techtown/myapplication/activity/MainActivity2.java
 
         setContentView(activity_main2);
+=======
+        setContentView(activity_list);
+>>>>>>> de9ba7640f914930a22c5c80ce925c1c028c55fa:MyApplication7/app/src/main/java/org/techtown/myapplication/activity/ListActivity.java
         pb = (ProgressBar) findViewById(R.id.progressBar);
         ImageView iv =(ImageView)findViewById(R.id.temp);
         listView = (ListView) findViewById(R.id.list);
@@ -195,24 +207,14 @@ public class MainActivity2 extends AppCompatActivity {
         }
 
         // 위치 권한이 부여지 않았다면
-        if (ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSIONS[0]) == PackageManager.PERMISSION_DENIED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    REQUIRED_PERMISSIONS[0])) { // 이전에 권한 허가를 거부한 경우
-                Toast.makeText(this, "지도 사용을 위해 위치 권한 정보가 필요합니다", Toast.LENGTH_LONG);
-                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
-                        PERMISSIONS_REQUEST_CODE);
-            } else {   // 권한을 거부한 적이 없을 경우
-                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
-                        PERMISSIONS_REQUEST_CODE);
-            }
-        }
+
     }
 
     public void sigunguSpinnerChanger(String seletedSi) {
         LinkedHashMap<String, Integer> hashMap = new LinkedHashMap<>();
         Log.d("tag", "siHandler 호출됨..");
 
-        hashMap.put("시/군/구를 선택하세요", 1);
+        hashMap.put("전체 보기", 1);
 
         for (int i = 0; i < infoList.size(); i++) {
             if (infoList.get(i).sido.equals(seletedSi) && !hashMap.containsKey(infoList.get(i).sigungu)) {
@@ -255,9 +257,9 @@ public class MainActivity2 extends AppCompatActivity {
         ListViewAdapter adapter = new ListViewAdapter();
 
         for (int i = 0; i < infoList.size(); i++) {
-            if (!infoList.get(i).sido.equals(sido_show[0]))
+            if (!infoList.get(i).sido.equals(sido_show[0])) // 해당 도와 일치하지 않으면 continue
                 continue;
-            else if (sido_show.length == 2 && !infoList.get(i).sigungu.equals(sido_show[1]))
+            else if (sido_show.length == 2 && !infoList.get(i).sigungu.equals(sido_show[1])) // s
                 continue;
 
             address = infoList.get(i).address;
@@ -288,7 +290,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "위도 : " + lat, Toast.LENGTH_LONG);
 
-                Intent intent = new Intent(MainActivity2.this, GMapActivity.class);
+                Intent intent = new Intent(ListActivity.this, GMapActivity.class);
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
                 intent.putExtra("centername", centerName);
@@ -344,7 +346,7 @@ public class MainActivity2 extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "위도 : " + lat, Toast.LENGTH_LONG);
 
-                Intent intent = new Intent(MainActivity2.this, GMapActivity.class);
+                Intent intent = new Intent(ListActivity.this, GMapActivity.class);
                 intent.putExtra("lat", lat);
                 intent.putExtra("lng", lng);
                 intent.putExtra("centername", centerName);
