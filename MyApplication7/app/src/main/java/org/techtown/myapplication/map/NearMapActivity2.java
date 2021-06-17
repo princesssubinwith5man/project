@@ -37,6 +37,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -49,6 +50,7 @@ import org.techtown.myapplication.object.ItemList;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.techtown.myapplication.activity.MainActivity.PERMISSIONS_REQUEST_CODE;
 import static org.techtown.myapplication.activity.MainActivity.REQUIRED_PERMISSIONS;
@@ -71,6 +73,8 @@ public class NearMapActivity2 extends AppCompatActivity
     View marker_root_view;
     private boolean permissionDenied = false;
     private GoogleMap map;
+
+    List<Polyline> polylineList = new ArrayList<Polyline>();
 
     private void setCustomMarkerView() {
         marker_root_view = LayoutInflater.from(this).inflate(R.layout.marker_background, null);
@@ -171,7 +175,7 @@ public class NearMapActivity2 extends AppCompatActivity
                 }
 
 
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(curLoc, 10));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(curLoc, 11));
 
             }
         } else {
@@ -377,6 +381,7 @@ public class NearMapActivity2 extends AppCompatActivity
                                 GetNavi getNavi = new GetNavi();
 
 
+
                                 JSONArray route = getNavi.execute(curLng, curLat, tarLng, tarlat).get();
 
                                 ArrayList<LatLng> pointList = new ArrayList<>();
@@ -395,7 +400,19 @@ public class NearMapActivity2 extends AppCompatActivity
                                 for (int i = 0; i < pointList.size(); i++) {
                                     polylineOptions.add(pointList.get(i));
                                 }
-                                map.addPolyline(polylineOptions);
+
+                                if(polylineList.size() > 0 ) {
+                                    Log.d("poly", "있는데?");
+                                    polylineList.get(0).remove();
+                                    polylineList.clear();
+                                }
+                                else {
+                                    Log.d("poly", "없네");
+                                }
+
+                                Polyline polyline = map.addPolyline(polylineOptions);
+                                polylineList.add(polyline);
+
                                 Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG);
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 15));
 
