@@ -186,7 +186,7 @@ public class ListActivity extends AppCompatActivity {
         LinkedHashMap<String, Integer> hashMap = new LinkedHashMap<>();
         Log.d("tag", "siHandler 호출됨..");
 
-        hashMap.put("시/군/구를 선택하세요", 1);
+        hashMap.put("전체 보기", 1);
 
         for (int i = 0; i < infoList.size(); i++) {
             if (infoList.get(i).sido.equals(seletedSi) && !hashMap.containsKey(infoList.get(i).sigungu)) {
@@ -229,9 +229,9 @@ public class ListActivity extends AppCompatActivity {
         ListViewAdapter adapter = new ListViewAdapter();
 
         for (int i = 0; i < infoList.size(); i++) {
-            if (!infoList.get(i).sido.equals(sido_show[0]))
+            if (!infoList.get(i).sido.equals(sido_show[0])) // 해당 도와 일치하지 않으면 continue
                 continue;
-            else if (sido_show.length == 2 && !infoList.get(i).sigungu.equals(sido_show[1]))
+            else if (sido_show.length == 2 && !infoList.get(i).sigungu.equals(sido_show[1])) // s
                 continue;
 
             address = infoList.get(i).address;
