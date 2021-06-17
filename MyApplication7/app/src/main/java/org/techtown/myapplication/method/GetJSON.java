@@ -24,7 +24,7 @@ public class GetJSON extends AsyncTask<String, String, String> {
     class SiDoGunGuComparator implements Comparator<ItemList> {
         @Override
         public int compare(ItemList itemList1, ItemList itemList2) {
-            if(itemList1.sido.equals(itemList2.sido))
+            if (itemList1.sido.equals(itemList2.sido))
                 return itemList1.sigungu.compareTo(itemList2.sigungu);
             return itemList1.sido.compareTo(itemList2.sido);
         }
@@ -39,6 +39,7 @@ public class GetJSON extends AsyncTask<String, String, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
     }
+
     @Override
     protected String doInBackground(String... strings) {
         Log.d("Task3", "POST");

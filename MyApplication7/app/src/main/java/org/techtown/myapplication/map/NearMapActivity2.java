@@ -320,8 +320,8 @@ public class NearMapActivity2 extends AppCompatActivity
 
             cn = marker.getTitle();
             fn = marker.getSnippet();
-            for(int i=0;i<MainActivity2.infoList.size();i++){
-                if(MainActivity2.infoList.get(i).facilityName.equals(fn)) {
+            for (int i = 0; i < MainActivity2.infoList.size(); i++) {
+                if (MainActivity2.infoList.get(i).facilityName.equals(fn)) {
                     ad = MainActivity2.infoList.get(i).address;
                     break;
                 }

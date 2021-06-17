@@ -40,7 +40,7 @@ public class MainActivity2 extends AppCompatActivity {
     static MenuItem mSearch;
     public static ArrayList<ItemList> infoList = new ArrayList<>();
 
-    public static String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+    public static String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
     public static final int PERMISSIONS_REQUEST_CODE = 100;
 
     ListView listView;
@@ -49,6 +49,7 @@ public class MainActivity2 extends AppCompatActivity {
     Spinner spinnerSi;
     String siDo;
     ProgressBar pb;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { //액션바 불러오기
         super.onCreateOptionsMenu(menu);
@@ -92,7 +93,7 @@ public class MainActivity2 extends AppCompatActivity {
         //ImageView logo = (ImageView) findViewById(R.id.gif_image);
         //GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(logo);
         //Glide.with(this).load(R.drawable.logo3).into(gifImage);
-        if(check == 0) {
+        if (check == 0) {
             spinnerDo.setVisibility(View.INVISIBLE);
             spinnerSi.setVisibility(View.INVISIBLE);
             pb.setVisibility(View.VISIBLE);
@@ -116,16 +117,16 @@ public class MainActivity2 extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {    }
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
         });
 
         spinnerSi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    int temp =1;
-                }
-                else {
+                    int temp = 1;
+                } else {
                     String selectedSigungu = (String) adapterView.getItemAtPosition(i);
                     printListview(siDo, selectedSigungu);
                     //((TextView)adapterView.getChildAt(0)).setTextColor(Color.WHITE);
@@ -138,12 +139,12 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
 
-        if (infoList.size() == 0 ) {
+        if (infoList.size() == 0) {
             //pb.setVisibility(View.VISIBLE);
             makeRequest();
         }
 
-        if(check ==0) {
+        if (check == 0) {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -156,7 +157,7 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             }, 1300); //딜레이 타임 조절*/
         }
-        ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS ,
+        ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
                 PERMISSIONS_REQUEST_CODE);
 
     }
@@ -210,7 +211,7 @@ public class MainActivity2 extends AppCompatActivity {
         for (int i = 0; i < infoList.size(); i++) {
             if (!infoList.get(i).sido.equals(sido_show[0]))
                 continue;
-            else if(sido_show.length==2 && !infoList.get(i).sigungu.equals(sido_show[1]))
+            else if (sido_show.length == 2 && !infoList.get(i).sigungu.equals(sido_show[1]))
                 continue;
 
             address = infoList.get(i).address;
@@ -246,6 +247,7 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
     }
+
     public void SearchListview(String s) {
         String address, facName;
         String centerName;
@@ -263,11 +265,10 @@ public class MainActivity2 extends AppCompatActivity {
 
 
         for (int i = 0; i < MainActivity.infoList.size(); i++) {
-            if ((!MainActivity.infoList.get(i).address.contains(s) && !MainActivity.infoList.get(i).centerName.contains(s)&& !MainActivity.infoList.get(i).facilityName.contains(s))|| s.equals("")) {
+            if ((!MainActivity.infoList.get(i).address.contains(s) && !MainActivity.infoList.get(i).centerName.contains(s) && !MainActivity.infoList.get(i).facilityName.contains(s)) || s.equals("")) {
                 //tv.setVisibility(View.VISIBLE);
                 continue;
-            }
-            else {
+            } else {
 
                 address = infoList.get(i).address;
                 centerName = infoList.get(i).centerName;
@@ -302,10 +303,11 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+        switch (item.getItemId()) {
+            case android.R.id.home: { //toolbar의 back키 눌렀을 때 동작
                 finish();
                 return true;
             }
