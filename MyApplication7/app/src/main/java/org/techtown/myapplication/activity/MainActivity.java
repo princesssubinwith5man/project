@@ -2,6 +2,7 @@ package org.techtown.myapplication.activity;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,14 +11,16 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import org.techtown.myapplication.R;
 import org.techtown.myapplication.map.NearMapActivity;
 import org.techtown.myapplication.map.NearMapActivity2;
 import org.techtown.myapplication.method.GetJSON;
-import org.techtown.myapplication.method.GetNavi;
 import org.techtown.myapplication.object.ItemList;
 
 import java.util.ArrayList;
@@ -51,14 +54,11 @@ public class MainActivity extends AppCompatActivity {
         button4.setVisibility(View.INVISIBLE);
         ImageView logo = (ImageView) findViewById(R.id.gif_image);
         logo.setVisibility(View.VISIBLE);
+
         if(infoList.size()==0) {
             GetJSON getJSON = new GetJSON();
             getJSON.execute();
         }
-        GetNavi getNavi = new GetNavi();
-        getNavi.execute();
-
-        // getNavi test해봄
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -71,20 +71,51 @@ public class MainActivity extends AppCompatActivity {
                 button4.setVisibility(View.VISIBLE);
             }
         }, 2000); //딜레이 타임 조절*/
+
+
+
+        checkPermission();
+
     }
 
     public void click(View view) {
-        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+        if(!checkPermission())
+            return;
+
+        Intent intent = new Intent(MainActivity.this, ListActivity.class);
         startActivity(intent);
     }
 
     public void click1(View view) {
+        if(!checkPermission())
+            return;
+
         Intent intent = new Intent(MainActivity.this, NearMapActivity.class);
         startActivity(intent);
     }
 
     public void click3(View view) {
+        if(!checkPermission())
+            return;
+
         Intent intent = new Intent(MainActivity.this, NearMapActivity2.class);
         startActivity(intent);
+    }
+    public boolean checkPermission(){
+        if (ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSIONS[0]) == PackageManager.PERMISSION_DENIED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    REQUIRED_PERMISSIONS[0])) { // 이전에 권한 허가를 거부한 경우
+                Toast.makeText(this, "권한 허가를 거부할 경우 앱이 정상적으로 동작하지 않습니다", Toast.LENGTH_LONG);
+                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
+                        PERMISSIONS_REQUEST_CODE);
+            } else {   // 권한을 거부한 적이 없을 경우
+                ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS,
+                        PERMISSIONS_REQUEST_CODE);
+            }
+        }
+        if(ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSIONS[0]) == PackageManager.PERMISSION_DENIED)
+            return false;
+        else
+            return true;
     }
 }

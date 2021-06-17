@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.techtown.myapplication.activity.MainActivity;
-import org.techtown.myapplication.activity.MainActivity2;
+import org.techtown.myapplication.activity.ListActivity;
 import org.techtown.myapplication.object.ItemList;
 
 import java.io.BufferedReader;
@@ -98,13 +98,13 @@ public class GetJSON extends AsyncTask<String, String, String> {
                         item.getString("zipCode")
 
                 );
-                MainActivity2.infoList.add(itemList);
+                ListActivity.infoList.add(itemList);
                 MainActivity.infoList.add(itemList);
             }
 
-            Collections.sort(MainActivity2.infoList, new SiDoGunGuComparator());
+            Collections.sort(ListActivity.infoList, new SiDoGunGuComparator());
             Collections.sort(MainActivity.infoList, new SiDoGunGuComparator());
-            Log.d("vaccine", MainActivity2.infoList.size() + "개");
+            Log.d("vaccine", ListActivity.infoList.size() + "개");
 
         } catch (NullPointerException | JSONException e) {
             e.printStackTrace();
