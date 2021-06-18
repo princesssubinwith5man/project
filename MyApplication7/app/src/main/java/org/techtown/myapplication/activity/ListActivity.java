@@ -2,13 +2,10 @@ package org.techtown.myapplication.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-
 import android.content.pm.PackageManager;
 
 import android.graphics.Color;
 import android.os.Build;
-
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -19,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -92,6 +90,7 @@ public class ListActivity extends AppCompatActivity {
         }//상태바 투명
 
         setContentView(activity_list);
+
         pb = (ProgressBar) findViewById(R.id.progressBar);
         ImageView iv =(ImageView)findViewById(R.id.temp);
         listView = (ListView) findViewById(R.id.list);
