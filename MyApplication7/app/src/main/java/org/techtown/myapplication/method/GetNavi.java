@@ -48,7 +48,8 @@ public class GetNavi extends AsyncTask<Double, String, JSONArray> {
         String[] mode = {"driving", "walking", "cycling"};
         JSONArray coordinates = null;
 
-        String API = "https://api.mapbox.com/directions/v5/mapbox/" + mode[0] + "/" + startLng + "," + startLat + ";" + targetLng + "," + targetLat + "?" + "geometries=geojson&access_token=" + token;
+        String API = "https://api.mapbox.com/directions/v5/mapbox/" + mode[0] + "/" + startLng + ","
+                + startLat + ";" + targetLng + "," + targetLat + "?" + "geometries=geojson&access_token=" + token;
 
     /*
     https://api.mapbox.com/directions/v5/mapbox/walking/128.87605666666664,37.75185166666667;128.8929531,37.7725668?geometries=geojson&access_token=pk.eyJ1IjoianctamluIiwiYSI6ImNrcHlpN24wdjAwajEzMW1wcjYwbzE4YmYifQ.C0xheHu9IRuLdF-8KJ7XsA
