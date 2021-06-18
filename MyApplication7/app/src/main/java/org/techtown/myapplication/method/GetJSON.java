@@ -59,6 +59,7 @@ public class GetJSON extends AsyncTask<String, String, String> {
         String data = "";
 
         try {
+            // api 연결 부분
             URL url = new URL(API);
             Log.d("Api", "The response is :" + url);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -82,6 +83,8 @@ public class GetJSON extends AsyncTask<String, String, String> {
 
             JSONArray itemArray = root.getJSONArray("data");
             for (int i = 0; i < itemArray.length(); i++) {
+                // api 응답으로 온 json을 파싱해 ItemList에 저장
+
                 JSONObject item = itemArray.getJSONObject(i);
                 Log.d("vaccine", item.getString("centerName"));
                 ItemList itemList = new ItemList(
@@ -102,6 +105,7 @@ public class GetJSON extends AsyncTask<String, String, String> {
                 MainActivity.infoList.add(itemList);
             }
 
+            // 리스트뷰에 정렬되어 보이도록 api 통신 부분에서 미리 정렬해 둠
             Collections.sort(ListActivity.infoList, new SiDoGunGuComparator());
             Collections.sort(MainActivity.infoList, new SiDoGunGuComparator());
             Log.d("vaccine", ListActivity.infoList.size() + "개");

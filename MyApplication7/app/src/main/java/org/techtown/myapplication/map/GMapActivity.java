@@ -99,6 +99,8 @@ public class GMapActivity extends AppCompatActivity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // 인텐트에서 선택된 예방접종센터 정보 받아오기
         Intent intent = getIntent();
         lat = intent.getDoubleExtra("lat", 0);
         lng = intent.getDoubleExtra("lng", 0);
@@ -118,6 +120,7 @@ public class GMapActivity extends AppCompatActivity
         map = googleMap;
         setCustomMarkerView();
 
+        // 마커 찍어주기 & 정보 표시하기
         Log.d("tag:", "result: " + lat + " " + lng);
         LatLng Corona = new LatLng(lat, lng);
         MarkerOptions markerOptions = new MarkerOptions();
@@ -138,7 +141,7 @@ public class GMapActivity extends AppCompatActivity
         enableMyLocation();
     }
 
-    //정보창 클릭 리스너
+    //정보창 클릭 리스너 딱히 하는거 없음
     GoogleMap.OnInfoWindowClickListener infoWindowClickListener = new GoogleMap.OnInfoWindowClickListener() {
         @Override
         public void onInfoWindowClick(Marker marker) {
@@ -156,6 +159,7 @@ public class GMapActivity extends AppCompatActivity
     };
 
     //마커 클릭 리스너
+    // 마커 클릭 시 관련 정보 보여주고 전화걸기 & 길찾기 버튼 구현해 놓음
     GoogleMap.OnMarkerClickListener markerClickListener = new GoogleMap.OnMarkerClickListener() {
         @Override
         public boolean onMarkerClick(Marker marker) {
@@ -210,14 +214,14 @@ public class GMapActivity extends AppCompatActivity
                             double latitude = location.getLatitude();
 
                             try {
+                                // MapBox api 사용
                                 GetNavi getNavi = new GetNavi();
-
-
                                 JSONArray route = getNavi.execute(longitude, latitude, lng, lat).get();
 
                                 int len = route.length();
 
                                 for (int i = 0; i < len; i++) {
+                                    // json 배열 -> 문자열 -> 정수형 파싱
                                     String str = route.get(i).toString();
                                     str = str.replace("[", "").replace("]", "");
                                     String[] token = str.split(",");
@@ -234,7 +238,6 @@ public class GMapActivity extends AppCompatActivity
                                 Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG);
 
                                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 15));
-
                                 bottomSheetDialog.dismiss();
 
                             } catch (Exception e) {

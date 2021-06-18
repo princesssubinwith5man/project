@@ -132,6 +132,7 @@ public class ListActivity extends AppCompatActivity {
         spinnerDo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // 시도 스피너가 선택된 경우 리스트 출력하고 시군구 스피너 변경함
                 //((TextView)adapterView.getChildAt(0)).setTextColor(Color.WHITE);
                 siDo = (String) adapterView.getItemAtPosition(i);
                 Log.d("tab", siDo + "선택됨");

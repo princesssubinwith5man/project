@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // 리스트 액티비티 보여줌
     public void click(View view) {
         if(!checkPermission())
             return;
@@ -92,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void click1(View view) {
+        // 가장 가까운 예방접종 센터 보여주는 액티비티 호출
         if(!checkPermission())
             return;
 
@@ -100,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void click3(View view) {
+        // 가까운 예방접종 센터 몇개 보여주는 액티비티 호출
         if(!checkPermission())
             return;
 
@@ -107,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public boolean checkPermission(){
+        // 권한 체크 함수
         if (ContextCompat.checkSelfPermission(this, REQUIRED_PERMISSIONS[0]) == PackageManager.PERMISSION_DENIED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     REQUIRED_PERMISSIONS[0])) { // 이전에 권한 허가를 거부한 경우
