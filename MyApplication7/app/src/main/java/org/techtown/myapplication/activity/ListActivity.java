@@ -21,6 +21,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +35,7 @@ import org.techtown.myapplication.method.GetJSON;
 import org.techtown.myapplication.object.ItemList;
 import org.techtown.myapplication.object.ListViewAdapter;
 import org.techtown.myapplication.object.ListViewItem;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -96,6 +98,8 @@ public class ListActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.list);
         spinnerDo = (Spinner) findViewById(R.id.spinner);
         spinnerSi = (Spinner) findViewById(R.id.spinner_si);
+        TextView TV= (TextView) findViewById(R.id.textview1);
+        TextView TV1= (TextView) findViewById(R.id.textview2);
 
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -114,6 +118,8 @@ public class ListActivity extends AppCompatActivity {
             pb.setVisibility(View.VISIBLE);
             mToolbar.setVisibility(View.INVISIBLE);
             iv.setVisibility(View.INVISIBLE);
+            TV.setVisibility(View.INVISIBLE);
+            TV1.setVisibility(View.INVISIBLE);
         }
         //spinnerDo.dropDownVerticalOffset = dipToPixels(45f).toInt();
         spinnerDo.setSelection(0);
@@ -181,6 +187,8 @@ public class ListActivity extends AppCompatActivity {
                     spinnerSi.setVisibility(View.VISIBLE);
                     mToolbar.setVisibility(View.VISIBLE);
                     iv.setVisibility(View.VISIBLE);
+                    TV.setVisibility(View.VISIBLE);
+                    TV1.setVisibility(View.VISIBLE);
                     check = 1;
                 }
             }, 1300); //딜레이 타임 조절*/

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="15dp"
-        android:text="Princess Suvin"
+        android:text="코로나19 예방접종센터"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
