@@ -17,6 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+
 import org.techtown.myapplication.R;
 import org.techtown.myapplication.map.NearMapActivity;
 import org.techtown.myapplication.map.NearMapActivity2;
@@ -53,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         Button button4 = findViewById(R.id.button4);
         button4.setVisibility(View.INVISIBLE);
         ImageView logo = (ImageView) findViewById(R.id.gif_image);
+        GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(logo);
+        Glide.with(this).load(R.drawable.real_real_logo).into(gifImage);
         logo.setVisibility(View.VISIBLE);
 
         if(infoList.size()==0) {
@@ -70,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 button3.setVisibility(View.VISIBLE);
                 button4.setVisibility(View.VISIBLE);
             }
-        }, 2000); //딜레이 타임 조절*/
+        }, 5000); //딜레이 타임 조절*/
 
 
 
