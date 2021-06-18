@@ -93,7 +93,6 @@
                 android:background="@drawable/main_button_background"
                 android:backgroundTint="@color/white"
                 android:gravity="center"
-                android:alpha="0"
                 android:onClick="click3"
                 android:text="근처 예방접종센터"
                 android:textColor="@color/black"
