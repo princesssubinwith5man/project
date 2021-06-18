@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activity.MainActivity2">
+    tools:context=".activity.ListActivity">
 
     <item
         android:id="@+id/action_search"
@@ -14,6 +14,16 @@
         android:id="@+id/menu1"
         android:title="Princess Suvin with 5 dwarfs"
         />
+    <item
+        android:title="총괄: 이승민"
+        />
+    <item
+        android:title="프로그래밍팀: 홍이삭, 정우진, 정래원"
+        />
+    <item
+        android:title="디자인팀: 신봉규, 지수빈"
+        />
+
 
 
 

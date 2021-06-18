@@ -7,7 +7,7 @@ public class ListViewItem {
     private String CenterNameStr;
     final private double lat, lng;
 
-    public ListViewItem(int icon, String centerName, String facName, String address, double lat, double lng){
+    public ListViewItem(int icon, String centerName, String facName, String address, double lat, double lng) {
         iconDrawable = icon;
         CenterNameStr = centerName;
         facNameStr = facName;
@@ -16,27 +16,43 @@ public class ListViewItem {
         this.lng = lng;
     }
 
-    public void setCenterName(String title){
+    public void setCenterName(String title) {
         CenterNameStr = title;
     }
-    public void setFacName(String content){
+
+    public void setFacName(String content) {
         facNameStr = content;
     }
-    public void setIcon(int icon){
+
+    public void setIcon(int icon) {
         iconDrawable = icon;
     }
-    public void setAddress(String address){addressStr = address;}
 
-    public int getIcon(){
+    public void setAddress(String address) {
+        addressStr = address;
+    }
+
+    public int getIcon() {
         return this.iconDrawable;
     }
-    public double getLat(){return lat;}
-    public double getLng(){return lng;}
-    public String getFacNameStr(){
+
+    public double getLat() {
+        return lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public String getFacNameStr() {
         return this.facNameStr;
     }
-    public String getCenterNameStr(){
+
+    public String getCenterNameStr() {
         return this.CenterNameStr;
     }
-    public String getAddressStr(){return this.addressStr;}
+
+    public String getAddressStr() {
+        return this.addressStr;
+    }
 }

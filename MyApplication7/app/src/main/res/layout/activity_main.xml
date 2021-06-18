@@ -11,12 +11,25 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textview3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="PRINCESS SUVIN WITH 5 DWARFS"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:alpha="0.7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="401dp"
-            android:layout_height="438dp"
+            android:layout_width="417dp"
+            android:layout_height="522dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -27,61 +40,68 @@
 
         <ImageView
             android:id="@+id/gif_image"
-            android:layout_width="297dp"
-            android:layout_height="446dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.498"
-            app:srcCompat="@drawable/logo3" />
+            app:srcCompat="@drawable/real_real_logo" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/main_button_background"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:onClick="click1"
+                android:text="가까운 예방접종센터 조회"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/main_button_background"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:onClick="click"
+                android:text="지역별 예방접종센터"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/main_button_background"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:onClick="click3"
+                android:text="근처 예방접종센터"
+                android:textColor="@color/black"
+                android:textStyle="italic" />
+
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:backgroundTint="@color/white"
-            android:background="@drawable/main_button_background"
-            android:gravity="center"
-            android:onClick="click1"
-            android:text="가까운 예방접종센터 조회"
-            android:textColor="@color/black"
-            android:textStyle="italic"
-            />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/main_button_background"
-        android:backgroundTint="@color/white"
-        android:gravity="center"
-        android:onClick="click"
-        android:text="지역별 예방접종센터"
-        android:textColor="@color/black"
-        android:textStyle="italic" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/main_button_background"
-        android:backgroundTint="@color/white"
-        android:gravity="center"
-        android:onClick="click3"
-        android:text="근처 예방접종센터"
-        android:textColor="@color/black"
-        android:textStyle="italic" />
 
 
 </LinearLayout>

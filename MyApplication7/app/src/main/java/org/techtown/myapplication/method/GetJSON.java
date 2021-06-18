@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.techtown.myapplication.activity.MainActivity;
-import org.techtown.myapplication.activity.MainActivity2;
+import org.techtown.myapplication.activity.ListActivity;
 import org.techtown.myapplication.object.ItemList;
 
 import java.io.BufferedReader;
@@ -24,7 +24,7 @@ public class GetJSON extends AsyncTask<String, String, String> {
     class SiDoGunGuComparator implements Comparator<ItemList> {
         @Override
         public int compare(ItemList itemList1, ItemList itemList2) {
-            if(itemList1.sido.equals(itemList2.sido))
+            if (itemList1.sido.equals(itemList2.sido))
                 return itemList1.sigungu.compareTo(itemList2.sigungu);
             return itemList1.sido.compareTo(itemList2.sido);
         }
@@ -39,6 +39,7 @@ public class GetJSON extends AsyncTask<String, String, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
     }
+
     @Override
     protected String doInBackground(String... strings) {
         Log.d("Task3", "POST");
@@ -58,6 +59,7 @@ public class GetJSON extends AsyncTask<String, String, String> {
         String data = "";
 
         try {
+            // api 연결 부분
             URL url = new URL(API);
             Log.d("Api", "The response is :" + url);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -81,6 +83,8 @@ public class GetJSON extends AsyncTask<String, String, String> {
 
             JSONArray itemArray = root.getJSONArray("data");
             for (int i = 0; i < itemArray.length(); i++) {
+                // api 응답으로 온 json을 파싱해 ItemList에 저장
+
                 JSONObject item = itemArray.getJSONObject(i);
                 Log.d("vaccine", item.getString("centerName"));
                 ItemList itemList = new ItemList(
@@ -97,13 +101,14 @@ public class GetJSON extends AsyncTask<String, String, String> {
                         item.getString("zipCode")
 
                 );
-                MainActivity2.infoList.add(itemList);
+                ListActivity.infoList.add(itemList);
                 MainActivity.infoList.add(itemList);
             }
 
-            Collections.sort(MainActivity2.infoList, new SiDoGunGuComparator());
+            // 리스트뷰에 정렬되어 보이도록 api 통신 부분에서 미리 정렬해 둠
+            Collections.sort(ListActivity.infoList, new SiDoGunGuComparator());
             Collections.sort(MainActivity.infoList, new SiDoGunGuComparator());
-            Log.d("vaccine", MainActivity2.infoList.size() + "개");
+            Log.d("vaccine", ListActivity.infoList.size() + "개");
 
         } catch (NullPointerException | JSONException e) {
             e.printStackTrace();
