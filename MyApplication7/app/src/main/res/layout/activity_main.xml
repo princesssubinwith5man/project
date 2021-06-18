@@ -13,6 +13,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textview3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="PRINCESS SUVIN WITH 5 DWARFS"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:alpha="0.7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="417dp"
@@ -80,6 +93,7 @@
                 android:background="@drawable/main_button_background"
                 android:backgroundTint="@color/white"
                 android:gravity="center"
+                android:alpha="0"
                 android:onClick="click3"
                 android:text="근처 예방접종센터"
                 android:textColor="@color/black"
