@@ -15,9 +15,8 @@ public class GetPhone {
     }
 
     public String getNumber(String facName) throws IOException {
-        //String path = System.getProperty("user.dir");
-
-        BufferedReader br = new BufferedReader(new InputStreamReader(mContext.getAssets().open("phone_number.csv")));
+        BufferedReader br = new BufferedReader(
+                new InputStreamReader(mContext.getAssets().open("phone_number.csv")));
         String line = "";
 
         while ((line = br.readLine()) != null) {

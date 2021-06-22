@@ -189,7 +189,8 @@ public class GMapActivity extends AppCompatActivity
                             startActivity(new Intent("android.intent.action.DIAL", Uri.parse(phoneNumber)));
                         }
                     } catch (IOException e) {
-                        System.out.println("오류 발생");
+                        e.printStackTrace();
+                        System.out.println("전화 걸기 오류 발생");
                     }
 
                     Toast.makeText(GMapActivity.this, "CALLING....", Toast.LENGTH_SHORT).show();
