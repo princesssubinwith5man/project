@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -53,7 +56,8 @@ public class ListActivity extends AppCompatActivity {
 
 
     ListView listView;
-
+    ImageView bgapp;
+    Animation frombottom;
     Spinner spinnerDo;
     Spinner spinnerSi;
     String siDo;
@@ -92,7 +96,10 @@ public class ListActivity extends AppCompatActivity {
         }//상태바 투명
 
         setContentView(activity_list);
+        bgapp = (ImageView) findViewById(R.id.temp);
+        frombottom= AnimationUtils.loadAnimation(this,R.anim.frombottom);
 
+        bgapp.animate().translationY(-1100).setDuration(800).setStartDelay(800);
         pb = (ProgressBar) findViewById(R.id.progressBar);
         ImageView iv =(ImageView)findViewById(R.id.temp);
         listView = (ListView) findViewById(R.id.list);
@@ -101,6 +108,10 @@ public class ListActivity extends AppCompatActivity {
         TextView TV= (TextView) findViewById(R.id.textview1);
         TextView TV1= (TextView) findViewById(R.id.textview2);
 
+        spinnerDo.startAnimation(frombottom);
+        spinnerSi.startAnimation(frombottom);
+        TV.startAnimation(frombottom);
+        TV1.startAnimation(frombottom);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
