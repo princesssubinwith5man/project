@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         button3.setVisibility(View.INVISIBLE);
         Button button4 = findViewById(R.id.button4);
         button4.setVisibility(View.INVISIBLE);
+        TextView TV = findViewById(R.id.textview3);
+        TV.setVisibility(View.INVISIBLE);
         ImageView logo = (ImageView) findViewById(R.id.gif_image);
         GlideDrawableImageViewTarget gifImage = new GlideDrawableImageViewTarget(logo);
         Glide.with(this).load(R.drawable.real_real_logo).into(gifImage);
@@ -74,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 button2.setVisibility(View.VISIBLE);
                 button3.setVisibility(View.VISIBLE);
                 button4.setVisibility(View.VISIBLE);
+                TV.setVisibility(View.VISIBLE);
             }
         }, 5000); //딜레이 타임 조절*/
 
