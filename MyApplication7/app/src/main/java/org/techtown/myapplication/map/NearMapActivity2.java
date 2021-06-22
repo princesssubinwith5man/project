@@ -63,8 +63,6 @@ public class NearMapActivity2 extends AppCompatActivity
         GoogleMap.OnMyLocationClickListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
 
-    private double lat;
-    private double lng;
     private String cn;
     private String fn;
     private String ad;
