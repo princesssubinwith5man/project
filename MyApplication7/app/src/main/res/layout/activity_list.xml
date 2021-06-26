@@ -7,28 +7,32 @@
     android:orientation="vertical"
     android:visibility="visible"
     tools:context=".activity.ListActivity">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="@color/blue"/>
+        android:background="@color/blue" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
         android:background="@color/blue"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
+
     <RelativeLayout
+        android:id="@+id/Relay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/temp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            android:scaleType="fitXY"
-            android:background="@drawable/actionbar_background"/>
+            android:background="@drawable/actionbar_background"
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/textview1"
@@ -38,51 +42,64 @@
             android:text="지역별"
             android:textColor="@color/white"
             android:textSize="35sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/textview2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
             android:text="예방접종센터"
             android:textColor="@color/white"
             android:textSize="35sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:gravity="end"
-            android:layout_marginTop="120dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="120dp"
+            android:layout_marginEnd="30dp"
+            android:gravity="end"
             android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:dropDownVerticalOffset="40dp"
                 android:layout_weight="1"
                 android:background="@drawable/spinner_background"
-                android:scrollbars="vertical"
-                android:spinnerMode="dropdown"
+                android:dropDownVerticalOffset="40dp"
+                android:entries="@array/도시"
                 android:popupBackground="@drawable/popup_background"
-                android:entries="@array/도시" />
+                android:scrollbars="vertical"
+                android:spinnerMode="dropdown" />
 
             <Spinner
                 android:id="@+id/spinner_si"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:dropDownVerticalOffset="40dp"
                 android:layout_weight="1"
-                android:entries="@array/기본값"
                 android:background="@drawable/spinner_background1"
-                android:scrollbars="vertical"/>
+                android:dropDownVerticalOffset="40dp"
+                android:entries="@array/기본값"
+                android:scrollbars="vertical" />
+
 
         </LinearLayout>
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="180dp"
+            android:divider="#FFFFFF"
+            android:dividerHeight="0px"
+            android:fastScrollEnabled="true" />
     </RelativeLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -96,17 +113,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ListView
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:divider="#FFFFFF"
-            android:dividerHeight="0px"
-            android:fastScrollEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -117,7 +123,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list" />
+            app:layout_constraintTop_toBottomOf="@+id/gif_image" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

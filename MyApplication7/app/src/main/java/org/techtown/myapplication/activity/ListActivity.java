@@ -99,7 +99,7 @@ public class ListActivity extends AppCompatActivity {
         bgapp = (ImageView) findViewById(R.id.temp);
         frombottom= AnimationUtils.loadAnimation(this,R.anim.frombottom);
 
-        bgapp.animate().translationY(-1100).setDuration(800).setStartDelay(800);
+        bgapp.animate().translationY(-1100).setDuration(1300).setStartDelay(800);
         pb = (ProgressBar) findViewById(R.id.progressBar);
         ImageView iv =(ImageView)findViewById(R.id.temp);
         listView = (ListView) findViewById(R.id.list);
@@ -247,8 +247,9 @@ public class ListActivity extends AppCompatActivity {
 
         Log.d("tag", "print실행중..." + inputSize);
 
-        if (check == 1)
+        if (check == 1) {
             listView.setVisibility(View.VISIBLE);
+        }
         else
             listView.setVisibility(View.INVISIBLE);
 
@@ -343,7 +344,7 @@ public class ListActivity extends AppCompatActivity {
                 String facName = listViewItem.getFacNameStr();
                 String address = listViewItem.getAddressStr();
 
-                Toast.makeText(getApplicationContext(), "위도 : " + lat, Toast.LENGTH_LONG);
+                //Toast.makeText(getApplicationContext(), "위도 : " + lat, Toast.LENGTH_LONG);
 
                 Intent intent = new Intent(ListActivity.this, GMapActivity.class);
                 intent.putExtra("lat", lat);

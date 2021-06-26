@@ -2,15 +2,19 @@
   <library name="Gradle: com.google.android.material:material:1.4.0-rc01@aar">
     <ANNOTATIONS>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/32cca2621407ecd73ffb6f06f83b3f96/material-1.4.0-rc01/annotations.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../../../laewon2/project/MyApplication7/.gradle/6.7.1/caches/transforms-2/files-2.1/32cca2621407ecd73ffb6f06f83b3f96/material-1.4.0-rc01/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/32cca2621407ecd73ffb6f06f83b3f96/material-1.4.0-rc01/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/32cca2621407ecd73ffb6f06f83b3f96/material-1.4.0-rc01/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/32cca2621407ecd73ffb6f06f83b3f96/material-1.4.0-rc01/res" />
+      <root url="file://$PROJECT_DIR$/../../../laewon2/project/MyApplication7/.gradle/6.7.1/caches/transforms-2/files-2.1/32cca2621407ecd73ffb6f06f83b3f96/material-1.4.0-rc01/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/../../../laewon2/project/MyApplication7/.gradle/6.7.1/caches/transforms-2/files-2.1/32cca2621407ecd73ffb6f06f83b3f96/material-1.4.0-rc01/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../laewon2/project/MyApplication7/.gradle/6.7.1/caches/transforms-2/files-2.1/32cca2621407ecd73ffb6f06f83b3f96/material-1.4.0-rc01/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.material/material/1.4.0-rc01/20b5ab90569d293a8cd66b4302ee769951e55c10/material-1.4.0-rc01-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../laewon2/project/MyApplication7/.gradle/6.7.1/caches/modules-2/files-2.1/com.google.android.material/material/1.4.0-rc01/20b5ab90569d293a8cd66b4302ee769951e55c10/material-1.4.0-rc01-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

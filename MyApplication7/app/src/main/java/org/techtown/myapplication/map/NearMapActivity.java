@@ -142,8 +142,7 @@ public class NearMapActivity extends AppCompatActivity
                 double latitude = location.getLatitude();
                 double altitude = location.getAltitude();
                 Log.d("Tag", "result" + latitude + "\n" + longitude);
-                Toast.makeText(this, "위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
-                        .show();
+                //Toast.makeText(this, "위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG).show();
 
                 ItemList itemList = ListActivity.infoList.get(0);
                 double minDistance = Double.MAX_VALUE;
@@ -353,7 +352,7 @@ public class NearMapActivity extends AppCompatActivity
                                 }
                                 map.addPolyline(polylineOptions);
                                 Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG);
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 15));
+                                map.animateCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(pointList.size()/2), 14));
                                 bottomSheetDialog.dismiss();
 
                             } catch (Exception e) {

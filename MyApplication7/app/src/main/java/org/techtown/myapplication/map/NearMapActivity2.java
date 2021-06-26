@@ -151,8 +151,7 @@ public class NearMapActivity2 extends AppCompatActivity
                 cur_lat = latitude;
                 cur_lng = longitude;
 
-                Toast.makeText(this, "new2위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG)
-                        .show();
+                //Toast.makeText(this, "new2위도: " + location.getLatitude() + "경도: " + location.getLongitude(), Toast.LENGTH_LONG).show();
 
                 ItemList itemList = ListActivity.infoList.get(0);
 
@@ -367,7 +366,8 @@ public class NearMapActivity2 extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
                     final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
+                    double distance;
+                    int int_distance;
                     if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
                         if (map != null) {
@@ -411,8 +411,19 @@ public class NearMapActivity2 extends AppCompatActivity
                                 Polyline polyline = map.addPolyline(polylineOptions);
                                 polylineList.add(polyline);
 
-                                Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG);
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 15));
+                                //Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG);
+                                distance = calcLocation(pointList.get(0),pointList.get(pointList.size()-1));
+                                int_distance = (int)distance;
+                                if(int_distance/1000 < 3)
+                                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(pointList.get((pointList.size()-1)/2), 14));
+                                else if(int_distance/1000 < 30)
+                                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(pointList.get((pointList.size()-1)/2), 13));
+                                else if(int_distance/1000 < 100)
+                                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(pointList.size()/2), 9));
+                                else if(int_distance/1000 < 170)
+                                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(pointList.size()/2), 8));
+                                else
+                                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(pointList.size()/2), 7));
 
                                 bottomSheetDialog.dismiss();
 
