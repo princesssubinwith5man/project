@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 
 import android.graphics.Color;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -62,6 +64,7 @@ public class ListActivity extends AppCompatActivity {
     Spinner spinnerSi;
     String siDo;
     ProgressBar pb;
+    LinearLayout LL;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { //액션바 불러오기
@@ -107,9 +110,10 @@ public class ListActivity extends AppCompatActivity {
         spinnerSi = (Spinner) findViewById(R.id.spinner_si);
         TextView TV= (TextView) findViewById(R.id.textview1);
         TextView TV1= (TextView) findViewById(R.id.textview2);
+        LL = findViewById(R.id.LL);
 
-        spinnerDo.startAnimation(frombottom);
-        spinnerSi.startAnimation(frombottom);
+        LL.startAnimation(frombottom);
+
         TV.startAnimation(frombottom);
         TV1.startAnimation(frombottom);
 
@@ -363,6 +367,11 @@ public class ListActivity extends AppCompatActivity {
             case android.R.id.home: { //toolbar의 back키 눌렀을 때 동작
                 finish();
                 return true;
+            }
+            case R.id.seungmin:{
+                //Toast.makeText(this, "01040550561", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent("android.intent.action.DIAL", Uri.parse("tel:01040550561")));
+                break;
             }
         }
         return super.onOptionsItemSelected(item);

@@ -15,6 +15,7 @@
         android:title="Princess Suvin with 5 dwarfs"
         />
     <item
+        android:id="@+id/seungmin"
         android:title="총괄: 이승민"
         />
     <item
