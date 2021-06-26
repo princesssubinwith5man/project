@@ -206,7 +206,8 @@ public class GMapActivity extends AppCompatActivity
 
                     ArrayList<LatLng> pointList = new ArrayList<>();
                     final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
+                    double distance;
+                    int int_distance;
                     if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                             == PackageManager.PERMISSION_GRANTED) {
                         if (map != null) {
@@ -237,8 +238,22 @@ public class GMapActivity extends AppCompatActivity
                                 }
                                 map.addPolyline(polylineOptions);
                                 Toast.makeText(getApplicationContext(), "지도 경로 그리는 중...", Toast.LENGTH_LONG);
+                                Log.d("tag","result"+calcLocation(pointList.get(0),pointList.get(pointList.size()-1)));
+                                distance = calcLocation(pointList.get(0),pointList.get(pointList.size()-1));
+                                int_distance = (int)distance;
+                                if(int_distance/1000 < 3)
+                                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(pointList.get((pointList.size()-1)/2), 14));
+                                else if(int_distance/1000 < 25)
+                                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(pointList.get((pointList.size()-1)/2), 11));
+                                else if(int_distance/1000 < 50)
+                                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(pointList.get((pointList.size()-1)/2), 10));
+                                else if(int_distance/1000 < 100)
+                                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(pointList.get((pointList.size()-1)/2), 9));
+                                else if(int_distance/1000 < 201)
+                                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(pointList.get((pointList.size()-1)/2), 8));
+                                else
+                                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(pointList.get((pointList.size()-1)/2), 7));
 
-                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointList.get(0), 15));
                                 bottomSheetDialog.dismiss();
 
                             } catch (Exception e) {
@@ -316,6 +331,34 @@ public class GMapActivity extends AppCompatActivity
             permissionDenied = false;
         }
     }
+    double getDistance(double alat, double alng, double blat, double blng, String unit) {
+        double theta = alng - blng;
+        double dist = Math.sin(deg2rad(alat)) * Math.sin(deg2rad(blat)) + Math.cos(deg2rad(alat)) * Math.cos(deg2rad(blat)) * Math.cos(deg2rad(theta));
 
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
 
+        if (unit == "kilometer") {
+            dist = dist * 1.609344;
+        } else if (unit == "meter") {
+            dist = dist * 1609.344;
+        }
+
+        return (dist);
+    }
+    // This function converts decimal degrees to radians
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    // This function converts radians to decimal degrees
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
+    private float calcLocation(LatLng curLoc, LatLng targetLoc) {
+        float[] dist = new float[1];
+        Location.distanceBetween(curLoc.latitude, curLoc.longitude, targetLoc.latitude, targetLoc.longitude, dist);
+        return dist[0];
+    }
 }

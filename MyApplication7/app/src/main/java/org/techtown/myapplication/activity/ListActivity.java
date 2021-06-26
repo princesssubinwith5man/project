@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 
 import android.graphics.Color;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -62,6 +64,7 @@ public class ListActivity extends AppCompatActivity {
     Spinner spinnerSi;
     String siDo;
     ProgressBar pb;
+    LinearLayout LL;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) { //액션바 불러오기
@@ -99,7 +102,7 @@ public class ListActivity extends AppCompatActivity {
         bgapp = (ImageView) findViewById(R.id.temp);
         frombottom= AnimationUtils.loadAnimation(this,R.anim.frombottom);
 
-        bgapp.animate().translationY(-1100).setDuration(800).setStartDelay(800);
+        bgapp.animate().translationY(-1100).setDuration(1300).setStartDelay(800);
         pb = (ProgressBar) findViewById(R.id.progressBar);
         ImageView iv =(ImageView)findViewById(R.id.temp);
         listView = (ListView) findViewById(R.id.list);
@@ -107,9 +110,10 @@ public class ListActivity extends AppCompatActivity {
         spinnerSi = (Spinner) findViewById(R.id.spinner_si);
         TextView TV= (TextView) findViewById(R.id.textview1);
         TextView TV1= (TextView) findViewById(R.id.textview2);
+        LL = findViewById(R.id.LL);
 
-        spinnerDo.startAnimation(frombottom);
-        spinnerSi.startAnimation(frombottom);
+        LL.startAnimation(frombottom);
+
         TV.startAnimation(frombottom);
         TV1.startAnimation(frombottom);
 
@@ -247,8 +251,9 @@ public class ListActivity extends AppCompatActivity {
 
         Log.d("tag", "print실행중..." + inputSize);
 
-        if (check == 1)
+        if (check == 1) {
             listView.setVisibility(View.VISIBLE);
+        }
         else
             listView.setVisibility(View.INVISIBLE);
 
@@ -343,7 +348,7 @@ public class ListActivity extends AppCompatActivity {
                 String facName = listViewItem.getFacNameStr();
                 String address = listViewItem.getAddressStr();
 
-                Toast.makeText(getApplicationContext(), "위도 : " + lat, Toast.LENGTH_LONG);
+                //Toast.makeText(getApplicationContext(), "위도 : " + lat, Toast.LENGTH_LONG);
 
                 Intent intent = new Intent(ListActivity.this, GMapActivity.class);
                 intent.putExtra("lat", lat);
@@ -362,6 +367,11 @@ public class ListActivity extends AppCompatActivity {
             case android.R.id.home: { //toolbar의 back키 눌렀을 때 동작
                 finish();
                 return true;
+            }
+            case R.id.seungmin:{
+                //Toast.makeText(this, "01040550561", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent("android.intent.action.DIAL", Uri.parse("tel:01040550561")));
+                break;
             }
         }
         return super.onOptionsItemSelected(item);
