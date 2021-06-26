@@ -94,11 +94,12 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="180dp"
+            android:layout_below="@+id/LL"
+            android:layout_marginTop="10dp"
             android:divider="#FFFFFF"
             android:dividerHeight="0px"
             android:fastScrollEnabled="true" />
+
     </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
