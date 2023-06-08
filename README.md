@@ -1,4 +1,4 @@
-# 코로나 예방접종센터 조회
+# ***COVID-19 Vaccination Center Location***
 
 <img src="https://github.com/princesssubinwith5man/project/assets/81546637/8c6cbd31-9ed2-45a0-81ff-710e71696379" height="170px" width="300px"> <br>
 ### ***Princess*** 
