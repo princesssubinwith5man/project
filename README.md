@@ -1,5 +1,6 @@
 # 코로나 예방접종센터 조회
-![그림3](https://github.com/princesssubinwith5man/project/assets/81546637/5799655f-5cc1-4407-89b8-4d1a3037d144)
+
+<img src="https://github.com/princesssubinwith5man/project/assets/81546637/8c6cbd31-9ed2-45a0-81ff-710e71696379" height="170px" width="300px"> <br>
 ★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★<br>
 
 ## 작업내용
