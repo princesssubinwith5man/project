@@ -1,6 +1,15 @@
 # 코로나 예방접종센터 조회
 
 <img src="https://github.com/princesssubinwith5man/project/assets/81546637/8c6cbd31-9ed2-45a0-81ff-710e71696379" height="170px" width="300px"> <br>
+### ***Princess*** 
+- Subin-Ji
+### ***Dwarfs*** 
+- Yisak-Hong
+- Seungmin-Lee
+- Woojin-Jeong
+- Bongkyu-Shin
+- Laewon-Jeong
+
 ---
 ## 메인 화면
 * ✅ ***가까운 예방접종센터 조회 구현***
