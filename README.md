@@ -1,7 +1,10 @@
 # 코로나 예방접종센터 조회
 
 <img src="https://github.com/princesssubinwith5man/project/assets/81546637/8c6cbd31-9ed2-45a0-81ff-710e71696379" height="170px" width="300px"> <br>
-★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★<br>
+---
+## 메인 화면
+<img src="https://github.com/princesssubinwith5man/project/assets/81546637/499d3696-56b5-4ff8-8ed4-9514bb3e3f05" height="340px" width="200px"> <br>
+
 
 ## 작업내용
 * 1주차 안드로이드 스터디
