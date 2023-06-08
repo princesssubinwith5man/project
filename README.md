@@ -3,7 +3,20 @@
 <img src="https://github.com/princesssubinwith5man/project/assets/81546637/8c6cbd31-9ed2-45a0-81ff-710e71696379" height="170px" width="300px"> <br>
 ---
 ## 메인 화면
-<img src="https://github.com/princesssubinwith5man/project/assets/81546637/499d3696-56b5-4ff8-8ed4-9514bb3e3f05" height="340px" width="200px"> <br>
+* ✅ ***가까운 예방접종센터 조회 구현***
+* ✅ ***지역별 예방접종센터 조회 구현***
+<img src="https://github.com/princesssubinwith5man/project/assets/81546637/499d3696-56b5-4ff8-8ed4-9514bb3e3f05" height="340px" width="200px"> 
+<br>
+
+## 예방접종센터 조회
+* ✅ ***코로나 API 불러오기 및 Json파싱***
+* ✅ ***뒤로가기 구현***
+* ✅ ***시/도 Spinner 구현***
+* ✅ ***검색 구현***
+* ✅ ***리스트 뷰 구현***
+* ✅ ***전체 디자인 수정***      
+<img src="https://github.com/princesssubinwith5man/project/assets/81546637/9acb8833-3b9f-495a-8dda-ed990df572dc" height="340px" width="200px">
+<img src="https://github.com/princesssubinwith5man/project/assets/81546637/fb083eae-1442-487f-8a3c-0458391b29d6" height="340px" width="200px">
 
 
 ## 작업내용
