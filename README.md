@@ -23,6 +23,7 @@
 * ✅ ***시/도 Spinner 구현***
 * ✅ ***검색 구현***
 * ✅ ***리스트 뷰 구현***
+* ✅ ***클릭 시 맵 이동***
 * ✅ ***전체 디자인 수정***      
 <img src="https://github.com/princesssubinwith5man/project/assets/81546637/9acb8833-3b9f-495a-8dda-ed990df572dc" height="340px" width="200px">
 <img src="https://github.com/princesssubinwith5man/project/assets/81546637/fb083eae-1442-487f-8a3c-0458391b29d6" height="340px" width="200px"> <br>
